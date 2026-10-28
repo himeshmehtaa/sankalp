@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #FAF8F5;
+    --bg-secondary: #F3EFEA;
+    --bg-card: #FFFFFF;
+    --bg-elevated: #FFFFFF;
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-muted: #8F877F;
+    --border-subtle: #E8E2D8;
+    --border-hover: #D6CEBE;
+    --accent-saffron: #C85A17;
+    --accent-saffron-light: #FAF0E6;
+    --accent-amber: #D97706;
+    --accent-bronze: #92400E;
+    --accent-sage: #4D6B53;
+    --accent-sage-light: #EEF4F0;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Geist", "Inter", -system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
+  }
+}
+
+/* Custom scrollbar matching editorial warmth */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #DDD7CB;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C4BCAC;
+}
+
+/* Typography styles */
+.font-editorial {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Geist", "Inter", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-serif-quote {
+  font-family: "New York", "Charter", "Georgia", "Cambria", serif;
+}
+
+/* Smooth transitions */
+.transition-subtle {
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
