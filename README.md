@@ -2,6 +2,8 @@
 
 > **"A promise to the person you're becoming."**
 
+**Live Deployment**: [**https://sankalp-zeta-eight.vercel.app**](https://sankalp-zeta-eight.vercel.app)
+
 **SANKALP** is a premium, minimal, beautifully crafted personal life-management operating system that unites long-term ambitions with daily actions, self-reflection, vitality, relationships, finances, and continuous personal growth.
 
 ```
