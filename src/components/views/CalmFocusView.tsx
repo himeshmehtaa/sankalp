@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
+import { soundManager } from '../../utils/audio';
+import {
+  MountainSilhouette,
+  MeditationHalo,
+  ConstellationDots,
+  LeafMotif,
+  SparkleCluster,
+} from '../brand/Illustrations';
 import {
   Play,
   Pause,
@@ -7,6 +15,8 @@ import {
   CheckCircle2,
   Clock,
   Sparkles,
+  Target,
+  ArrowRight,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -30,8 +40,9 @@ export const CalmFocusView: React.FC = () => {
           if (prev <= 1) {
             clearInterval(interval);
             setIsRunning(false);
+            soundManager.playChime();
             try {
-              confetti({ particleCount: 40, spread: 70, colors: ['#B85C3B', '#6B7A5B'] });
+              confetti({ particleCount: 50, spread: 70, colors: ['#B85C3B', '#6B7A5B', '#FAF8F4'] });
             } catch (e) {}
             if (selectedTask) {
               logFocusSession({
@@ -42,7 +53,7 @@ export const CalmFocusView: React.FC = () => {
                 distractionNotes: parkedThoughts,
               });
             }
-            showToast('Focus session complete. Mind is peaceful.');
+            showToast('Focus session complete. Mind is peaceful and centered.');
             return 0;
           }
           return prev - 1;
@@ -53,6 +64,10 @@ export const CalmFocusView: React.FC = () => {
   }, [isRunning, selectedTask, durationMins, parkedThoughts]);
 
   const handleTogglePlay = () => {
+    soundManager.warmUp();
+    if (!isRunning) {
+      soundManager.playChime();
+    }
     setIsRunning(!isRunning);
   };
 
@@ -72,14 +87,19 @@ export const CalmFocusView: React.FC = () => {
     <div className="max-w-3xl mx-auto py-6 space-y-8 animate-in fade-in duration-300">
       {/* Anchor Task Header */}
       <div className="text-center space-y-2">
-        <span className="text-[11px] font-bold tracking-[0.25em] text-[#B85C3B] uppercase">
-          Focus Sanctuary
-        </span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F8EDE8] border border-[#E7E1DA]">
+          <span className="w-2 h-2 rounded-full bg-[#B85C3B] animate-pulse" />
+          <span className="text-[10px] font-bold tracking-[0.25em] text-[#B85C3B] uppercase">
+            Focus Sanctuary
+          </span>
+        </div>
+
         <h2 className="text-2xl sm:text-3xl font-bold text-[#1B1A19] tracking-tight font-editorial">
           {selectedTask?.title || 'Singular Devoted Attention'}
         </h2>
+
         {todayTasks.length > 1 && (
-          <div className="flex justify-center gap-1.5 flex-wrap pt-1">
+          <div className="flex justify-center gap-1.5 flex-wrap pt-2">
             {todayTasks.map((t) => (
               <button
                 key={t.id}
@@ -90,7 +110,7 @@ export const CalmFocusView: React.FC = () => {
                 }}
                 className={`text-[11px] px-3.5 py-1 rounded-full border transition-all ${
                   selectedTask?.id === t.id
-                    ? 'bg-[#1B1A19] text-[#FAF8F4] border-[#1B1A19] font-semibold shadow-2xs'
+                    ? 'bg-[#B85C3B] text-white border-[#B85C3B] font-semibold shadow-2xs'
                     : 'bg-[#FFFFFF] text-[#78716C] border-[#E7E1DA] hover:bg-[#F2EFEB]'
                 }`}
               >
@@ -101,17 +121,30 @@ export const CalmFocusView: React.FC = () => {
         )}
       </div>
 
-      {/* Modern Focus Card with Ambient Glow */}
-      <div className="relative rounded-3xl bg-gradient-to-b from-[#161722] to-[#0E0F15] text-white p-8 sm:p-12 shadow-2xl border border-white/10 overflow-hidden text-center">
-        {/* Glow behind timer */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#B85C3B]/20 rounded-full blur-3xl pointer-events-none" />
+      {/* Serene Daylight Focus Card with Subtle Illustrations (NO dark bg) */}
+      <div className="relative rounded-3xl bg-gradient-to-br from-[#FFFFFF] via-[#FAF8F4] to-[#F8EDE8]/60 text-[#1B1A19] p-8 sm:p-12 shadow-sm border border-[#E7E1DA] overflow-hidden text-center">
+        {/* Background Sacred Geometric Halo */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+          <MeditationHalo className="w-80 h-80 sm:w-96 sm:h-96" pulseColor="#B85C3B" animate={isRunning} />
+        </div>
+
+        {/* Mountain Silhouette Grounding at Bottom */}
+        <div className="absolute bottom-0 left-0 right-0 pointer-events-none opacity-30">
+          <MountainSilhouette className="w-full h-14" color="#B85C3B" />
+        </div>
+
+        {/* Constellation Dots */}
+        <div className="absolute top-2 left-0 right-0 pointer-events-none opacity-20">
+          <ConstellationDots className="w-full h-20" color="#6B7A5B" />
+        </div>
 
         {/* Giant Timer Display */}
-        <div className="relative z-10 my-8 select-none">
-          <div className="text-7xl sm:text-9xl font-light font-mono tracking-tight text-white drop-shadow-sm">
+        <div className="relative z-10 my-6 sm:my-8 select-none">
+          <div className="text-7xl sm:text-9xl font-light font-mono tracking-tight text-[#1B1A19] drop-shadow-2xs">
             {timeFormatted}
           </div>
 
+          {/* Duration Selector Tabs */}
           <div className="flex justify-center gap-2 mt-6">
             {[15, 25, 45, 60].map((mins) => (
               <button
@@ -121,10 +154,10 @@ export const CalmFocusView: React.FC = () => {
                   setSecondsRemaining(mins * 60);
                   setIsRunning(false);
                 }}
-                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition-all ${
                   durationMins === mins
-                    ? 'bg-white text-[#1B1A19] font-bold shadow-md'
-                    : 'bg-white/10 text-white/70 hover:bg-white/20'
+                    ? 'bg-[#B85C3B] text-white border-[#B85C3B] font-bold shadow-xs'
+                    : 'bg-white border-[#E7E1DA] text-[#78716C] hover:bg-[#FAF8F4]'
                 }`}
               >
                 {mins}m
@@ -134,10 +167,10 @@ export const CalmFocusView: React.FC = () => {
         </div>
 
         {/* Controls */}
-        <div className="relative z-10 flex items-center justify-center gap-4">
+        <div className="relative z-10 flex items-center justify-center gap-4 pt-2">
           <button
             onClick={handleTogglePlay}
-            className="flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#B85C3B] hover:bg-[#B34D10] text-white text-sm font-bold shadow-lg shadow-[#B85C3B]/25 active:scale-95 transition-transform"
+            className="flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#B85C3B] hover:bg-[#A04F32] text-white text-xs font-bold tracking-wide shadow-md active:scale-95 transition-all"
           >
             {isRunning ? (
               <>
@@ -147,7 +180,7 @@ export const CalmFocusView: React.FC = () => {
             ) : (
               <>
                 <Play className="w-4 h-4 fill-current ml-0.5" />
-                <span>Start Focus</span>
+                <span>Begin Flow</span>
               </>
             )}
           </button>
@@ -156,8 +189,9 @@ export const CalmFocusView: React.FC = () => {
             onClick={() => {
               setIsRunning(false);
               setSecondsRemaining(durationMins * 60);
+              soundManager.playChime();
             }}
-            className="p-4 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
+            className="p-3.5 rounded-full bg-white border border-[#E7E1DA] text-[#78716C] hover:text-[#1B1A19] hover:bg-[#FAF8F4] shadow-2xs transition-colors"
             title="Reset timer"
           >
             <RotateCcw className="w-4 h-4" />
@@ -167,23 +201,28 @@ export const CalmFocusView: React.FC = () => {
 
       {/* In-Session Thought Parker */}
       <div className="p-6 rounded-3xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-xs space-y-3">
-        <p className="text-xs font-bold text-[#1B1A19]">
-          Park Distractions (Keep your attention single-threaded)
-        </p>
+        <div className="flex items-center justify-between">
+          <p className="text-xs font-bold text-[#1B1A19]">
+            Park Fleeting Distractions (Protect single-threaded flow)
+          </p>
+          <span className="text-[10px] text-[#78716C] bg-[#FAF8F4] px-2 py-0.5 rounded-md border border-[#E7E1DA]">
+            Safe Holding Space
+          </span>
+        </div>
 
         <form onSubmit={handleParkThought} className="flex gap-2">
           <input
             type="text"
-            placeholder="Type fleeting thought to review later and press Enter..."
+            placeholder="Type stray thought or idea to review later..."
             value={distractionText}
             onChange={(e) => setDistractionText(e.target.value)}
-            className="flex-1 text-xs px-3.5 py-2.5 rounded-xl border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
+            className="flex-1 text-xs px-3.5 py-2.5 rounded-xl border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B] transition-colors"
           />
           <button
             type="submit"
-            className="px-4 py-2.5 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-white text-xs font-semibold"
+            className="px-4 py-2.5 rounded-xl bg-[#B85C3B] hover:bg-[#A04F32] text-white text-xs font-semibold shadow-2xs transition-all active:scale-95"
           >
-            Park
+            Park Thought
           </button>
         </form>
 
@@ -192,9 +231,10 @@ export const CalmFocusView: React.FC = () => {
             {parkedThoughts.map((pt, i) => (
               <span
                 key={i}
-                className="text-[11px] bg-[#FAF8F4] border border-[#E7E1DA] px-2.5 py-1 rounded-lg text-[#57534E]"
+                className="text-[11px] bg-[#FAF8F4] border border-[#E7E1DA] px-2.5 py-1 rounded-lg text-[#57534E] flex items-center gap-1.5"
               >
-                • {pt}
+                <span className="w-1.5 h-1.5 rounded-full bg-[#B85C3B]" />
+                <span>{pt}</span>
               </span>
             ))}
           </div>

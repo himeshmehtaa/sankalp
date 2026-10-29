@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { SankalpSymbol } from '../brand/SankalpLogo';
+import { ConstellationDots, GradientBlob } from '../brand/Illustrations';
 import {
   Clock,
   CheckCircle2,
@@ -112,6 +113,11 @@ export const VitalityRings: React.FC = () => {
 
   return (
     <div className="rounded-3xl bg-[#FFFFFF] text-[#1B1A19] border border-[#E7E1DA] shadow-xs overflow-hidden transition-all relative">
+      {/* Background Subtle Constellation Glow */}
+      <div className="absolute top-0 right-0 w-64 h-32 opacity-25 pointer-events-none">
+        <ConstellationDots className="w-full h-full" color="#B85C3B" />
+      </div>
+
       {/* Main Top Row: Info & Concentric Rings */}
       <div className="p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
         {/* Left Information Column */}
@@ -274,7 +280,7 @@ export const VitalityRings: React.FC = () => {
 
           <button
             onClick={handleAddWater}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#1B1A19] hover:bg-[#2B2927] text-[#FAF8F4] text-xs font-bold transition-transform active:scale-95 shadow-2xs"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#6B7A5B] hover:bg-[#5A684C] text-white text-xs font-bold transition-transform active:scale-95 shadow-2xs"
           >
             <span>+1 Glass</span>
           </button>

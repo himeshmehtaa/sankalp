@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { GratitudeEntry } from '../../types';
 import {
+  LotusMotif,
+  LeafMotif,
+  LeafDivider,
+  SparkleCluster,
+  GradientBlob,
+} from '../brand/Illustrations';
+import {
   Heart,
   Sparkles,
   Send,
@@ -134,8 +141,12 @@ export const CalmReflectView: React.FC = () => {
       {/* Gratitude Form */}
       <form
         onSubmit={handleSave}
-        className="p-6 sm:p-8 rounded-3xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-xs space-y-5"
+        className="relative overflow-hidden p-6 sm:p-8 rounded-3xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-xs space-y-5"
       >
+        <div className="absolute -top-4 -right-4 opacity-15 pointer-events-none">
+          <LotusMotif className="w-24 h-24" color="#B85C3B" />
+        </div>
+
         <div className="space-y-3">
           <label className="block text-xs font-bold text-[#1B1A19]">
             Three Simple Gratitudes
@@ -180,9 +191,9 @@ export const CalmReflectView: React.FC = () => {
         <div className="flex justify-end pt-2">
           <button
             type="submit"
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#1B1A19] hover:bg-[#2F2B28] text-[#FAF8F4] text-xs font-semibold shadow-xs transition-colors"
+            className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#B85C3B] hover:bg-[#A04F32] text-white text-xs font-bold shadow-sm active:scale-95 transition-all"
           >
-            <Heart className="w-3.5 h-3.5 text-[#B85C3B]" />
+            <Heart className="w-3.5 h-3.5 fill-current text-white" />
             <span>Save Reflection</span>
           </button>
         </div>

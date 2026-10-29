@@ -19,6 +19,7 @@ import {
   Waves,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { MeditationHalo, BreathCloud, LeafMotif } from '../brand/Illustrations';
 
 export type MeditationMode = 'box' | 'sigh' | '478' | 'zen';
 export type SoundGuidanceMode = 'voice-chimes' | 'chimes-only' | 'silent';
@@ -100,10 +101,21 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
   // Sound Guidance Configuration
   const [soundMode, setSoundMode] = useState<SoundGuidanceMode>('voice-chimes');
   const [ambientSound, setAmbientSound] = useState<AmbientMode>('none');
+  const [isPlayingAudioTest, setIsPlayingAudioTest] = useState(false);
 
   const currentConfig = MODES.find((m) => m.id === mode)!;
   const phaseRef = useRef(phase);
   phaseRef.current = phase;
+
+  const handleTestAudio = () => {
+    setIsPlayingAudioTest(true);
+    soundManager.warmUp();
+    soundManager.warmUpSpeech();
+    soundManager.playChime();
+    soundManager.speakGuidedCue('Guided sound is ready');
+    soundManager.triggerHaptic([30, 40, 30]);
+    setTimeout(() => setIsPlayingAudioTest(false), 2200);
+  };
 
   const playPhaseGuidance = (
     targetPhase: 'inhale' | 'hold1' | 'exhale' | 'hold2',
@@ -115,7 +127,12 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
     // 1. Play harmonic Solfeggio sound tone
     soundManager.playBreathingTone(targetPhase);
 
-    // 2. Play voice cue if 'voice-chimes' enabled
+    // 2. Tactile haptic pulse for mobile
+    soundManager.triggerHaptic(
+      targetPhase === 'hold1' || targetPhase === 'hold2' ? [30, 40, 30] : 45
+    );
+
+    // 3. Play voice cue if 'voice-chimes' enabled
     if (sMode === 'voice-chimes') {
       let voiceCue = '';
       if (targetMode === 'box') {
@@ -223,6 +240,11 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
 
   const handleToggle = () => {
     if (!isActive) {
+      // CRITICAL: Warm up audio context from user gesture for mobile
+      soundManager.warmUp();
+      if (soundMode === 'voice-chimes') {
+        soundManager.warmUpSpeech();
+      }
       setIsActive(true);
       playPhaseGuidance(phase, mode, soundMode);
     } else {
@@ -231,6 +253,7 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
   };
 
   const handleReset = () => {
+    soundManager.warmUp(); // Ensure audio unlocked
     setIsActive(false);
     setPhase('inhale');
     setSecondsLeft(currentConfig.inhale);
@@ -241,6 +264,7 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
   };
 
   const handleAmbientChange = (snd: AmbientMode) => {
+    soundManager.warmUp(); // User gesture unlock
     setAmbientSound(snd);
     soundManager.setAmbientSound(snd);
   };
@@ -326,46 +350,58 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
             </div>
           </div>
 
-          {/* Sound Guidance Selector */}
-          <div className="flex items-center gap-1 bg-[#FAF8F4] p-1 rounded-xl border border-[#E7E1DA] self-start sm:self-auto">
+          <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
+            {/* Quick Test Audio Button (Instant Mobile Sound Check) */}
             <button
-              onClick={() => setSoundMode('voice-chimes')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                soundMode === 'voice-chimes'
-                  ? 'bg-[#B85C3B] text-white shadow-2xs'
-                  : 'text-[#78716C] hover:text-[#1B1A19]'
-              }`}
-              title="Spoken voice cues and Solfeggio sound tones"
+              onClick={handleTestAudio}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#F8EDE8] border border-[#B85C3B]/25 hover:bg-[#F2DACE] text-[#B85C3B] text-xs font-semibold shadow-2xs transition-all active:scale-95"
+              title="Test speaker sound output on mobile"
             >
-              <Volume2 className="w-3.5 h-3.5" />
-              <span>Voice & Chimes</span>
+              <Volume2 className={`w-3.5 h-3.5 ${isPlayingAudioTest ? 'animate-bounce text-[#B85C3B]' : ''}`} />
+              <span>{isPlayingAudioTest ? 'Playing...' : 'Test Sound'}</span>
             </button>
 
-            <button
-              onClick={() => setSoundMode('chimes-only')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                soundMode === 'chimes-only'
-                  ? 'bg-[#B85C3B] text-white shadow-2xs'
-                  : 'text-[#78716C] hover:text-[#1B1A19]'
-              }`}
-              title="Gentle acoustic singing bowl tones for each breath phase"
-            >
-              <Bell className="w-3.5 h-3.5" />
-              <span>Chimes Only</span>
-            </button>
+            {/* Sound Guidance Selector */}
+            <div className="flex items-center gap-1 bg-[#FAF8F4] p-1 rounded-xl border border-[#E7E1DA]">
+              <button
+                onClick={() => { soundManager.warmUp(); soundManager.warmUpSpeech(); setSoundMode('voice-chimes'); }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  soundMode === 'voice-chimes'
+                    ? 'bg-[#B85C3B] text-white shadow-2xs'
+                    : 'text-[#78716C] hover:text-[#1B1A19]'
+                }`}
+                title="Spoken voice cues and Solfeggio sound tones"
+              >
+                <Volume2 className="w-3.5 h-3.5" />
+                <span>Voice & Chimes</span>
+              </button>
 
-            <button
-              onClick={() => setSoundMode('silent')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-                soundMode === 'silent'
-                  ? 'bg-[#1B1A19] text-white shadow-2xs'
-                  : 'text-[#78716C] hover:text-[#1B1A19]'
-              }`}
-              title="Mute all audio"
-            >
-              <VolumeX className="w-3.5 h-3.5" />
-              <span>Mute</span>
-            </button>
+              <button
+                onClick={() => { soundManager.warmUp(); setSoundMode('chimes-only'); }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  soundMode === 'chimes-only'
+                    ? 'bg-[#B85C3B] text-white shadow-2xs'
+                    : 'text-[#78716C] hover:text-[#1B1A19]'
+                }`}
+                title="Gentle acoustic singing bowl tones for each breath phase"
+              >
+                <Bell className="w-3.5 h-3.5" />
+                <span>Chimes Only</span>
+              </button>
+
+              <button
+                onClick={() => setSoundMode('silent')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  soundMode === 'silent'
+                    ? 'bg-[#1B1A19] text-white shadow-2xs'
+                    : 'text-[#78716C] hover:text-[#1B1A19]'
+                }`}
+                title="Mute all audio"
+              >
+                <VolumeX className="w-3.5 h-3.5" />
+                <span>Mute</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -483,6 +519,17 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
                 : 'bg-transparent'
             }`}
           />
+
+          {/* Sacred Meditation Halo Illustration */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <MeditationHalo
+              className={`w-64 h-64 sm:w-80 sm:h-80 transition-all duration-1000 ${
+                isActive ? 'scale-110 opacity-70 rotate-45' : 'scale-90 opacity-30'
+              }`}
+              pulseColor="#B85C3B"
+              animate={isActive}
+            />
+          </div>
 
           {/* Core Interactive Breathing Disc */}
           <div
