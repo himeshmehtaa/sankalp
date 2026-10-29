@@ -16,7 +16,12 @@ import {
   Check,
   ChevronDown,
   X,
+  Star,
+  Flame,
+  Inbox,
+  CalendarRange,
 } from 'lucide-react';
+import { CustomSelect, SelectOption } from '../common/CustomSelect';
 
 export const TasksView: React.FC = () => {
   const {
@@ -33,6 +38,20 @@ export const TasksView: React.FC = () => {
 
   const [activeBucket, setActiveBucket] = useState<TaskBucket | 'completed'>('today');
   const [isNewTaskOpen, setIsNewTaskOpen] = useState(false);
+
+  const priorityOptions: SelectOption[] = [
+    { value: 'proof', label: '#1 Proof Action', icon: <Flame className="w-3.5 h-3.5" /> },
+    { value: 'supporting', label: 'Supporting Priority', icon: <Star className="w-3.5 h-3.5" /> },
+    { value: 'normal', label: 'Normal Priority', icon: <Circle className="w-3.5 h-3.5" /> },
+    { value: 'low', label: 'Low Priority', icon: <Clock className="w-3.5 h-3.5" /> },
+  ];
+
+  const bucketOptions: SelectOption[] = [
+    { value: 'today', label: 'Today', icon: <Clock className="w-3.5 h-3.5" /> },
+    { value: 'inbox', label: 'Inbox', icon: <Inbox className="w-3.5 h-3.5" /> },
+    { value: 'upcoming', label: 'Upcoming', icon: <CalendarRange className="w-3.5 h-3.5" /> },
+    { value: 'someday', label: 'Someday / Later', icon: <Archive className="w-3.5 h-3.5" /> },
+  ];
 
   // Form State
   const [title, setTitle] = useState('');
@@ -312,30 +331,20 @@ export const TasksView: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-[#57534E] mb-1">Priority</label>
-                  <select
+                  <CustomSelect
                     value={priority}
-                    onChange={(e) => setPriority(e.target.value as TaskPriority)}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
-                  >
-                    <option value="proof">#1 Proof Action</option>
-                    <option value="supporting">Supporting Priority</option>
-                    <option value="normal">Normal</option>
-                    <option value="low">Low Priority</option>
-                  </select>
+                    onChange={(val) => setPriority(val as TaskPriority)}
+                    options={priorityOptions}
+                  />
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-[#57534E] mb-1">Bucket</label>
-                  <select
+                  <CustomSelect
                     value={bucket}
-                    onChange={(e) => setBucket(e.target.value as TaskBucket)}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
-                  >
-                    <option value="today">Today</option>
-                    <option value="inbox">Inbox</option>
-                    <option value="upcoming">Upcoming</option>
-                    <option value="someday">Someday / Later</option>
-                  </select>
+                    onChange={(val) => setBucket(val as TaskBucket)}
+                    options={bucketOptions}
+                  />
                 </div>
               </div>
 
@@ -358,18 +367,19 @@ export const TasksView: React.FC = () => {
                   <label className="block text-xs font-semibold text-[#57534E] mb-1">
                     Linked Goal
                   </label>
-                  <select
+                  <CustomSelect
                     value={goalId}
-                    onChange={(e) => setGoalId(e.target.value)}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
-                  >
-                    <option value="">None (Independent)</option>
-                    {goals.map((g) => (
-                      <option key={g.id} value={g.id}>
-                        {g.title}
-                      </option>
-                    ))}
-                  </select>
+                    onChange={(val) => setGoalId(val)}
+                    options={[
+                      { value: '', label: 'None (Independent)' },
+                      ...goals.map((g) => ({
+                        value: g.id,
+                        label: g.title,
+                        icon: <Target className="w-3.5 h-3.5" />,
+                      })),
+                    ]}
+                    placeholder="Select goal..."
+                  />
                 </div>
               </div>
 

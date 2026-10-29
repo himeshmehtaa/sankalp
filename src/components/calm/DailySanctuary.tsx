@@ -157,7 +157,7 @@ export const DailySanctuary: React.FC<DailySanctuaryProps> = ({
                   className="flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-md active:scale-95 transition-transform"
                 >
                   <Play className="w-4 h-4 text-[#C85A17] fill-current" />
-                  <span>Begin Focus Sanctuary with Music</span>
+                  <span>Begin 25-Min Focus Sanctuary</span>
                 </button>
 
                 <button

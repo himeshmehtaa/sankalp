@@ -16,7 +16,15 @@ import {
   X,
   Edit2,
   Trash2,
+  Briefcase,
+  Heart,
+  DollarSign,
+  Palette,
+  Users,
+  Mountain,
+  Eye,
 } from 'lucide-react';
+import { CustomSelect, SelectOption } from '../common/CustomSelect';
 
 export const GoalsView: React.FC = () => {
   const {
@@ -33,6 +41,23 @@ export const GoalsView: React.FC = () => {
   const [selectedLevel, setSelectedLevel] = useState<GoalLevel | 'all'>('all');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'hierarchy' | 'map'>('hierarchy');
+
+  const domainSelectOptions: SelectOption[] = [
+    { value: 'career', label: 'Career & Growth', icon: <Briefcase className="w-3.5 h-3.5" /> },
+    { value: 'health', label: 'Health & Vitality', icon: <Heart className="w-3.5 h-3.5" /> },
+    { value: 'finances', label: 'Finances', icon: <DollarSign className="w-3.5 h-3.5" /> },
+    { value: 'growth', label: 'Personal Growth', icon: <Sparkles className="w-3.5 h-3.5" /> },
+    { value: 'creativity', label: 'Creativity', icon: <Palette className="w-3.5 h-3.5" /> },
+    { value: 'relationships', label: 'Relationships', icon: <Users className="w-3.5 h-3.5" /> },
+    { value: 'lifestyle', label: 'Lifestyle', icon: <Compass className="w-3.5 h-3.5" /> },
+  ];
+
+  const levelSelectOptions: SelectOption[] = [
+    { value: 'quarterly', label: '90-Day Focus', icon: <Clock className="w-3.5 h-3.5" /> },
+    { value: 'annual', label: 'Annual Objective', icon: <Calendar className="w-3.5 h-3.5" /> },
+    { value: '3-5year', label: '3-5 Year Horizon', icon: <Mountain className="w-3.5 h-3.5" /> },
+    { value: 'vision', label: 'Life Vision', icon: <Eye className="w-3.5 h-3.5" /> },
+  ];
 
   // Form State
   const [title, setTitle] = useState('');
@@ -411,35 +436,22 @@ export const GoalsView: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-[#57534E] mb-1">Domain</label>
-                  <select
+                  <CustomSelect
                     value={domain}
-                    onChange={(e) => setDomain(e.target.value as LifeDomain)}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
-                  >
-                    <option value="career">Career & Growth</option>
-                    <option value="health">Health & Vitality</option>
-                    <option value="finances">Finances</option>
-                    <option value="growth">Personal Growth</option>
-                    <option value="creativity">Creativity</option>
-                    <option value="relationships">Relationships</option>
-                    <option value="lifestyle">Lifestyle</option>
-                  </select>
+                    onChange={(val) => setDomain(val as LifeDomain)}
+                    options={domainSelectOptions}
+                  />
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-[#57534E] mb-1">
                     Time Horizon
                   </label>
-                  <select
+                  <CustomSelect
                     value={level}
-                    onChange={(e) => setLevel(e.target.value as GoalLevel)}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
-                  >
-                    <option value="quarterly">90-Day Focus</option>
-                    <option value="annual">Annual Objective</option>
-                    <option value="3-5year">3-5 Year Horizon</option>
-                    <option value="vision">Life Vision</option>
-                  </select>
+                    onChange={(val) => setLevel(val as GoalLevel)}
+                    options={levelSelectOptions}
+                  />
                 </div>
               </div>
 

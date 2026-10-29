@@ -10,7 +10,14 @@ import {
   Shield,
   Trash2,
   X,
+  Briefcase,
+  Heart,
+  DollarSign,
+  Users,
+  Compass,
+  Clock,
 } from 'lucide-react';
+import { CustomSelect } from '../common/CustomSelect';
 import confetti from 'canvas-confetti';
 
 export const HabitsView: React.FC = () => {
@@ -199,36 +206,36 @@ export const HabitsView: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-[#57534E] mb-1">Domain</label>
-                  <select
+                  <CustomSelect
                     value={domain}
-                    onChange={(e) => setDomain(e.target.value as LifeDomain)}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
-                  >
-                    <option value="growth">Personal Growth</option>
-                    <option value="health">Health & Vitality</option>
-                    <option value="career">Career</option>
-                    <option value="finances">Finances</option>
-                    <option value="relationships">Relationships</option>
-                    <option value="lifestyle">Lifestyle</option>
-                  </select>
+                    onChange={(val) => setDomain(val as LifeDomain)}
+                    options={[
+                      { value: 'growth', label: 'Personal Growth', icon: <Sparkles className="w-3.5 h-3.5" /> },
+                      { value: 'health', label: 'Health & Vitality', icon: <Heart className="w-3.5 h-3.5" /> },
+                      { value: 'career', label: 'Career', icon: <Briefcase className="w-3.5 h-3.5" /> },
+                      { value: 'finances', label: 'Finances', icon: <DollarSign className="w-3.5 h-3.5" /> },
+                      { value: 'relationships', label: 'Relationships', icon: <Users className="w-3.5 h-3.5" /> },
+                      { value: 'lifestyle', label: 'Lifestyle', icon: <Compass className="w-3.5 h-3.5" /> },
+                    ]}
+                  />
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-[#57534E] mb-1">
                     Target Days per Week
                   </label>
-                  <select
-                    value={targetPerWeek}
-                    onChange={(e) => setTargetPerWeek(parseInt(e.target.value) || 7)}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
-                  >
-                    <option value={7}>Daily (7 days / week)</option>
-                    <option value={5}>Weekdays (5 days / week)</option>
-                    <option value={4}>4 times / week</option>
-                    <option value={3}>3 times / week</option>
-                    <option value={2}>2 times / week</option>
-                    <option value={1}>Weekly anchor (1x / week)</option>
-                  </select>
+                  <CustomSelect
+                    value={String(targetPerWeek)}
+                    onChange={(val) => setTargetPerWeek(parseInt(val) || 7)}
+                    options={[
+                      { value: '7', label: 'Daily (7 days / wk)', icon: <Clock className="w-3.5 h-3.5" /> },
+                      { value: '5', label: 'Weekdays (5 days / wk)', icon: <Clock className="w-3.5 h-3.5" /> },
+                      { value: '4', label: '4 times / week', icon: <Clock className="w-3.5 h-3.5" /> },
+                      { value: '3', label: '3 times / week', icon: <Clock className="w-3.5 h-3.5" /> },
+                      { value: '2', label: '2 times / week', icon: <Clock className="w-3.5 h-3.5" /> },
+                      { value: '1', label: 'Weekly anchor (1x / wk)', icon: <Clock className="w-3.5 h-3.5" /> },
+                    ]}
+                  />
                 </div>
               </div>
 

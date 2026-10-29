@@ -11,6 +11,7 @@ import {
   Sparkles,
   ArrowRight,
 } from 'lucide-react';
+import { CustomSelect, SelectOption } from '../common/CustomSelect';
 
 type CaptureType = 'task' | 'note' | 'idea' | 'journal' | 'goal';
 
@@ -174,18 +175,21 @@ export const QuickCaptureModal: React.FC = () => {
           {(captureType === 'task' || captureType === 'journal') && goals.length > 0 && (
             <div className="flex items-center gap-2 text-xs">
               <span className="text-[#8F877F] shrink-0">Link to Goal:</span>
-              <select
-                value={selectedGoalId}
-                onChange={(e) => setSelectedGoalId(e.target.value)}
-                className="flex-1 text-xs px-2.5 py-1.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] text-[#57534E] focus:outline-none focus:border-[#C85A17]"
-              >
-                <option value="">None (Standalone)</option>
-                {goals.map((g) => (
-                  <option key={g.id} value={g.id}>
-                    {g.title}
-                  </option>
-                ))}
-              </select>
+              <div className="flex-1">
+                <CustomSelect
+                  value={selectedGoalId}
+                  onChange={(val) => setSelectedGoalId(val)}
+                  options={[
+                    { value: '', label: 'None (Standalone)' },
+                    ...goals.map((g) => ({
+                      value: g.id,
+                      label: g.title,
+                      icon: <Target className="w-3.5 h-3.5" />,
+                    })),
+                  ]}
+                  placeholder="Select linked goal..."
+                />
+              </div>
             </div>
           )}
 

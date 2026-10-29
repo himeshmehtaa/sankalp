@@ -9,11 +9,22 @@ import {
   CheckCircle2,
   Award,
   BookOpen,
+  Edit2,
+  Trash2,
+  X,
+  Check,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export const GratitudeView: React.FC = () => {
-  const { gratitudes, addGratitudeEntry, profile, showToast } = useApp();
+  const {
+    gratitudes,
+    addGratitudeEntry,
+    updateGratitudeEntry,
+    deleteGratitudeEntry,
+    profile,
+    showToast,
+  } = useApp();
 
   const [isAdding, setIsAdding] = useState(false);
   const [gratitude1, setGratitude1] = useState('');
@@ -22,6 +33,42 @@ export const GratitudeView: React.FC = () => {
   const [selfAppreciation, setSelfAppreciation] = useState('');
   const [dailyWin, setDailyWin] = useState('');
   const [lessonLearned, setLessonLearned] = useState('');
+
+  // Edit Modal State
+  const [editingEntry, setEditingEntry] = useState<GratitudeEntry | null>(null);
+  const [editG1, setEditG1] = useState('');
+  const [editG2, setEditG2] = useState('');
+  const [editG3, setEditG3] = useState('');
+  const [editSelf, setEditSelf] = useState('');
+  const [editDailyWin, setEditDailyWin] = useState('');
+  const [editLesson, setEditLesson] = useState('');
+
+  const handleOpenEdit = (entry: GratitudeEntry) => {
+    setEditingEntry(entry);
+    setEditG1(entry.gratitude1 || '');
+    setEditG2(entry.gratitude2 || '');
+    setEditG3(entry.gratitude3 || '');
+    setEditSelf(entry.selfAppreciation || '');
+    setEditDailyWin(entry.dailyWin || '');
+    setEditLesson(entry.lessonLearned || '');
+  };
+
+  const handleSaveEdit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingEntry) return;
+
+    updateGratitudeEntry(editingEntry.id, {
+      gratitude1: editG1.trim(),
+      gratitude2: editG2.trim(),
+      gratitude3: editG3.trim(),
+      selfAppreciation: editSelf.trim(),
+      dailyWin: editDailyWin.trim(),
+      lessonLearned: editLesson.trim(),
+    });
+
+    setEditingEntry(null);
+    showToast('Reflection updated successfully');
+  };
 
   const todayStr = new Date().toISOString().split('T')[0];
   const hasEntryToday = gratitudes.some((g) => g.date === todayStr);
@@ -210,9 +257,28 @@ export const GratitudeView: React.FC = () => {
                 <Calendar className="w-3.5 h-3.5 text-[#C85A17]" />
                 <span>{entry.date}</span>
               </div>
-              <span className="text-[10px] uppercase font-bold tracking-wider text-[#4D6B53] bg-[#EEF4F0] px-2 py-0.5 rounded-full">
-                Recorded
-              </span>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => handleOpenEdit(entry)}
+                  className="p-1.5 rounded-lg text-[#78716C] hover:text-[#C85A17] hover:bg-[#FAF0E6] transition-colors flex items-center gap-1 text-[11px] font-medium"
+                  title="Edit reflection"
+                >
+                  <Edit2 className="w-3.5 h-3.5" />
+                  <span>Edit</span>
+                </button>
+                <button
+                  onClick={() => {
+                    if (confirm('Delete this reflection entry?')) {
+                      deleteGratitudeEntry(entry.id);
+                      showToast('Reflection removed');
+                    }
+                  }}
+                  className="p-1.5 rounded-lg text-[#DDD7CB] hover:text-[#DC2626] hover:bg-[#FEE2E2] transition-colors"
+                  title="Delete reflection"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
 
             {/* Gratitudes List */}
@@ -278,6 +344,115 @@ export const GratitudeView: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Edit Reflection Modal */}
+      {editingEntry && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1917]/50 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="w-full max-w-lg bg-[#FAF8F5] border border-[#E8E2D8] rounded-2xl shadow-2xl p-6 text-[#1C1917] space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
+              <div className="flex items-center gap-2">
+                <Heart className="w-4 h-4 text-[#C85A17]" />
+                <h2 className="text-sm font-bold text-[#1C1917]">
+                  Edit Reflection — {editingEntry.date}
+                </h2>
+              </div>
+              <button
+                onClick={() => setEditingEntry(null)}
+                className="p-1 rounded-lg text-[#8F877F] hover:bg-[#EBE5DB]"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveEdit} className="space-y-4">
+              <div className="space-y-2">
+                <label className="block text-xs font-semibold text-[#57534E]">
+                  Three Gratitudes
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={editG1}
+                  onChange={(e) => setEditG1(e.target.value)}
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  placeholder="1. Grateful for..."
+                />
+                <input
+                  type="text"
+                  value={editG2}
+                  onChange={(e) => setEditG2(e.target.value)}
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  placeholder="2. Grateful for..."
+                />
+                <input
+                  type="text"
+                  value={editG3}
+                  onChange={(e) => setEditG3(e.target.value)}
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  placeholder="3. Grateful for..."
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#C85A17] mb-1">
+                  Self-Appreciation
+                </label>
+                <input
+                  type="text"
+                  value={editSelf}
+                  onChange={(e) => setEditSelf(e.target.value)}
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E9D5C3] bg-[#FAF0E6]/30 focus:outline-none focus:border-[#C85A17]"
+                  placeholder="One thing you appreciate about yourself..."
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-[#57534E] mb-1">
+                    Daily Win
+                  </label>
+                  <input
+                    type="text"
+                    value={editDailyWin}
+                    onChange={(e) => setEditDailyWin(e.target.value)}
+                    className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                    placeholder="Small win..."
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#57534E] mb-1">
+                    Lesson Learned
+                  </label>
+                  <input
+                    type="text"
+                    value={editLesson}
+                    onChange={(e) => setEditLesson(e.target.value)}
+                    className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                    placeholder="Lesson learned..."
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 pt-3 border-t border-[#E8E2D8]">
+                <button
+                  type="button"
+                  onClick={() => setEditingEntry(null)}
+                  className="px-3.5 py-1.5 rounded-lg text-xs font-medium text-[#78716C] hover:bg-[#EBE5DB]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
+                >
+                  <Check className="w-3.5 h-3.5" />
+                  <span>Update Reflection</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

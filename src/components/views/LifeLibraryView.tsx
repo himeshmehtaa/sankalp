@@ -12,7 +12,10 @@ import {
   Sparkles,
   Quote,
   X,
+  Eye,
+  Heart,
 } from 'lucide-react';
+import { CustomSelect } from '../common/CustomSelect';
 
 export const LifeLibraryView: React.FC = () => {
   const { libraryItems, addLibraryItem, showToast } = useApp();
@@ -199,17 +202,17 @@ export const LifeLibraryView: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-[#57534E] mb-1">Type</label>
-                  <select
+                  <CustomSelect
                     value={type}
-                    onChange={(e) => setType(e.target.value as LifeLibraryItem['type'])}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
-                  >
-                    <option value="principle">Guiding Principle</option>
-                    <option value="book_insight">Book / Lecture Insight</option>
-                    <option value="vision_item">Vision Board Item</option>
-                    <option value="idea">Future Project Idea</option>
-                    <option value="memory">Meaningful Memory</option>
-                  </select>
+                    onChange={(val) => setType(val as LifeLibraryItem['type'])}
+                    options={[
+                      { value: 'principle', label: 'Guiding Principle', icon: <Compass className="w-3.5 h-3.5" /> },
+                      { value: 'book_insight', label: 'Book / Lecture Insight', icon: <BookOpen className="w-3.5 h-3.5" /> },
+                      { value: 'vision_item', label: 'Vision Board Item', icon: <Eye className="w-3.5 h-3.5" /> },
+                      { value: 'idea', label: 'Future Project Idea', icon: <Lightbulb className="w-3.5 h-3.5" /> },
+                      { value: 'memory', label: 'Meaningful Memory', icon: <Heart className="w-3.5 h-3.5" /> },
+                    ]}
+                  />
                 </div>
 
                 <div>

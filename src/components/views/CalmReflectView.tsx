@@ -1,15 +1,40 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Heart, Sparkles, Send, Check } from 'lucide-react';
+import { GratitudeEntry } from '../../types';
+import {
+  Heart,
+  Sparkles,
+  Send,
+  Check,
+  Edit2,
+  Trash2,
+  X,
+  Calendar,
+} from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export const CalmReflectView: React.FC = () => {
-  const { gratitudes, addGratitudeEntry, profile, updateProfile, showToast } = useApp();
+  const {
+    gratitudes,
+    addGratitudeEntry,
+    updateGratitudeEntry,
+    deleteGratitudeEntry,
+    profile,
+    updateProfile,
+    showToast,
+  } = useApp();
 
   const [gratitude1, setGratitude1] = useState('');
   const [gratitude2, setGratitude2] = useState('');
   const [gratitude3, setGratitude3] = useState('');
   const [selfAppreciation, setSelfAppreciation] = useState('');
+
+  // Edit Modal State
+  const [editingEntry, setEditingEntry] = useState<GratitudeEntry | null>(null);
+  const [editG1, setEditG1] = useState('');
+  const [editG2, setEditG2] = useState('');
+  const [editG3, setEditG3] = useState('');
+  const [editSelf, setEditSelf] = useState('');
 
   const todayStr = new Date().toISOString().split('T')[0];
 
@@ -43,6 +68,29 @@ export const CalmReflectView: React.FC = () => {
     setGratitude2('');
     setGratitude3('');
     setSelfAppreciation('');
+  };
+
+  const handleOpenEdit = (entry: GratitudeEntry) => {
+    setEditingEntry(entry);
+    setEditG1(entry.gratitude1 || '');
+    setEditG2(entry.gratitude2 || '');
+    setEditG3(entry.gratitude3 || '');
+    setEditSelf(entry.selfAppreciation || '');
+  };
+
+  const handleSaveEdit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingEntry) return;
+
+    updateGratitudeEntry(editingEntry.id, {
+      gratitude1: editG1.trim(),
+      gratitude2: editG2.trim(),
+      gratitude3: editG3.trim(),
+      selfAppreciation: editSelf.trim(),
+    });
+
+    setEditingEntry(null);
+    showToast('Reflection updated');
   };
 
   return (
@@ -140,28 +188,158 @@ export const CalmReflectView: React.FC = () => {
         </div>
       </form>
 
-      {/* Recent Gratitudes Card Feed */}
+      {/* Recent Gratitudes Card Feed with EDIT & DELETE */}
       {gratitudes.length > 0 && (
         <div className="space-y-3 pt-4">
-          <p className="text-[11px] font-bold text-[#8F877F] uppercase tracking-wider text-center">
-            Recent Peaceful Moments
-          </p>
-          <div className="space-y-2.5">
-            {gratitudes.slice(0, 3).map((g) => (
+          <div className="flex items-center justify-between px-1">
+            <p className="text-[11px] font-bold text-[#8F877F] uppercase tracking-wider">
+              Recent Peaceful Moments
+            </p>
+            <span className="text-[10px] text-[#8F877F]">
+              {gratitudes.length} entries recorded
+            </span>
+          </div>
+
+          <div className="space-y-3">
+            {gratitudes.map((g) => (
               <div
                 key={g.id}
-                className="p-4 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] text-xs space-y-1.5"
+                className="group p-5 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] hover:border-[#D6CEBE] shadow-2xs transition-all space-y-2.5 relative"
               >
-                <div className="flex items-center justify-between text-[10px] text-[#8F877F]">
-                  <span>{g.date}</span>
-                  <span className="text-[#C85A17] font-semibold">Gratitude</span>
+                <div className="flex items-center justify-between text-[11px] text-[#8F877F]">
+                  <div className="flex items-center gap-1.5 font-medium">
+                    <Calendar className="w-3.5 h-3.5 text-[#C85A17]" />
+                    <span>{g.date}</span>
+                  </div>
+
+                  {/* Actions: Edit & Delete buttons */}
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => handleOpenEdit(g)}
+                      className="p-1.5 rounded-lg text-[#78716C] hover:text-[#C85A17] hover:bg-[#FAF0E6] transition-colors flex items-center gap-1 text-[11px] font-medium"
+                      title="Edit this reflection"
+                    >
+                      <Edit2 className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Edit</span>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        if (confirm('Delete this reflection entry?')) {
+                          deleteGratitudeEntry(g.id);
+                        }
+                      }}
+                      className="p-1.5 rounded-lg text-[#DDD7CB] hover:text-[#DC2626] hover:bg-[#FEE2E2] transition-colors"
+                      title="Delete reflection"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
-                <p className="text-[#1C1917] font-serif-quote italic">"{g.gratitude1}"</p>
+
+                <div className="space-y-1 text-xs text-[#1C1917] font-serif-quote italic">
+                  <p>"{g.gratitude1}"</p>
+                  {g.gratitude2 && <p>"{g.gratitude2}"</p>}
+                  {g.gratitude3 && <p>"{g.gratitude3}"</p>}
+                </div>
+
                 {g.selfAppreciation && (
-                  <p className="text-[11px] text-[#78716C]">Self: {g.selfAppreciation}</p>
+                  <div className="pt-2 border-t border-[#E8E2D8]/60 flex items-start gap-1.5 text-[11px] text-[#57534E]">
+                    <span className="font-semibold text-[#C85A17]">Self:</span>
+                    <span className="leading-relaxed">{g.selfAppreciation}</span>
+                  </div>
                 )}
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Edit Gratitude Modal */}
+      {editingEntry && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1917]/50 backdrop-blur-xs">
+          <div className="w-full max-w-lg bg-[#FAF8F5] border border-[#E8E2D8] rounded-3xl shadow-2xl p-6 sm:p-7 text-[#1C1917] space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
+              <div className="flex items-center gap-2">
+                <Edit2 className="w-4 h-4 text-[#C85A17]" />
+                <h3 className="text-sm font-bold text-[#1C1917]">
+                  Edit Reflection ({editingEntry.date})
+                </h3>
+              </div>
+              <button
+                onClick={() => setEditingEntry(null)}
+                className="p-1 rounded-full text-[#8F877F] hover:bg-[#EBE5DB]"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveEdit} className="space-y-3.5">
+              <div>
+                <label className="block text-xs font-semibold text-[#57534E] mb-1">
+                  Gratitude 1
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={editG1}
+                  onChange={(e) => setEditG1(e.target.value)}
+                  className="w-full text-xs p-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#57534E] mb-1">
+                  Gratitude 2
+                </label>
+                <input
+                  type="text"
+                  value={editG2}
+                  onChange={(e) => setEditG2(e.target.value)}
+                  className="w-full text-xs p-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#57534E] mb-1">
+                  Gratitude 3
+                </label>
+                <input
+                  type="text"
+                  value={editG3}
+                  onChange={(e) => setEditG3(e.target.value)}
+                  className="w-full text-xs p-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#C85A17] mb-1">
+                  Self-Appreciation
+                </label>
+                <input
+                  type="text"
+                  value={editSelf}
+                  onChange={(e) => setEditSelf(e.target.value)}
+                  className="w-full text-xs p-2.5 rounded-xl border border-[#E9D5C3] bg-[#FAF0E6]/30 focus:outline-none focus:border-[#C85A17]"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-3 border-t border-[#E8E2D8]">
+                <button
+                  type="button"
+                  onClick={() => setEditingEntry(null)}
+                  className="px-4 py-2 rounded-xl text-xs font-medium text-[#78716C] hover:bg-[#EBE5DB]"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

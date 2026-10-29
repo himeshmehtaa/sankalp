@@ -6,7 +6,6 @@ import { CalmFocusView } from './components/views/CalmFocusView';
 import { BreathingWidget } from './components/calm/BreathingWidget';
 import { CalmReflectView } from './components/views/CalmReflectView';
 import { SpacesDrawer } from './components/modals/SpacesDrawer';
-import { MusicPlayerDock } from './components/audio/MusicPlayerDock';
 
 // Deep spaces (accessible via drawer)
 import { GoalsView } from './components/views/GoalsView';
@@ -117,12 +116,9 @@ const CalmMainLayout: React.FC = () => {
       />
 
       {/* Main Sanctuary Area */}
-      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-8 py-6 pb-32 md:pb-16">
+      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-8 py-6 pb-28 md:pb-12">
         {renderActiveScreen()}
       </main>
-
-      {/* Floating Focus Music Player Dock */}
-      <MusicPlayerDock />
 
       {/* Mobile Floating Bottom Bar */}
       <nav className="md:hidden fixed bottom-4 left-4 right-4 z-30 bg-[#FFFFFF]/95 backdrop-blur-md border border-[#E8E2D8] rounded-full shadow-lg px-4 py-2 flex items-center justify-around">

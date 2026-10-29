@@ -15,7 +15,10 @@ import {
   Trash2,
   Edit2,
   Check,
+  Heart,
+  Compass,
 } from 'lucide-react';
+import { CustomSelect, SelectOption } from '../common/CustomSelect';
 
 export const JournalView: React.FC = () => {
   const {
@@ -189,17 +192,17 @@ export const JournalView: React.FC = () => {
                 <label className="block text-[11px] font-semibold text-[#57534E] mb-1">
                   Mindset State
                 </label>
-                <select
+                <CustomSelect
                   value={mood}
-                  onChange={(e) => setMood(e.target.value as JournalEntry['mood'])}
-                  className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none"
-                >
-                  <option value="calm">Calm & Still</option>
-                  <option value="focused">Focused</option>
-                  <option value="thoughtful">Thoughtful</option>
-                  <option value="challenging">Challenging / Resisting</option>
-                  <option value="grateful">Deeply Grateful</option>
-                </select>
+                  onChange={(val) => setMood(val as JournalEntry['mood'])}
+                  options={[
+                    { value: 'calm', label: 'Calm & Still', icon: <Smile className="w-3.5 h-3.5" /> },
+                    { value: 'focused', label: 'Focused', icon: <Target className="w-3.5 h-3.5" /> },
+                    { value: 'thoughtful', label: 'Thoughtful', icon: <Sparkles className="w-3.5 h-3.5" /> },
+                    { value: 'challenging', label: 'Challenging / Resisting', icon: <Zap className="w-3.5 h-3.5" /> },
+                    { value: 'grateful', label: 'Deeply Grateful', icon: <Heart className="w-3.5 h-3.5" /> },
+                  ]}
+                />
               </div>
 
               <div>
@@ -211,7 +214,7 @@ export const JournalView: React.FC = () => {
                   placeholder="Craft, Clarity, Mindset"
                   value={tagsInput}
                   onChange={(e) => setTagsInput(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none"
+                  className="w-full text-xs p-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
                 />
               </div>
 
@@ -219,18 +222,19 @@ export const JournalView: React.FC = () => {
                 <label className="block text-[11px] font-semibold text-[#57534E] mb-1">
                   Connect to Goal
                 </label>
-                <select
+                <CustomSelect
                   value={linkedGoalId}
-                  onChange={(e) => setLinkedGoalId(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none"
-                >
-                  <option value="">None (Standalone)</option>
-                  {goals.map((g) => (
-                    <option key={g.id} value={g.id}>
-                      {g.title}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(val) => setLinkedGoalId(val)}
+                  options={[
+                    { value: '', label: 'None (Standalone)' },
+                    ...goals.map((g) => ({
+                      value: g.id,
+                      label: g.title,
+                      icon: <Target className="w-3.5 h-3.5" />,
+                    })),
+                  ]}
+                  placeholder="Select linked goal..."
+                />
               </div>
             </div>
 

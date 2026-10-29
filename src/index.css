@@ -22,10 +22,10 @@
   body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Geist", "Inter", -system-ui, sans-serif;
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Geist", "Inter", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    letter-spacing: -0.011em;
+    letter-spacing: -0.012em;
   }
 }
 
@@ -47,12 +47,13 @@
 
 /* Typography styles */
 .font-editorial {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Geist", "Inter", sans-serif;
-  letter-spacing: -0.02em;
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.025em;
 }
 
 .font-serif-quote {
-  font-family: "New York", "Charter", "Georgia", "Cambria", serif;
+  font-family: "Newsreader", "New York", "Charter", "Georgia", serif;
+  font-style: italic;
 }
 
 /* Smooth transitions */

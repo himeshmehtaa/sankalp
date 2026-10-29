@@ -111,6 +111,8 @@ interface AppContextType {
   // Gratitude
   gratitudes: GratitudeEntry[];
   addGratitudeEntry: (entry: Omit<GratitudeEntry, 'id' | 'createdAt'>) => void;
+  updateGratitudeEntry: (id: string, updates: Partial<GratitudeEntry>) => void;
+  deleteGratitudeEntry: (id: string) => void;
 
   // Habits
   habits: Habit[];
@@ -485,6 +487,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     showToast('Gratitude recorded with gratitude & peace');
   };
 
+  const updateGratitudeEntry = (id: string, updates: Partial<GratitudeEntry>) => {
+    setGratitudes((prev) =>
+      prev.map((g) => (g.id === id ? { ...g, ...updates } : g))
+    );
+    showToast('Gratitude updated');
+  };
+
+  const deleteGratitudeEntry = (id: string) => {
+    setGratitudes((prev) => prev.filter((g) => g.id !== id));
+    showToast('Gratitude entry removed');
+  };
+
   // Habits
   const addHabit = (habitData: Omit<Habit, 'id' | 'createdAt'>) => {
     const newHabit: Habit = {
@@ -735,6 +749,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         deleteJournalEntry,
         gratitudes,
         addGratitudeEntry,
+        updateGratitudeEntry,
+        deleteGratitudeEntry,
         habits,
         addHabit,
         toggleHabitDate,

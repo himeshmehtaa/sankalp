@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
-import { focusMusic, FOCUS_TRACKS } from '../../utils/focusAudio';
 import {
   Play,
   Pause,
   RotateCcw,
   CheckCircle2,
   Clock,
-  Music,
-  Disc3,
-  Volume2,
-  VolumeX,
-  Plus,
+  Sparkles,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -24,23 +19,8 @@ export const CalmFocusView: React.FC = () => {
   const [durationMins, setDurationMins] = useState(25);
   const [secondsRemaining, setSecondsRemaining] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
-
-  // Music state
-  const [isMusicPlaying, setIsMusicPlaying] = useState(focusMusic.getIsPlaying());
-  const [currentTrack, setCurrentTrack] = useState(focusMusic.getCurrentTrack());
-  const [volume, setVolume] = useState(focusMusic.getVolume());
   const [distractionText, setDistractionText] = useState('');
   const [parkedThoughts, setParkedThoughts] = useState<string[]>([]);
-
-  useEffect(() => {
-    const update = () => {
-      setIsMusicPlaying(focusMusic.getIsPlaying());
-      setCurrentTrack(focusMusic.getCurrentTrack());
-      setVolume(focusMusic.getVolume());
-    };
-    focusMusic.subscribe(update);
-    return () => focusMusic.subscribe(() => {});
-  }, []);
 
   useEffect(() => {
     let interval: any;
@@ -50,7 +30,6 @@ export const CalmFocusView: React.FC = () => {
           if (prev <= 1) {
             clearInterval(interval);
             setIsRunning(false);
-            focusMusic.stop();
             try {
               confetti({ particleCount: 40, spread: 70, colors: ['#C85A17', '#4D6B53'] });
             } catch (e) {}
@@ -74,14 +53,7 @@ export const CalmFocusView: React.FC = () => {
   }, [isRunning, selectedTask, durationMins, parkedThoughts]);
 
   const handleTogglePlay = () => {
-    if (!isRunning) {
-      // Start timer and start music
-      setIsRunning(true);
-      focusMusic.play(currentTrack.id);
-    } else {
-      setIsRunning(false);
-      focusMusic.stop();
-    }
+    setIsRunning(!isRunning);
   };
 
   const handleParkThought = (e: React.FormEvent) => {
@@ -134,43 +106,6 @@ export const CalmFocusView: React.FC = () => {
         {/* Glow behind timer */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#C85A17]/20 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Music Soundscape Bar */}
-        <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-3 pb-6 border-b border-white/10 text-xs">
-          <div className="flex items-center gap-2.5">
-            <div
-              className={`w-7 h-7 rounded-full bg-gradient-to-tr from-[#C85A17] to-[#D97706] flex items-center justify-center ${
-                isMusicPlaying ? 'animate-spin' : ''
-              }`}
-            >
-              <Disc3 className="w-4 h-4 text-white" />
-            </div>
-            <div className="text-left">
-              <p className="font-semibold text-white">{currentTrack.title}</p>
-              <p className="text-[10px] text-white/50">{currentTrack.description}</p>
-            </div>
-          </div>
-
-          {/* Track selector chips */}
-          <div className="flex gap-1 overflow-x-auto max-w-full pb-1">
-            {FOCUS_TRACKS.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => {
-                  focusMusic.play(t.id);
-                  if (!isRunning) setIsRunning(true);
-                }}
-                className={`px-3 py-1 rounded-full text-[10px] whitespace-nowrap transition-colors ${
-                  currentTrack.id === t.id
-                    ? 'bg-[#C85A17] text-white font-bold'
-                    : 'bg-white/10 text-white/70 hover:bg-white/20'
-                }`}
-              >
-                {t.title.split(' ')[0]}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Giant Timer Display */}
         <div className="relative z-10 my-8 select-none">
           <div className="text-7xl sm:text-9xl font-light font-mono tracking-tight text-white drop-shadow-sm">
@@ -212,7 +147,7 @@ export const CalmFocusView: React.FC = () => {
             ) : (
               <>
                 <Play className="w-4 h-4 fill-current ml-0.5" />
-                <span>Start Flow with Music</span>
+                <span>Start Focus</span>
               </>
             )}
           </button>
@@ -221,7 +156,6 @@ export const CalmFocusView: React.FC = () => {
             onClick={() => {
               setIsRunning(false);
               setSecondsRemaining(durationMins * 60);
-              focusMusic.stop();
             }}
             className="p-4 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
             title="Reset timer"

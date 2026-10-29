@@ -13,7 +13,13 @@ import {
   TrendingUp,
   X,
   Check,
+  FileText,
+  Users,
+  Heart,
+  Plane,
+  Home,
 } from 'lucide-react';
+import { CustomSelect } from '../common/CustomSelect';
 
 export const FinancesView: React.FC = () => {
   const {
@@ -261,17 +267,17 @@ export const FinancesView: React.FC = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-[#57534E] mb-1">Category</label>
-                  <select
+                  <CustomSelect
                     value={adminCategory}
-                    onChange={(e) => setAdminCategory(e.target.value as LifeAdminItem['category'])}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
-                  >
-                    <option value="documents">Documents & Legal</option>
-                    <option value="family">Family & Relationships</option>
-                    <option value="medical">Medical & Health</option>
-                    <option value="travel">Travel & Logistics</option>
-                    <option value="home">Home & Maintenance</option>
-                  </select>
+                    onChange={(val) => setAdminCategory(val as LifeAdminItem['category'])}
+                    options={[
+                      { value: 'documents', label: 'Documents & Legal', icon: <FileText className="w-3.5 h-3.5" /> },
+                      { value: 'family', label: 'Family & Relationships', icon: <Users className="w-3.5 h-3.5" /> },
+                      { value: 'medical', label: 'Medical & Health', icon: <Heart className="w-3.5 h-3.5" /> },
+                      { value: 'travel', label: 'Travel & Logistics', icon: <Plane className="w-3.5 h-3.5" /> },
+                      { value: 'home', label: 'Home & Maintenance', icon: <Home className="w-3.5 h-3.5" /> },
+                    ]}
+                  />
                 </div>
 
                 <div>
