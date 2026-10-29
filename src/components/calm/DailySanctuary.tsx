@@ -9,6 +9,7 @@ import {
   LotusMotif,
   GradientBlob,
   LeafDivider,
+  HeroSanctuaryIllustration,
 } from '../brand/Illustrations';
 import {
   Play,
@@ -52,32 +53,37 @@ export const DailySanctuary: React.FC<DailySanctuaryProps> = ({
   const proofTask = todayTasks.find((t) => t.priority === 'proof') || todayTasks[0];
   const proofGoal = proofTask?.goalId ? goals.find((g) => g.id === proofTask.goalId) : null;
 
-  // Dynamic greeting based on time
+  // Dynamic greeting and time-of-day illustration
   const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const timeOfDay: 'morning' | 'afternoon' | 'evening' =
+    hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
+  const greeting =
+    timeOfDay === 'morning'
+      ? 'Good morning'
+      : timeOfDay === 'afternoon'
+      ? 'Good afternoon'
+      : 'Good evening';
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 py-2 animate-in fade-in duration-500">
-      {/* 1. Greeting Card with Illustration */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FFFFFF] via-[#FAF8F4] to-[#F8EDE8]/60 border border-[#E7E1DA] p-6 sm:p-8">
-        {/* Decorative illustration */}
-        <div className="absolute -top-6 -right-6 opacity-40 pointer-events-none">
-          <SunRadiance className="w-32 h-32 sm:w-40 sm:h-40" color="#B85C3B" />
-        </div>
-        <div className="absolute -bottom-8 -left-8 opacity-30 pointer-events-none">
-          <LeafMotif className="w-28 h-28" color="#6B7A5B" />
+      {/* 1. Greeting Card with Bespoke Editorial Illustration */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FFFFFF] via-[#FAF8F4] to-[#F8EDE8]/50 border border-[#E7E1DA] p-6 sm:p-8 shadow-xs">
+        {/* Ambient botanical leaf watermark */}
+        <div className="absolute -bottom-10 -left-10 opacity-20 pointer-events-none">
+          <LeafMotif className="w-36 h-36" color="#6B7A5B" />
         </div>
 
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div className="space-y-2">
-            <p className="text-[11px] uppercase font-semibold tracking-wider text-[#8F877F]">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          {/* Greeting Text Block */}
+          <div className="space-y-2 flex-1">
+            <p className="text-[11px] uppercase font-bold tracking-widest text-[#B85C3B]">
               {todayDateStr}
             </p>
-            <h1 className="text-2xl sm:text-3xl font-semibold text-[#1B1A19] tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-[#1B1A19] tracking-tight leading-tight font-editorial">
               {greeting}, {profile.name}
             </h1>
             {profile.guidingPrinciple && (
-              <div className="flex items-start gap-2.5 mt-2 max-w-md">
+              <div className="flex items-start gap-2.5 mt-2.5 max-w-md pt-0.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#B85C3B] shrink-0 mt-1.5" />
                 <p className="text-xs text-[#57534E] leading-relaxed italic">
                   "{profile.guidingPrinciple}"
@@ -86,14 +92,9 @@ export const DailySanctuary: React.FC<DailySanctuaryProps> = ({
             )}
           </div>
 
-          <div className="flex items-center gap-2 self-start sm:self-auto">
-            <button
-              onClick={() => setIsQuickCaptureOpen(true)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#B85C3B] hover:bg-[#A04F32] text-white text-xs font-semibold shadow-sm active:scale-95 transition-all"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Capture</span>
-            </button>
+          {/* Hero Editorial Sanctuary Landscape Illustration */}
+          <div className="shrink-0 flex items-center justify-center pointer-events-none self-end md:self-auto -mr-2 sm:-mr-4 -my-4 sm:-my-6">
+            <HeroSanctuaryIllustration timeOfDay={timeOfDay} className="w-52 h-28 sm:w-64 sm:h-36 drop-shadow-2xs" />
           </div>
         </div>
       </div>

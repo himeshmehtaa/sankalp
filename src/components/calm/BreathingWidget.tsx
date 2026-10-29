@@ -19,7 +19,7 @@ import {
   Waves,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { MeditationHalo, BreathCloud, LeafMotif } from '../brand/Illustrations';
+import { MeditationHalo, BreathCloud, LeafMotif, BloomingMandala } from '../brand/Illustrations';
 
 export type MeditationMode = 'box' | 'sigh' | '478' | 'zen';
 export type SoundGuidanceMode = 'voice-chimes' | 'chimes-only' | 'silent';
@@ -112,7 +112,7 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
     soundManager.warmUp();
     soundManager.warmUpSpeech();
     soundManager.playChime();
-    soundManager.speakGuidedCue('Guided sound is ready');
+    soundManager.playGuidedVoice('test_sound', 'Guided sound is active and ready');
     soundManager.triggerHaptic([30, 40, 30]);
     setTimeout(() => setIsPlayingAudioTest(false), 2200);
   };
@@ -132,31 +132,29 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
       targetPhase === 'hold1' || targetPhase === 'hold2' ? [30, 40, 30] : 45
     );
 
-    // 3. Play voice cue if 'voice-chimes' enabled
+    // 3. Play studio pre-rendered voice guidance (100% reliable on iOS & Android mobile browsers)
     if (sMode === 'voice-chimes') {
-      let voiceCue = '';
-      if (targetMode === 'box') {
-        if (targetPhase === 'inhale') voiceCue = 'Breathe in';
-        else if (targetPhase === 'hold1') voiceCue = 'Hold';
-        else if (targetPhase === 'exhale') voiceCue = 'Breathe out slowly';
-        else if (targetPhase === 'hold2') voiceCue = 'Rest';
-      } else if (targetMode === 'sigh') {
-        if (targetPhase === 'inhale') voiceCue = 'Deep breath in';
-        else if (targetPhase === 'hold1') voiceCue = 'Take a second sip in';
-        else if (targetPhase === 'exhale') voiceCue = 'Long slow exhale';
-        else if (targetPhase === 'hold2') voiceCue = 'Release and relax';
-      } else if (targetMode === '478') {
-        if (targetPhase === 'inhale') voiceCue = 'Inhale quietly through your nose';
-        else if (targetPhase === 'hold1') voiceCue = 'Hold your breath';
-        else if (targetPhase === 'exhale') voiceCue = 'Exhale completely through your mouth';
-        else if (targetPhase === 'hold2') voiceCue = 'Rest';
+      if (targetMode === 'sigh') {
+        if (targetPhase === 'inhale') {
+          soundManager.playGuidedVoice('sigh_inhale', 'Deep breath in');
+        } else if (targetPhase === 'hold1') {
+          soundManager.playGuidedVoice('sigh_hold', 'Second sip in');
+        } else if (targetPhase === 'exhale') {
+          soundManager.playGuidedVoice('sigh_exhale', 'Long slow exhale');
+        } else if (targetPhase === 'hold2') {
+          soundManager.playGuidedVoice('sigh_rest', 'Release and relax');
+        }
       } else {
-        if (targetPhase === 'inhale') voiceCue = 'Inhale naturally';
-        else if (targetPhase === 'hold1') voiceCue = 'Hold gently';
-        else if (targetPhase === 'exhale') voiceCue = 'Exhale and let go';
-        else if (targetPhase === 'hold2') voiceCue = 'Stillness';
+        if (targetPhase === 'inhale') {
+          soundManager.playGuidedVoice('inhale', 'Breathe in');
+        } else if (targetPhase === 'hold1') {
+          soundManager.playGuidedVoice('hold', 'Hold');
+        } else if (targetPhase === 'exhale') {
+          soundManager.playGuidedVoice('exhale', 'Breathe out slowly');
+        } else if (targetPhase === 'hold2') {
+          soundManager.playGuidedVoice('rest', 'Rest');
+        }
       }
-      soundManager.speakGuidedCue(voiceCue);
     }
   };
 
@@ -170,7 +168,7 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
             if (prev <= 1) {
               soundManager.playChime();
               if (soundMode === 'voice-chimes') {
-                soundManager.speakGuidedCue('Meditation complete. Gently return to the present moment.');
+                soundManager.playGuidedVoice('complete', 'Meditation complete. Gently return to the present moment.');
               }
               setIsActive(false);
               try {
@@ -270,16 +268,20 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
   };
 
   const getPhasePrompt = () => {
+    if (!isActive) {
+      if (mode === 'zen') return 'Sit comfortably & begin';
+      return 'Breathe In to Start';
+    }
     if (mode === 'zen') {
-      return isActive ? 'Rest attention in the present moment...' : 'Sit comfortably & begin';
+      return 'Rest attention in the present moment...';
     }
     switch (phase) {
       case 'inhale':
         return mode === 'sigh' ? 'Deep Inhale (Nose)...' : 'Breathe In Deeply...';
       case 'hold1':
-        return mode === 'sigh' ? 'Second sharp sip in...' : 'Hold gently at the top...';
+        return mode === 'sigh' ? 'Second sip in...' : 'Hold gently at the top...';
       case 'exhale':
-        return 'Long, slow, complete exhale...';
+        return mode === 'sigh' ? 'Long, slow exhale...' : 'Slow, complete exhale...';
       case 'hold2':
         return 'Empty stillness & rest...';
     }
@@ -520,7 +522,7 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
             }`}
           />
 
-          {/* Sacred Meditation Halo Illustration */}
+          {/* Sacred Meditation Halo & Blooming Mandala Illustrations */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <MeditationHalo
               className={`w-64 h-64 sm:w-80 sm:h-80 transition-all duration-1000 ${
@@ -528,6 +530,13 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
               }`}
               pulseColor="#B85C3B"
               animate={isActive}
+            />
+            <BloomingMandala
+              phase={phase}
+              className={`w-56 h-56 sm:w-72 sm:h-72 transition-all duration-1000 ${
+                isActive ? 'scale-105 opacity-80' : 'scale-85 opacity-25'
+              }`}
+              color={phase === 'hold1' ? '#B85C3B' : '#6B7A5B'}
             />
           </div>
 

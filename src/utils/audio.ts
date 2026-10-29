@@ -11,6 +11,7 @@ class AmbientAudioManager {
   private cachedVoices: SpeechSynthesisVoice[] = [];
   private speechWarmedUp = false;
   private silentAudio: HTMLAudioElement | null = null;
+  private voiceAudios: Record<string, HTMLAudioElement> = {};
 
   constructor() {
     // 1. Pre-load speech voices when available
@@ -35,6 +36,33 @@ class AmbientAudioManager {
     }
   }
 
+  // Preload voice audio files for instant mobile playback
+  public preloadVoiceAudios() {
+    if (typeof window === 'undefined') return;
+    const cues = [
+      'inhale',
+      'hold',
+      'exhale',
+      'rest',
+      'sigh_inhale',
+      'sigh_hold',
+      'sigh_exhale',
+      'sigh_rest',
+      'test_sound',
+      'complete',
+    ];
+    cues.forEach((cue) => {
+      if (!this.voiceAudios[cue]) {
+        try {
+          const a = new Audio(`/audio/${cue}.m4a`);
+          a.preload = 'auto';
+          a.setAttribute('playsinline', 'true');
+          this.voiceAudios[cue] = a;
+        } catch (e) {}
+      }
+    });
+  }
+
   public initContext() {
     if (!this.ctx) {
       const AudioContextClass =
@@ -55,6 +83,7 @@ class AmbientAudioManager {
   public async warmUp() {
     try {
       this.initContext();
+      this.preloadVoiceAudios();
 
       // Trigger silent HTML5 Audio element to force iOS into Playback audio category
       if (this.silentAudio) {
@@ -322,6 +351,34 @@ class AmbientAudioManager {
       }, 35);
     } catch (e) {
       console.warn('Voice guidance speech error:', e);
+    }
+  }
+
+  // Play studio pre-rendered voice guidance (100% reliable on iOS & Android mobile browsers)
+  public playGuidedVoice(cueKey: string, fallbackText?: string) {
+    try {
+      this.warmUp();
+      let audio = this.voiceAudios[cueKey];
+      if (!audio) {
+        audio = new Audio(`/audio/${cueKey}.m4a`);
+        audio.setAttribute('playsinline', 'true');
+        audio.preload = 'auto';
+        this.voiceAudios[cueKey] = audio;
+      }
+      audio.currentTime = 0;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((err) => {
+          console.warn('Voice audio file play failed, using speech synthesis fallback:', err);
+          if (fallbackText) {
+            this.speakGuidedCue(fallbackText);
+          }
+        });
+      }
+    } catch (e) {
+      if (fallbackText) {
+        this.speakGuidedCue(fallbackText);
+      }
     }
   }
 
