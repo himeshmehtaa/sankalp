@@ -43,7 +43,7 @@ import {
 import { ViewType } from './types';
 
 const CalmMainLayout: React.FC = () => {
-  const { toastMessage } = useApp();
+  const { toastMessage, setIsQuickCaptureOpen } = useApp();
 
   const [activeTab, setActiveTab] = useState<'today' | 'focus' | 'breathe' | 'reflect'>('today');
   const [activeDeepSpace, setActiveDeepSpace] = useState<ViewType | null>(null);
@@ -139,8 +139,8 @@ const CalmMainLayout: React.FC = () => {
         {renderActiveScreen()}
       </main>
 
-      {/* Mobile Dark Bottom Bar - Matching Brand & Screenshot 1 */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#1B1A19]/95 backdrop-blur-xl border-t border-[#2D2A28] px-2 pt-2.5 pb-6 flex items-center justify-around shadow-2xl">
+      {/* Mobile Bottom Bar - Serene Ivory canvas per Brand Book & "dont use dark bg" */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FAF8F4]/95 backdrop-blur-xl border-t border-[#E7E1DA] px-2 pt-2.5 pb-6 flex items-center justify-around shadow-lg">
         {/* 1. Today */}
         <button
           onClick={() => {
@@ -149,8 +149,8 @@ const CalmMainLayout: React.FC = () => {
           }}
           className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
             !activeDeepSpace && activeTab === 'today'
-              ? 'text-[#B85C3B]'
-              : 'text-[#8F877F] hover:text-white'
+              ? 'text-[#B85C3B] font-semibold'
+              : 'text-[#78716C] hover:text-[#1B1A19]'
           }`}
         >
           <Sun className="w-5 h-5 stroke-[2.2]" />
@@ -164,8 +164,8 @@ const CalmMainLayout: React.FC = () => {
           }}
           className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
             activeDeepSpace === 'tasks'
-              ? 'text-[#B85C3B]'
-              : 'text-[#8F877F] hover:text-white'
+              ? 'text-[#B85C3B] font-semibold'
+              : 'text-[#78716C] hover:text-[#1B1A19]'
           }`}
         >
           <CheckSquare className="w-5 h-5 stroke-[2.2]" />
@@ -176,7 +176,7 @@ const CalmMainLayout: React.FC = () => {
         <div className="flex flex-1 items-center justify-center">
           <button
             onClick={() => setIsQuickCaptureOpen(true)}
-            className="w-12 h-12 -mt-5 rounded-full bg-white text-[#1B1A19] shadow-xl shadow-black/40 flex items-center justify-center hover:scale-105 active:scale-95 transition-all"
+            className="w-12 h-12 -mt-6 rounded-full bg-[#B85C3B] hover:bg-[#A04F32] text-white shadow-lg border-2 border-[#FAF8F4] flex items-center justify-center hover:scale-105 active:scale-95 transition-all"
             title="Quick Capture"
           >
             <Plus className="w-6 h-6 stroke-[2.5]" />
@@ -191,8 +191,8 @@ const CalmMainLayout: React.FC = () => {
           }}
           className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
             !activeDeepSpace && activeTab === 'breathe'
-              ? 'text-[#B85C3B]'
-              : 'text-[#8F877F] hover:text-white'
+              ? 'text-[#B85C3B] font-semibold'
+              : 'text-[#78716C] hover:text-[#1B1A19]'
           }`}
         >
           <Wind className="w-5 h-5 stroke-[2.2]" />
@@ -204,8 +204,8 @@ const CalmMainLayout: React.FC = () => {
           onClick={() => setIsSpacesDrawerOpen(true)}
           className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
             isSpacesDrawerOpen || (activeDeepSpace && activeDeepSpace !== 'tasks')
-              ? 'text-[#B85C3B]'
-              : 'text-[#8F877F] hover:text-white'
+              ? 'text-[#B85C3B] font-semibold'
+              : 'text-[#78716C] hover:text-[#1B1A19]'
           }`}
         >
           <MoreHorizontal className="w-5 h-5 stroke-[2.2]" />

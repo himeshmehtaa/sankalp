@@ -132,15 +132,15 @@ export const CalmHeader: React.FC<CalmHeaderProps> = ({
 
       {/* Right Controls: + Capture, Unstuck, Spaces Drawer */}
       <div className="flex items-center gap-2 sm:gap-2.5">
-        {/* Quick Capture Button */}
+        {/* Quick Capture Button (Desktop) */}
         {onOpenCapture && (
           <button
             onClick={onOpenCapture}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#1B1A19] text-white hover:bg-[#2B2927] text-xs font-semibold shadow-xs transition-transform active:scale-95"
-            title="Quick Capture thought or task"
+            className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#1B1A19] text-[#FAF8F4] hover:bg-[#2B2927] text-xs font-semibold shadow-xs transition-transform active:scale-95"
+            title="Quick Capture thought or task (Ctrl+K or tap)"
           >
             <Plus className="w-3.5 h-3.5 text-[#B85C3B]" />
-            <span className="hidden sm:inline">Capture</span>
+            <span>Capture</span>
           </button>
         )}
 

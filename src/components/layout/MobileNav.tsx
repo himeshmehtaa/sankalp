@@ -86,7 +86,7 @@ export const MobileNav: React.FC = () => {
         {/* Center Floating Quick-Capture FAB */}
         <button
           onClick={() => setIsQuickCaptureOpen(true)}
-          className="w-12 h-12 -mt-5 rounded-full bg-[#1B1A19] text-[#FAF8F4] flex items-center justify-center shadow-md active:scale-95 transition-transform border-2 border-[#FAF8F4]"
+          className="w-12 h-12 -mt-5 rounded-full bg-[#B85C3B] hover:bg-[#A04F32] text-white flex items-center justify-center shadow-md active:scale-95 transition-transform border-2 border-[#FAF8F4]"
           title="Quick Capture"
           aria-label="Quick Capture"
         >

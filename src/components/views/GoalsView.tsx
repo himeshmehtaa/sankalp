@@ -336,44 +336,25 @@ export const GoalsView: React.FC = () => {
               >
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                   <div className="space-y-1 flex-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#F8EDE8] text-[#B85C3B] border border-[#E7E1DA]">
-                        {goal.level}
-                      </span>
-                      <span className="px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider bg-[#F2EFEB] text-[#78716C]">
-                        {goal.domain}
-                      </span>
-                      {goal.targetDate && (
-                        <span className="text-[11px] text-[#8F877F] flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          <span>Target: {goal.targetDate}</span>
+                    {/* Top Row: Tags + Edit & Delete at Top Right */}
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#F8EDE8] text-[#B85C3B] border border-[#E7E1DA]">
+                          {goal.level}
                         </span>
-                      )}
-                    </div>
+                        <span className="px-2 py-0.5 rounded text-[10px] font-medium uppercase tracking-wider bg-[#F4EFEB] text-[#78716C]">
+                          {goal.domain}
+                        </span>
+                        {goal.targetDate && (
+                          <span className="text-[11px] text-[#8F877F] flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            <span>Target: {goal.targetDate}</span>
+                          </span>
+                        )}
+                      </div>
 
-                    <h2 className="text-base font-bold text-[#1B1A19] tracking-tight">
-                      {goal.title}
-                    </h2>
-                    {goal.description && (
-                      <p className="text-xs text-[#57534E] leading-relaxed">
-                        {goal.description}
-                      </p>
-                    )}
-                    {goal.whyItMatters && (
-                      <p className="text-xs text-[#78716C]">
-                        Why it matters: "{goal.whyItMatters}"
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Progress Indicator & Actions (Edit and Delete kept together) */}
-                  <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-mono font-bold text-[#1B1A19]">
-                        {goal.progress}%
-                      </span>
-                      {/* Edit and Delete kept together */}
-                      <div className="flex items-center gap-1 bg-[#F4EFEB] p-1 rounded-lg border border-[#E7E1DA]">
+                      {/* Edit and Delete Kept Together at TOP RIGHT (SS2) */}
+                      <div className="flex items-center gap-1 bg-[#F4EFEB] p-1 rounded-lg border border-[#E7E1DA] shrink-0">
                         <button
                           onClick={() => handleStartEdit(goal)}
                           className="p-1 rounded text-[#78716C] hover:text-[#1B1A19] hover:bg-white transition-colors"
@@ -390,6 +371,27 @@ export const GoalsView: React.FC = () => {
                         </button>
                       </div>
                     </div>
+
+                    <h2 className="text-base font-bold text-[#1B1A19] tracking-tight pt-1">
+                      {goal.title}
+                    </h2>
+                    {goal.description && (
+                      <p className="text-xs text-[#57534E] leading-relaxed">
+                        {goal.description}
+                      </p>
+                    )}
+                    {goal.whyItMatters && (
+                      <p className="text-xs text-[#78716C]">
+                        Why it matters: "{goal.whyItMatters}"
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Progress Indicator */}
+                  <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2">
+                    <span className="text-sm font-mono font-bold text-[#1B1A19]">
+                      {goal.progress}%
+                    </span>
                     {/* Visual Bar */}
                     <div className="w-24 sm:w-28 h-1.5 bg-[#E7E1DA] rounded-full overflow-hidden">
                       <div
