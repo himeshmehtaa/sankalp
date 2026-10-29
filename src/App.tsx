@@ -27,7 +27,18 @@ import { QuickCaptureModal } from './components/modals/QuickCaptureModal';
 import { CommandPalette } from './components/modals/CommandPalette';
 import { OnboardingModal } from './components/onboarding/OnboardingModal';
 
-import { ArrowLeft, Compass, Clock, Wind, Heart, Menu } from 'lucide-react';
+import {
+  ArrowLeft,
+  Compass,
+  Clock,
+  Wind,
+  Heart,
+  Menu,
+  Sun,
+  CheckSquare,
+  Plus,
+  MoreHorizontal,
+} from 'lucide-react';
 import { ViewType } from './types';
 
 const CalmMainLayout: React.FC = () => {
@@ -117,6 +128,9 @@ const CalmMainLayout: React.FC = () => {
           setActiveDeepSpace(null);
           setActiveTab(tab);
         }}
+        activeDeepSpace={activeDeepSpace}
+        onSelectDeepSpace={handleSelectDeepSpace}
+        onOpenCapture={() => setIsQuickCaptureOpen(true)}
       />
 
       {/* Main Sanctuary Area */}
@@ -124,68 +138,77 @@ const CalmMainLayout: React.FC = () => {
         {renderActiveScreen()}
       </main>
 
-      {/* Mobile Floating Bottom Bar */}
-      <nav className="md:hidden fixed bottom-4 left-4 right-4 z-30 bg-[#FFFFFF]/95 backdrop-blur-md border border-[#E8E2D8] rounded-full shadow-lg px-4 py-2 flex items-center justify-around">
+      {/* Mobile Dark Bottom Bar - Matching Screenshot 1 */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0B0D18]/95 backdrop-blur-xl border-t border-[#1C2237] px-2 pt-2.5 pb-6 flex items-center justify-around shadow-2xl">
+        {/* 1. Today */}
         <button
           onClick={() => {
             setActiveDeepSpace(null);
             setActiveTab('today');
           }}
-          className={`flex flex-col items-center gap-0.5 text-[10px] font-semibold transition-colors ${
-            !activeDeepSpace && activeTab === 'today' ? 'text-[#C85A17]' : 'text-[#78716C]'
+          className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
+            !activeDeepSpace && activeTab === 'today'
+              ? 'text-[#F59E0B]'
+              : 'text-[#8E95A5] hover:text-white'
           }`}
         >
-          <Compass className="w-4 h-4" />
-          <span>Today</span>
+          <Sun className="w-5 h-5 stroke-[2.2]" />
+          <span className="text-[10px] font-medium tracking-tight">Today</span>
         </button>
 
+        {/* 2. Tasks */}
         <button
           onClick={() => {
-            setActiveDeepSpace(null);
-            setActiveTab('focus');
+            setActiveDeepSpace('tasks');
           }}
-          className={`flex flex-col items-center gap-0.5 text-[10px] font-semibold transition-colors ${
-            !activeDeepSpace && activeTab === 'focus' ? 'text-[#C85A17]' : 'text-[#78716C]'
+          className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
+            activeDeepSpace === 'tasks'
+              ? 'text-[#F59E0B]'
+              : 'text-[#8E95A5] hover:text-white'
           }`}
         >
-          <Clock className="w-4 h-4" />
-          <span>Focus</span>
+          <CheckSquare className="w-5 h-5 stroke-[2.2]" />
+          <span className="text-[10px] font-medium tracking-tight">Tasks</span>
         </button>
 
+        {/* 3. Center Elevated + Quick Capture Button */}
+        <div className="flex flex-1 items-center justify-center">
+          <button
+            onClick={() => setIsQuickCaptureOpen(true)}
+            className="w-12 h-12 -mt-5 rounded-full bg-white text-[#0B0D18] shadow-xl shadow-black/50 flex items-center justify-center hover:scale-105 active:scale-95 transition-all"
+            title="Quick Capture"
+          >
+            <Plus className="w-6 h-6 stroke-[2.5]" />
+          </button>
+        </div>
+
+        {/* 4. Breathe & Meditation (User request: "the fourth one is breathe and meditation") */}
         <button
           onClick={() => {
             setActiveDeepSpace(null);
             setActiveTab('breathe');
           }}
-          className={`flex flex-col items-center gap-0.5 text-[10px] font-semibold transition-colors ${
-            !activeDeepSpace && activeTab === 'breathe' ? 'text-[#10B981]' : 'text-[#78716C]'
+          className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
+            !activeDeepSpace && activeTab === 'breathe'
+              ? 'text-[#F59E0B]'
+              : 'text-[#8E95A5] hover:text-white'
           }`}
         >
-          <Wind className="w-4 h-4" />
-          <span>Breathe</span>
+          <Wind className="w-5 h-5 stroke-[2.2]" />
+          <span className="text-[10px] font-medium tracking-tight">Breathe</span>
         </button>
 
-        <button
-          onClick={() => {
-            setActiveDeepSpace(null);
-            setActiveTab('reflect');
-          }}
-          className={`flex flex-col items-center gap-0.5 text-[10px] font-semibold transition-colors ${
-            !activeDeepSpace && activeTab === 'reflect' ? 'text-[#C85A17]' : 'text-[#78716C]'
-          }`}
-        >
-          <Heart className="w-4 h-4" />
-          <span>Reflect</span>
-        </button>
-
+        {/* 5. More */}
         <button
           onClick={() => setIsSpacesDrawerOpen(true)}
-          className={`flex flex-col items-center gap-0.5 text-[10px] font-semibold transition-colors ${
-            activeDeepSpace ? 'text-[#C85A17]' : 'text-[#78716C]'
+          className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
+            isSpacesDrawerOpen || (activeDeepSpace && activeDeepSpace !== 'tasks')
+              ? 'text-[#F59E0B]'
+              : 'text-[#8E95A5] hover:text-white'
           }`}
         >
-          <Menu className="w-4 h-4" />
-          <span>Spaces</span>
+          <MoreHorizontal className="w-5 h-5 stroke-[2.2]" />
+          <span className="text-[10px] font-medium tracking-tight">More</span>
         </button>
       </nav>
 
