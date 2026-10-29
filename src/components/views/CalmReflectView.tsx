@@ -61,7 +61,7 @@ export const CalmReflectView: React.FC = () => {
     });
 
     try {
-      confetti({ particleCount: 30, spread: 50, colors: ['#C85A17', '#4D6B53'] });
+      confetti({ particleCount: 30, spread: 50, colors: ['#B85C3B', '#6B7A5B'] });
     } catch (e) {}
 
     setGratitude1('');
@@ -97,10 +97,10 @@ export const CalmReflectView: React.FC = () => {
     <div className="max-w-2xl mx-auto py-4 space-y-8 animate-in fade-in duration-300">
       {/* Header */}
       <div className="text-center space-y-2">
-        <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#C85A17]">
+        <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#B85C3B]">
           Reflection Sanctuary
         </span>
-        <h2 className="text-2xl sm:text-3xl font-light text-[#1C1917] font-editorial">
+        <h2 className="text-2xl sm:text-3xl font-light text-[#1B1A19] font-editorial">
           What warmed your heart today?
         </h2>
       </div>
@@ -119,8 +119,8 @@ export const CalmReflectView: React.FC = () => {
                 onClick={() => updateProfile({ todayMood: m.key })}
                 className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium border transition-all ${
                   isSelected
-                    ? 'bg-[#FAF0E6] border-[#C85A17] text-[#C85A17] font-semibold shadow-xs'
-                    : 'bg-[#FFFFFF] border-[#E8E2D8] text-[#78716C] hover:bg-[#F2EFEB]'
+                    ? 'bg-[#F8EDE8] border-[#B85C3B] text-[#B85C3B] font-semibold shadow-xs'
+                    : 'bg-[#FFFFFF] border-[#E7E1DA] text-[#78716C] hover:bg-[#F2EFEB]'
                 }`}
               >
                 <span>{m.emoji}</span>
@@ -134,10 +134,10 @@ export const CalmReflectView: React.FC = () => {
       {/* Gratitude Form */}
       <form
         onSubmit={handleSave}
-        className="p-6 sm:p-8 rounded-3xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-xs space-y-5"
+        className="p-6 sm:p-8 rounded-3xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-xs space-y-5"
       >
         <div className="space-y-3">
-          <label className="block text-xs font-bold text-[#1C1917]">
+          <label className="block text-xs font-bold text-[#1B1A19]">
             Three Simple Gratitudes
           </label>
           <input
@@ -146,26 +146,26 @@ export const CalmReflectView: React.FC = () => {
             placeholder="1. Something you noticed, felt, or enjoyed today..."
             value={gratitude1}
             onChange={(e) => setGratitude1(e.target.value)}
-            className="w-full text-xs p-3 rounded-xl border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+            className="w-full text-xs p-3 rounded-xl border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
           />
           <input
             type="text"
             placeholder="2. Someone who made your day a little lighter..."
             value={gratitude2}
             onChange={(e) => setGratitude2(e.target.value)}
-            className="w-full text-xs p-3 rounded-xl border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+            className="w-full text-xs p-3 rounded-xl border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
           />
           <input
             type="text"
             placeholder="3. A simple privilege or comfort..."
             value={gratitude3}
             onChange={(e) => setGratitude3(e.target.value)}
-            className="w-full text-xs p-3 rounded-xl border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+            className="w-full text-xs p-3 rounded-xl border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#C85A17] mb-1.5">
+          <label className="block text-xs font-bold text-[#B85C3B] mb-1.5">
             One Thing You Appreciate About Yourself
           </label>
           <input
@@ -173,16 +173,16 @@ export const CalmReflectView: React.FC = () => {
             placeholder="e.g. I stayed gentle when plans changed..."
             value={selfAppreciation}
             onChange={(e) => setSelfAppreciation(e.target.value)}
-            className="w-full text-xs p-3 rounded-xl border border-[#E9D5C3] bg-[#FAF0E6]/30 focus:outline-none focus:border-[#C85A17]"
+            className="w-full text-xs p-3 rounded-xl border border-[#E7E1DA] bg-[#F8EDE8]/30 focus:outline-none focus:border-[#B85C3B]"
           />
         </div>
 
         <div className="flex justify-end pt-2">
           <button
             type="submit"
-            className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs transition-colors"
+            className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#1B1A19] hover:bg-[#2F2B28] text-[#FAF8F4] text-xs font-semibold shadow-xs transition-colors"
           >
-            <Heart className="w-3.5 h-3.5 text-[#C85A17]" />
+            <Heart className="w-3.5 h-3.5 text-[#B85C3B]" />
             <span>Save Reflection</span>
           </button>
         </div>
@@ -204,11 +204,11 @@ export const CalmReflectView: React.FC = () => {
             {gratitudes.map((g) => (
               <div
                 key={g.id}
-                className="group p-5 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] hover:border-[#D6CEBE] shadow-2xs transition-all space-y-2.5 relative"
+                className="group p-5 rounded-2xl bg-[#FFFFFF] border border-[#E7E1DA] hover:border-[#D6CEBE] shadow-2xs transition-all space-y-2.5 relative"
               >
                 <div className="flex items-center justify-between text-[11px] text-[#8F877F]">
                   <div className="flex items-center gap-1.5 font-medium">
-                    <Calendar className="w-3.5 h-3.5 text-[#C85A17]" />
+                    <Calendar className="w-3.5 h-3.5 text-[#B85C3B]" />
                     <span>{g.date}</span>
                   </div>
 
@@ -216,7 +216,7 @@ export const CalmReflectView: React.FC = () => {
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => handleOpenEdit(g)}
-                      className="p-1.5 rounded-lg text-[#78716C] hover:text-[#C85A17] hover:bg-[#FAF0E6] transition-colors flex items-center gap-1 text-[11px] font-medium"
+                      className="p-1.5 rounded-lg text-[#78716C] hover:text-[#B85C3B] hover:bg-[#F8EDE8] transition-colors flex items-center gap-1 text-[11px] font-medium"
                       title="Edit this reflection"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
@@ -237,15 +237,15 @@ export const CalmReflectView: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="space-y-1.5 text-xs text-[#1C1917]">
+                <div className="space-y-1.5 text-xs text-[#1B1A19]">
                   <p>"{g.gratitude1}"</p>
                   {g.gratitude2 && <p>"{g.gratitude2}"</p>}
                   {g.gratitude3 && <p>"{g.gratitude3}"</p>}
                 </div>
 
                 {g.selfAppreciation && (
-                  <div className="pt-2 border-t border-[#E8E2D8]/60 flex items-start gap-1.5 text-[11px] text-[#57534E]">
-                    <span className="font-semibold text-[#C85A17]">Self:</span>
+                  <div className="pt-2 border-t border-[#E7E1DA]/60 flex items-start gap-1.5 text-[11px] text-[#57534E]">
+                    <span className="font-semibold text-[#B85C3B]">Self:</span>
                     <span className="leading-relaxed">{g.selfAppreciation}</span>
                   </div>
                 )}
@@ -257,12 +257,12 @@ export const CalmReflectView: React.FC = () => {
 
       {/* Edit Gratitude Modal */}
       {editingEntry && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1917]/50 backdrop-blur-xs">
-          <div className="w-full max-w-lg bg-[#FAF8F5] border border-[#E8E2D8] rounded-3xl shadow-2xl p-6 sm:p-7 text-[#1C1917] space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B1A19]/50 backdrop-blur-xs">
+          <div className="w-full max-w-lg bg-[#FAF8F4] border border-[#E7E1DA] rounded-3xl shadow-2xl p-6 sm:p-7 text-[#1B1A19] space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
               <div className="flex items-center gap-2">
-                <Edit2 className="w-4 h-4 text-[#C85A17]" />
-                <h3 className="text-sm font-bold text-[#1C1917]">
+                <Edit2 className="w-4 h-4 text-[#B85C3B]" />
+                <h3 className="text-sm font-bold text-[#1B1A19]">
                   Edit Reflection ({editingEntry.date})
                 </h3>
               </div>
@@ -284,7 +284,7 @@ export const CalmReflectView: React.FC = () => {
                   required
                   value={editG1}
                   onChange={(e) => setEditG1(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
@@ -296,7 +296,7 @@ export const CalmReflectView: React.FC = () => {
                   type="text"
                   value={editG2}
                   onChange={(e) => setEditG2(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
@@ -308,23 +308,23 @@ export const CalmReflectView: React.FC = () => {
                   type="text"
                   value={editG3}
                   onChange={(e) => setEditG3(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#C85A17] mb-1">
+                <label className="block text-xs font-semibold text-[#B85C3B] mb-1">
                   Self-Appreciation
                 </label>
                 <input
                   type="text"
                   value={editSelf}
                   onChange={(e) => setEditSelf(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-xl border border-[#E9D5C3] bg-[#FAF0E6]/30 focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-xl border border-[#E7E1DA] bg-[#F8EDE8]/30 focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-[#E8E2D8]">
+              <div className="flex justify-end gap-2 pt-3 border-t border-[#E7E1DA]">
                 <button
                   type="button"
                   onClick={() => setEditingEntry(null)}
@@ -334,7 +334,7 @@ export const CalmReflectView: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
+                  className="px-5 py-2 rounded-xl bg-[#B85C3B] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
                 >
                   Save Changes
                 </button>

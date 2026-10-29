@@ -9,6 +9,7 @@ import {
   Sparkles,
   Shield,
   Trash2,
+  Edit2,
   X,
   Briefcase,
   Heart,
@@ -21,9 +22,10 @@ import { CustomSelect } from '../common/CustomSelect';
 import confetti from 'canvas-confetti';
 
 export const HabitsView: React.FC = () => {
-  const { habits, addHabit, toggleHabitDate, deleteHabit, showToast } = useApp();
+  const { habits, addHabit, updateHabit, toggleHabitDate, deleteHabit, showToast } = useApp();
 
   const [isAdding, setIsAdding] = useState(false);
+  const [editingHabitId, setEditingHabitId] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [domain, setDomain] = useState<LifeDomain>('growth');
   const [targetPerWeek, setTargetPerWeek] = useState<number>(7);
@@ -39,106 +41,138 @@ export const HabitsView: React.FC = () => {
     };
   });
 
-  const handleCreateHabit = (e: React.FormEvent) => {
+  const handleOpenAdd = () => {
+    setEditingHabitId(null);
+    setName('');
+    setNotes('');
+    setTargetPerWeek(7);
+    setDomain('growth');
+    setIsAdding(true);
+  };
+
+  const handleStartEdit = (habit: Habit) => {
+    setEditingHabitId(habit.id);
+    setName(habit.name);
+    setNotes(habit.notes || '');
+    setTargetPerWeek(habit.targetPerWeek);
+    setDomain(habit.domain);
+    setIsAdding(true);
+  };
+
+  const handleSaveHabit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
 
-    addHabit({
-      name: name.trim(),
-      domain,
-      targetPerWeek,
-      completions: [new Date().toISOString().split('T')[0]],
-      status: 'active',
-      notes: notes.trim() || undefined,
-    });
+    if (editingHabitId) {
+      updateHabit(editingHabitId, {
+        name: name.trim(),
+        domain,
+        targetPerWeek,
+        notes: notes.trim() || undefined,
+      });
+      showToast('Habit updated');
+    } else {
+      addHabit({
+        name: name.trim(),
+        domain,
+        targetPerWeek,
+        completions: [new Date().toISOString().split('T')[0]],
+        status: 'active',
+        notes: notes.trim() || undefined,
+      });
 
-    try {
-      confetti({ particleCount: 20, spread: 45, colors: ['#C85A17', '#4D6B53'] });
-    } catch (e) {}
+      try {
+        confetti({ particleCount: 20, spread: 45, colors: ['#B85C3B', '#6B7A5B'] });
+      } catch (e) {}
+      showToast('Habit created');
+    }
 
     setName('');
     setNotes('');
+    setEditingHabitId(null);
     setIsAdding(false);
   };
 
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E7E1DA]">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+          <h1 className="text-xl font-bold tracking-tight text-[#1B1A19]">
             Habits & Daily Rhythms
           </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
-            Consistency through compassion. A missed day is merely feedback, not a reset.
+            Gentle consistency over rigid streaks. Show up without shame or punishment.
           </p>
         </div>
 
         <button
-          onClick={() => setIsAdding(true)}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs transition-colors self-start sm:self-auto"
+          onClick={handleOpenAdd}
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1B1A19] hover:bg-[#2B2927] text-[#FAF8F4] text-xs font-semibold shadow-xs transition-colors self-start sm:self-auto"
         >
-          <Plus className="w-4 h-4 text-[#C85A17]" />
-          <span>New Rhythm</span>
+          <Plus className="w-4 h-4 text-[#B85C3B]" />
+          <span>New Habit</span>
         </button>
       </div>
 
-      {/* Philosophy Card */}
-      <div className="p-4 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8] flex items-center gap-3">
-        <Shield className="w-5 h-5 text-[#4D6B53] shrink-0" />
-        <p className="text-xs text-[#57534E] leading-relaxed">
-          <strong className="font-semibold text-[#1C1917]">No-guilt philosophy:</strong> We do
-          not track punitive "streaks" that break your spirit after one travel day or illness. We
-          measure total frequency and the ease of returning.
-        </p>
-      </div>
-
-      {/* Habits List */}
+      {/* Habit Cards */}
       <div className="space-y-3">
         {habits.map((habit) => {
-          const completedCountThisWeek = habit.completions.filter((d) =>
-            last7Days.some((ld) => ld.dateStr === d)
-          ).length;
+          // Calculate completions in the last 7 days
+          const completedCountThisWeek = habit.completions.filter((dateStr) => {
+            const date = new Date(dateStr);
+            const weekAgo = new Date(Date.now() - 7 * 86400000);
+            return date >= weekAgo;
+          }).length;
 
           return (
             <div
               key={habit.id}
-              className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-xs space-y-4 hover:border-[#D6CEBE] transition-colors"
+              className="p-4 sm:p-5 rounded-2xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-xs space-y-3 hover:border-[#D6CEBE] transition-colors"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="space-y-0.5">
+                <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FAF0E6] text-[#C85A17]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#F4EFEB] text-[#78716C]">
                       {habit.domain}
                     </span>
-                    <span className="text-xs text-[#8F877F]">
-                      Target: {habit.targetPerWeek}x / week
-                    </span>
+                    <h2 className="text-sm font-bold text-[#1B1A19]">{habit.name}</h2>
                   </div>
-                  <h3 className="text-sm font-bold text-[#1C1917]">{habit.name}</h3>
-                  {habit.notes && <p className="text-xs text-[#78716C]">{habit.notes}</p>}
+                  {habit.notes && (
+                    <p className="text-xs text-[#78716C] italic">{habit.notes}</p>
+                  )}
                 </div>
 
                 <div className="flex items-center justify-between sm:justify-end gap-3">
                   <div className="text-right">
-                    <span className="text-xs font-mono font-bold text-[#1C1917]">
+                    <span className="text-xs font-mono font-bold text-[#1B1A19]">
                       {completedCountThisWeek}/{habit.targetPerWeek}
                     </span>
                     <span className="text-[10px] text-[#8F877F] block">this week</span>
                   </div>
 
-                  <button
-                    onClick={() => deleteHabit(habit.id)}
-                    className="p-1 rounded text-[#DDD7CB] hover:text-[#DC2626] transition-colors"
-                    title="Archive Habit"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
+                  {/* Edit and Delete Kept Together */}
+                  <div className="flex items-center gap-1 bg-[#F4EFEB] p-1 rounded-lg border border-[#E7E1DA]">
+                    <button
+                      onClick={() => handleStartEdit(habit)}
+                      className="p-1 rounded text-[#78716C] hover:text-[#1B1A19] hover:bg-white transition-colors"
+                      title="Edit Habit"
+                    >
+                      <Edit2 className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => deleteHabit(habit.id)}
+                      className="p-1 rounded text-[#78716C] hover:text-[#DC2626] hover:bg-white transition-colors"
+                      title="Archive Habit"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               </div>
 
               {/* 7-Day Completion Dots */}
-              <div className="pt-2 border-t border-[#E8E2D8]/60 flex items-center justify-between">
+              <div className="pt-2 border-t border-[#E7E1DA] flex items-center justify-between">
                 <span className="text-[10px] uppercase font-bold text-[#8F877F] tracking-wider">
                   Past 7 Days
                 </span>
@@ -151,15 +185,19 @@ export const HabitsView: React.FC = () => {
                         onClick={() => toggleHabitDate(habit.id, day.dateStr)}
                         className={`w-7 h-8 rounded-lg flex flex-col items-center justify-center transition-all ${
                           isDone
-                            ? 'bg-[#4D6B53] text-[#FFFFFF]'
+                            ? 'bg-[#6B7A5B] text-[#FFFFFF]'
                             : day.isToday
-                            ? 'border-2 border-dashed border-[#C85A17] bg-[#FAF8F5] text-[#C85A17]'
-                            : 'bg-[#F2EFEB] text-[#8F877F] hover:bg-[#E8E2D8]'
+                            ? 'border-2 border-[#B85C3B] text-[#1B1A19] bg-[#F8EDE8]/50'
+                            : 'bg-[#F4EFEB] text-[#8F877F] hover:bg-[#E7E1DA]'
                         }`}
-                        title={`${day.dateStr}: ${isDone ? 'Completed' : 'Click to toggle'}`}
+                        title={`${day.dateStr}: ${isDone ? 'Completed' : 'Not completed'}`}
                       >
                         <span className="text-[9px] font-bold">{day.dayName}</span>
-                        {isDone && <Check className="w-3 h-3 stroke-[3]" />}
+                        {isDone ? (
+                          <Check className="w-3 h-3 stroke-[3]" />
+                        ) : (
+                          <span className="w-1.5 h-1.5 rounded-full bg-current opacity-40" />
+                        )}
                       </button>
                     );
                   })}
@@ -168,23 +206,38 @@ export const HabitsView: React.FC = () => {
             </div>
           );
         })}
+
+        {habits.length === 0 && (
+          <div className="p-8 text-center rounded-2xl border border-dashed border-[#E7E1DA] bg-[#FFFFFF]/60">
+            <Repeat className="w-8 h-8 text-[#8F877F] mx-auto mb-2" />
+            <p className="text-sm font-semibold text-[#1B1A19]">No active habits yet.</p>
+            <p className="text-xs text-[#8F877F] mt-1">
+              Start with one keystone daily action that connects to your quarterly horizon.
+            </p>
+          </div>
+        )}
       </div>
 
-      {/* New Habit Modal */}
+      {/* Create / Edit Habit Modal */}
       {isAdding && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1917]/50 backdrop-blur-xs">
-          <div className="w-full max-w-lg bg-[#FAF8F5] border border-[#E8E2D8] rounded-2xl shadow-2xl p-6 sm:p-7 text-[#1C1917]">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
-              <h2 className="text-sm font-bold text-[#1C1917]">Establish Habit / Rhythm</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B1A19]/50 backdrop-blur-xs">
+          <div className="w-full max-w-md bg-[#FAF8F4] border border-[#E7E1DA] rounded-2xl shadow-2xl p-6 text-[#1B1A19]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
+              <h2 className="text-sm font-bold text-[#1B1A19]">
+                {editingHabitId ? 'Edit Habit' : 'Create Daily Rhythm'}
+              </h2>
               <button
-                onClick={() => setIsAdding(false)}
-                className="p-1 rounded-lg text-[#8F877F] hover:bg-[#EBE5DB]"
+                onClick={() => {
+                  setIsAdding(false);
+                  setEditingHabitId(null);
+                }}
+                className="p-1 rounded-lg text-[#8F877F] hover:bg-[#F4EFEB]"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleCreateHabit} className="mt-4 space-y-3">
+            <form onSubmit={handleSaveHabit} className="mt-4 space-y-3">
               <div>
                 <label className="block text-xs font-semibold text-[#57534E] mb-1">
                   Habit Name
@@ -196,7 +249,7 @@ export const HabitsView: React.FC = () => {
                   placeholder="e.g. Read 20 pages of deep literature or philosophy"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
@@ -245,23 +298,26 @@ export const HabitsView: React.FC = () => {
                   placeholder="e.g. First thing in the morning before turning on wifi"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-[#E8E2D8]">
+              <div className="flex justify-end gap-2 pt-3 border-t border-[#E7E1DA]">
                 <button
                   type="button"
-                  onClick={() => setIsAdding(false)}
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium text-[#78716C] hover:bg-[#EBE5DB]"
+                  onClick={() => {
+                    setIsAdding(false);
+                    setEditingHabitId(null);
+                  }}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium text-[#78716C] hover:bg-[#F4EFEB]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 rounded-lg bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
+                  className="px-4 py-1.5 rounded-lg bg-[#B85C3B] hover:bg-[#A34E30] text-[#FFFFFF] text-xs font-semibold shadow-xs transition-colors"
                 >
-                  Save Habit
+                  {editingHabitId ? 'Update Habit' : 'Save Rhythm'}
                 </button>
               </div>
             </form>

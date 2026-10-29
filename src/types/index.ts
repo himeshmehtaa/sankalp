@@ -98,7 +98,7 @@ export interface UnstuckLog {
   userNotes?: string;
   guidanceText: string;
   recommendedPhysicalAction: string;
-  durationSelected: '2min' | '10min' | 'custom';
+  durationSelected: '25min' | '2min' | '10min' | '50min' | 'custom';
   wasHelpful?: boolean;
   createdAt: string;
 }

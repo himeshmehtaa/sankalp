@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
+import { SankalpSymbol } from '../brand/SankalpLogo';
 import {
   X,
   Play,
@@ -18,6 +19,7 @@ export const FocusModeModal: React.FC = () => {
     isFocusModalOpen,
     setIsFocusModalOpen,
     activeFocusTask,
+    focusInitialMinutes,
     logFocusSession,
     toggleTaskStatus,
     showToast,
@@ -36,7 +38,9 @@ export const FocusModeModal: React.FC = () => {
   // Sync initial seconds when duration changes or modal opens
   useEffect(() => {
     if (isFocusModalOpen) {
-      setSecondsRemaining(durationMinutes * 60);
+      const initial = focusInitialMinutes || 25;
+      setDurationMinutes(initial);
+      setSecondsRemaining(initial * 60);
       setIsRunning(true);
       setDistractions([]);
       setSessionOutcome('');
@@ -45,7 +49,7 @@ export const FocusModeModal: React.FC = () => {
       setIsRunning(false);
       clearInterval(timerRef.current);
     }
-  }, [isFocusModalOpen, durationMinutes]);
+  }, [isFocusModalOpen, focusInitialMinutes]);
 
   // Interval timer
   useEffect(() => {
@@ -57,7 +61,7 @@ export const FocusModeModal: React.FC = () => {
             setIsRunning(false);
             setIsFinishing(true);
             try {
-              confetti({ particleCount: 35, spread: 60, colors: ['#C85A17', '#FAF0E6'] });
+              confetti({ particleCount: 35, spread: 60, colors: ['#B85C3B', '#FAF8F4'] });
             } catch (e) {}
             return 0;
           }
@@ -103,7 +107,7 @@ export const FocusModeModal: React.FC = () => {
     }
 
     try {
-      confetti({ particleCount: 40, spread: 70, colors: ['#C85A17', '#4D6B53'] });
+      confetti({ particleCount: 40, spread: 70, colors: ['#B85C3B', '#6B7A5B'] });
     } catch (e) {}
 
     setIsFocusModalOpen(false);
@@ -111,24 +115,24 @@ export const FocusModeModal: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1917]/75 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B1A19]/75 backdrop-blur-md animate-in fade-in duration-200"
       role="dialog"
       aria-modal="true"
       aria-labelledby="focus-modal-title"
     >
-      <div className="relative w-full max-w-xl bg-[#FAF8F5] border border-[#E8E2D8] rounded-3xl shadow-2xl p-7 sm:p-9 text-[#1C1917] overflow-hidden flex flex-col justify-between max-h-[92vh]">
+      <div className="relative w-full max-w-xl bg-[#FAF8F4] border border-[#E7E1DA] rounded-3xl shadow-2xl p-7 sm:p-9 text-[#1B1A19] overflow-hidden flex flex-col justify-between max-h-[92vh]">
         {/* Top Controls */}
-        <div className="flex items-center justify-between pb-4 border-b border-[#E8E2D8]/80">
+        <div className="flex items-center justify-between pb-4 border-b border-[#E7E1DA]">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#C85A17] animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-widest text-[#78716C] font-editorial">
+            <SankalpSymbol className="w-4 h-4" fillColor="#B85C3B" />
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#78716C] font-wordmark">
               SANKALP FOCUS SANCTUARY
             </span>
           </div>
 
           <button
             onClick={() => setIsFocusModalOpen(false)}
-            className="p-1.5 rounded-lg text-[#8F877F] hover:text-[#1C1917] hover:bg-[#EBE5DB] transition-colors"
+            className="p-1.5 rounded-lg text-[#8F877F] hover:text-[#1B1A19] hover:bg-[#F4EFEB] transition-colors"
             title="Minimize focus session"
           >
             <X className="w-5 h-5" />
@@ -140,12 +144,12 @@ export const FocusModeModal: React.FC = () => {
           <div className="py-6 flex flex-col items-center text-center space-y-6">
             {/* Active Task Name */}
             <div className="max-w-md">
-              <span className="text-[11px] font-semibold text-[#C85A17] uppercase tracking-wider bg-[#FAF0E6] px-2.5 py-0.5 rounded-full border border-[#E9D5C3]">
+              <span className="text-[11px] font-semibold text-[#B85C3B] uppercase tracking-wider bg-[#F8EDE8] px-2.5 py-0.5 rounded-full border border-[#E7E1DA]">
                 Current Anchor
               </span>
               <h2
                 id="focus-modal-title"
-                className="text-lg sm:text-xl font-bold text-[#1C1917] mt-3 tracking-tight font-editorial"
+                className="text-lg sm:text-xl font-bold text-[#1B1A19] mt-3 tracking-tight font-editorial"
               >
                 {activeFocusTask?.title || 'Singular Focused Attention'}
               </h2>
@@ -158,7 +162,7 @@ export const FocusModeModal: React.FC = () => {
 
             {/* Giant Minimalist Timer */}
             <div className="relative my-2 select-none">
-              <div className="text-6xl sm:text-7xl font-mono font-light tracking-tight text-[#1C1917]">
+              <div className="text-6xl sm:text-7xl font-mono font-light tracking-tight text-[#1B1A19]">
                 {formattedTime}
               </div>
               <div className="flex justify-center gap-2 mt-4">
@@ -169,10 +173,10 @@ export const FocusModeModal: React.FC = () => {
                       setDurationMinutes(mins);
                       setSecondsRemaining(mins * 60);
                     }}
-                    className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                    className={`px-3.5 py-1 text-xs rounded-full border transition-colors ${
                       durationMinutes === mins
-                        ? 'border-[#C85A17] bg-[#FAF0E6] text-[#C85A17] font-semibold'
-                        : 'border-[#E8E2D8] bg-[#FFFFFF] text-[#78716C] hover:bg-[#F2EFEB]'
+                        ? 'border-[#B85C3B] bg-[#F8EDE8] text-[#B85C3B] font-semibold'
+                        : 'border-[#E7E1DA] bg-[#FFFFFF] text-[#78716C] hover:bg-[#F4EFEB]'
                     }`}
                   >
                     {mins}m
@@ -185,16 +189,16 @@ export const FocusModeModal: React.FC = () => {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setIsRunning(!isRunning)}
-                className="flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-[#1C1917] text-[#FAF8F5] hover:bg-[#2F2B28] text-sm font-semibold shadow-md transition-transform active:scale-95"
+                className="flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-[#1B1A19] text-[#FAF8F4] hover:bg-[#2B2927] text-sm font-semibold shadow-md transition-transform active:scale-95"
               >
                 {isRunning ? (
                   <>
-                    <Pause className="w-4 h-4 text-[#C85A17]" />
+                    <Pause className="w-4 h-4 text-[#B85C3B]" />
                     <span>Pause</span>
                   </>
                 ) : (
                   <>
-                    <Play className="w-4 h-4 text-[#C85A17]" />
+                    <Play className="w-4 h-4 text-[#B85C3B]" />
                     <span>Resume</span>
                   </>
                 )}
@@ -202,7 +206,7 @@ export const FocusModeModal: React.FC = () => {
 
               <button
                 onClick={() => setSecondsRemaining(durationMinutes * 60)}
-                className="p-2.5 rounded-2xl border border-[#E8E2D8] bg-[#FFFFFF] hover:bg-[#F2EFEB] text-[#78716C] transition-colors"
+                className="p-2.5 rounded-2xl border border-[#E7E1DA] bg-[#FFFFFF] hover:bg-[#F4EFEB] text-[#78716C] transition-colors"
                 title="Reset timer"
               >
                 <RotateCcw className="w-4 h-4" />
@@ -210,14 +214,14 @@ export const FocusModeModal: React.FC = () => {
 
               <button
                 onClick={() => setIsFinishing(true)}
-                className="px-4 py-2.5 rounded-2xl border border-[#D6CEBE] bg-[#FFFFFF] hover:bg-[#F4EFEA] text-xs font-semibold text-[#1C1917] transition-colors"
+                className="px-4 py-2.5 rounded-2xl border border-[#E7E1DA] bg-[#FFFFFF] hover:bg-[#F4EFEB] text-xs font-semibold text-[#1B1A19] transition-colors"
               >
                 Wrap Up Early
               </button>
             </div>
 
             {/* Distraction Parker */}
-            <div className="w-full max-w-md pt-2 border-t border-[#E8E2D8]/80 text-left">
+            <div className="w-full max-w-md pt-2 border-t border-[#E7E1DA] text-left">
               <p className="text-[11px] font-semibold text-[#8F877F] uppercase tracking-wider mb-2">
                 Park fleeting thoughts (Keep mind clear)
               </p>
@@ -227,11 +231,11 @@ export const FocusModeModal: React.FC = () => {
                   placeholder="e.g. Remember to buy milk, check flight..."
                   value={distractionInput}
                   onChange={(e) => setDistractionInput(e.target.value)}
-                  className="flex-1 text-xs px-3 py-2 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="flex-1 text-xs px-3 py-2 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
                 <button
                   type="submit"
-                  className="px-3 py-2 rounded-xl bg-[#F2EFEB] hover:bg-[#E8E2D8] text-xs font-medium text-[#57534E]"
+                  className="px-3 py-2 rounded-xl bg-[#F4EFEB] hover:bg-[#E7E1DA] text-xs font-medium text-[#57534E]"
                 >
                   Park
                 </button>
@@ -242,7 +246,7 @@ export const FocusModeModal: React.FC = () => {
                   {distractions.map((d, i) => (
                     <div
                       key={i}
-                      className="text-[11px] text-[#78716C] bg-[#FFFFFF] px-2.5 py-1 rounded-md border border-[#E8E2D8] flex items-center justify-between"
+                      className="text-[11px] text-[#78716C] bg-[#FFFFFF] px-2.5 py-1 rounded-md border border-[#E7E1DA] flex items-center justify-between"
                     >
                       <span>• {d}</span>
                       <span className="text-[9px] text-[#8F877F]">parked</span>
@@ -256,10 +260,10 @@ export const FocusModeModal: React.FC = () => {
           /* Session Wrap Up & Tangible Output Log */
           <div className="py-4 space-y-5 animate-in fade-in zoom-in-95 duration-150">
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-[#FAF0E6] text-[#C85A17] flex items-center justify-center mx-auto mb-2 border border-[#E9D5C3]">
+              <div className="w-12 h-12 rounded-full bg-[#F8EDE8] text-[#B85C3B] flex items-center justify-center mx-auto mb-2 border border-[#E7E1DA]">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-bold text-[#1C1917] font-editorial">
+              <h3 className="text-lg font-bold text-[#1B1A19] font-editorial">
                 Session Finished ({elapsedMinutes}m recorded)
               </h3>
               <p className="text-xs text-[#78716C] mt-0.5">
@@ -276,7 +280,7 @@ export const FocusModeModal: React.FC = () => {
                 placeholder="e.g. Finished problem statement, resolved responsive touch bug on mobile nav..."
                 value={sessionOutcome}
                 onChange={(e) => setSessionOutcome(e.target.value)}
-                className="w-full text-xs p-3 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17] resize-none"
+                className="w-full text-xs p-3 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B] resize-none"
               />
             </div>
 
@@ -296,13 +300,13 @@ export const FocusModeModal: React.FC = () => {
             <div className="grid grid-cols-2 gap-3 pt-2">
               <button
                 onClick={() => handleCompleteSession(false)}
-                className="p-3 rounded-xl border border-[#D6CEBE] bg-[#FFFFFF] hover:bg-[#F2EFEB] text-xs font-semibold text-[#1C1917]"
+                className="p-3 rounded-xl border border-[#D6CEBE] bg-[#FFFFFF] hover:bg-[#F2EFEB] text-xs font-semibold text-[#1B1A19]"
               >
                 Save Session Log
               </button>
               <button
                 onClick={() => handleCompleteSession(true)}
-                className="p-3 rounded-xl bg-[#1C1917] text-[#FAF8F5] hover:bg-[#2F2B28] text-xs font-semibold shadow-xs"
+                className="p-3 rounded-xl bg-[#1B1A19] text-[#FAF8F4] hover:bg-[#2F2B28] text-xs font-semibold shadow-xs"
               >
                 Mark Task Completed & Save
               </button>

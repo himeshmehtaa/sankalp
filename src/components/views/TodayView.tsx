@@ -109,7 +109,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
     }
 
     try {
-      confetti({ particleCount: 30, spread: 50, colors: ['#C85A17', '#4D6B53'] });
+      confetti({ particleCount: 30, spread: 50, colors: ['#B85C3B', '#6B7A5B'] });
     } catch (e) {}
 
     showToast('Evening reflection recorded. Rest deeply.');
@@ -119,16 +119,16 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
   return (
     <div className="max-w-4xl mx-auto space-y-8 pb-16 animate-in fade-in duration-200">
       {/* 1. Life Direction Anchor Card */}
-      <section className="bg-gradient-to-br from-[#FAF0E6]/60 via-[#FFFFFF] to-[#F5EFE8] border border-[#E8DEC8] rounded-2xl p-6 sm:p-7 shadow-xs relative overflow-hidden">
+      <section className="bg-gradient-to-br from-[#F8EDE8]/60 via-[#FFFFFF] to-[#F5EFE8] border border-[#E8DEC8] rounded-2xl p-6 sm:p-7 shadow-xs relative overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1.5 max-w-xl">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#C85A17]" />
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#C85A17] font-editorial">
+              <span className="w-2 h-2 rounded-full bg-[#B85C3B]" />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#B85C3B] font-editorial">
                 Personal Direction
               </span>
             </div>
-            <p className="text-sm font-medium text-[#1C1917] leading-relaxed">
+            <p className="text-sm font-medium text-[#1B1A19] leading-relaxed">
               "{profile.lifeVision}"
             </p>
           </div>
@@ -136,9 +136,9 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
           <div className="shrink-0 flex items-center gap-2">
             <button
               onClick={() => openUnstuckWithState()}
-              className="px-3.5 py-2 rounded-xl bg-[#FAF0E6] hover:bg-[#F5E2D0] border border-[#E9D5C3] text-xs font-semibold text-[#9A420E] transition-all flex items-center gap-1.5"
+              className="px-3.5 py-2 rounded-xl bg-[#F8EDE8] hover:bg-[#F5E2D0] border border-[#E7E1DA] text-xs font-semibold text-[#9A420E] transition-all flex items-center gap-1.5"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#C85A17]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#B85C3B]" />
               <span>Get Me Unstuck</span>
             </button>
           </div>
@@ -149,8 +149,8 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
       <section className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#C85A17]" />
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#1C1917] font-editorial">
+            <span className="w-2 h-2 rounded-full bg-[#B85C3B]" />
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#1B1A19] font-editorial">
               Today's #1 Proof Action
             </h2>
           </div>
@@ -171,13 +171,13 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
               <div className="flex items-start gap-3.5 flex-1 min-w-0">
                 <button
                   onClick={() => toggleTaskStatus(proofTask.id)}
-                  className="mt-0.5 text-[#8F877F] hover:text-[#C85A17] transition-colors"
+                  className="mt-0.5 text-[#8F877F] hover:text-[#B85C3B] transition-colors"
                   aria-label="Toggle task status"
                 >
                   {proofTask.status === 'completed' ? (
-                    <CheckCircle2 className="w-6 h-6 text-[#4D6B53] fill-[#EEF4F0]" />
+                    <CheckCircle2 className="w-6 h-6 text-[#6B7A5B] fill-[#EEF2EC]" />
                   ) : (
-                    <Circle className="w-6 h-6 hover:text-[#C85A17]" />
+                    <Circle className="w-6 h-6 hover:text-[#B85C3B]" />
                   )}
                 </button>
 
@@ -186,7 +186,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                     className={`text-base font-bold tracking-tight ${
                       proofTask.status === 'completed'
                         ? 'line-through text-[#78716C]'
-                        : 'text-[#1C1917]'
+                        : 'text-[#1B1A19]'
                     }`}
                   >
                     {proofTask.title}
@@ -200,15 +200,15 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
 
                   {/* Goal Connection Pill */}
                   {proofGoal && (
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#FAF0E6] text-[#9A420E] text-[11px] font-medium border border-[#E9D5C3]">
-                      <Target className="w-3 h-3 text-[#C85A17]" />
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#F8EDE8] text-[#9A420E] text-[11px] font-medium border border-[#E7E1DA]">
+                      <Target className="w-3 h-3 text-[#B85C3B]" />
                       <span>Advances: {proofGoal.title}</span>
                     </div>
                   )}
 
                   {/* Subtasks if any */}
                   {proofTask.subtasks && proofTask.subtasks.length > 0 && (
-                    <div className="mt-3 pt-3 border-t border-[#E8E2D8]/60 space-y-1.5">
+                    <div className="mt-3 pt-3 border-t border-[#E7E1DA]/60 space-y-1.5">
                       <p className="text-[10px] font-bold uppercase tracking-wider text-[#8F877F]">
                         Milestone Steps
                       </p>
@@ -216,12 +216,12 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                         <button
                           key={st.id}
                           onClick={() => toggleSubtask(proofTask.id, st.id)}
-                          className="flex items-center gap-2 text-xs text-left w-full text-[#57534E] hover:text-[#1C1917]"
+                          className="flex items-center gap-2 text-xs text-left w-full text-[#57534E] hover:text-[#1B1A19]"
                         >
                           <div
                             className={`w-3.5 h-3.5 rounded border flex items-center justify-center transition-colors ${
                               st.completed
-                                ? 'bg-[#4D6B53] border-[#4D6B53] text-[#FFFFFF]'
+                                ? 'bg-[#6B7A5B] border-[#6B7A5B] text-[#FFFFFF]'
                                 : 'border-[#DDD7CB]'
                             }`}
                           >
@@ -241,9 +241,9 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
               {proofTask.status !== 'completed' && (
                 <button
                   onClick={() => startFocusSession(proofTask)}
-                  className="shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs transition-transform active:scale-95"
+                  className="shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-[#FAF8F4] text-xs font-semibold shadow-xs transition-transform active:scale-95"
                 >
-                  <Play className="w-3.5 h-3.5 text-[#C85A17] fill-[#C85A17]" />
+                  <Play className="w-3.5 h-3.5 text-[#B85C3B] fill-[#B85C3B]" />
                   <span className="hidden sm:inline">Enter Focus Sanctuary</span>
                   <span className="sm:hidden">Focus</span>
                 </button>
@@ -257,7 +257,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
             </p>
             <button
               onClick={() => setIsQuickCaptureOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#FAF0E6] text-[#C85A17] text-xs font-semibold hover:bg-[#F5E2D0]"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F8EDE8] text-[#B85C3B] text-xs font-semibold hover:bg-[#F5E2D0]"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Define Today's Proof Action</span>
@@ -271,7 +271,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#8F877F]" />
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#1C1917] font-editorial">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#1B1A19] font-editorial">
               Supporting Priorities
             </h2>
           </div>
@@ -285,16 +285,16 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
               className={`p-4 rounded-xl border transition-all ${
                 task.status === 'completed'
                   ? 'bg-[#F4F9F5] border-[#CFDFD3]'
-                  : 'bg-[#FFFFFF] border-[#E8E2D8] hover:border-[#D6CEBE]'
+                  : 'bg-[#FFFFFF] border-[#E7E1DA] hover:border-[#D6CEBE]'
               }`}
             >
               <div className="flex items-start gap-3">
                 <button
                   onClick={() => toggleTaskStatus(task.id)}
-                  className="mt-0.5 text-[#8F877F] hover:text-[#C85A17]"
+                  className="mt-0.5 text-[#8F877F] hover:text-[#B85C3B]"
                 >
                   {task.status === 'completed' ? (
-                    <CheckCircle2 className="w-5 h-5 text-[#4D6B53]" />
+                    <CheckCircle2 className="w-5 h-5 text-[#6B7A5B]" />
                   ) : (
                     <Circle className="w-5 h-5" />
                   )}
@@ -304,7 +304,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                     className={`text-xs font-semibold leading-snug ${
                       task.status === 'completed'
                         ? 'line-through text-[#8F877F]'
-                        : 'text-[#1C1917]'
+                        : 'text-[#1B1A19]'
                     }`}
                   >
                     {task.title}
@@ -319,7 +319,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                 {task.status !== 'completed' && (
                   <button
                     onClick={() => startFocusSession(task)}
-                    className="p-1.5 rounded-lg text-[#8F877F] hover:text-[#C85A17] hover:bg-[#F2EFEB]"
+                    className="p-1.5 rounded-lg text-[#8F877F] hover:text-[#B85C3B] hover:bg-[#F2EFEB]"
                     title="Focus on this task"
                   >
                     <Play className="w-3.5 h-3.5" />
@@ -341,8 +341,8 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
       <section className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#4D6B53]" />
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#1C1917] font-editorial">
+            <span className="w-2 h-2 rounded-full bg-[#6B7A5B]" />
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#1B1A19] font-editorial">
               Daily Rhythm & Routines
             </h2>
           </div>
@@ -358,8 +358,8 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                 onClick={() => toggleRoutineToday(routine.id)}
                 className={`p-3.5 rounded-xl border text-left transition-all flex flex-col justify-between h-24 ${
                   isDoneToday
-                    ? 'bg-[#EEF4F0] border-[#CFDFD3]'
-                    : 'bg-[#FFFFFF] border-[#E8E2D8] hover:border-[#D6CEBE]'
+                    ? 'bg-[#EEF2EC] border-[#CFDFD3]'
+                    : 'bg-[#FFFFFF] border-[#E7E1DA] hover:border-[#D6CEBE]'
                 }`}
               >
                 <div className="flex items-center justify-between w-full">
@@ -369,7 +369,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                   <div
                     className={`w-4 h-4 rounded-full border flex items-center justify-center ${
                       isDoneToday
-                        ? 'bg-[#4D6B53] border-[#4D6B53] text-[#FFFFFF]'
+                        ? 'bg-[#6B7A5B] border-[#6B7A5B] text-[#FFFFFF]'
                         : 'border-[#DDD7CB]'
                     }`}
                   >
@@ -379,7 +379,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                 <div>
                   <p
                     className={`text-xs font-semibold ${
-                      isDoneToday ? 'text-[#3E5642]' : 'text-[#1C1917]'
+                      isDoneToday ? 'text-[#3E5642]' : 'text-[#1B1A19]'
                     }`}
                   >
                     {routine.title}
@@ -395,17 +395,17 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
       </section>
 
       {/* 5. End-of-Day Reflection Accordion */}
-      <section className="border border-[#E8E2D8] rounded-2xl bg-[#FFFFFF] overflow-hidden shadow-2xs">
+      <section className="border border-[#E7E1DA] rounded-2xl bg-[#FFFFFF] overflow-hidden shadow-2xs">
         <button
           onClick={() => setReflectionTab(reflectionTab === 'evening' ? 'none' : 'evening')}
-          className="w-full p-5 flex items-center justify-between text-left hover:bg-[#FAF8F5] transition-colors"
+          className="w-full p-5 flex items-center justify-between text-left hover:bg-[#FAF8F4] transition-colors"
         >
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#FAF0E6] flex items-center justify-center text-[#C85A17] border border-[#E9D5C3]">
+            <div className="w-8 h-8 rounded-full bg-[#F8EDE8] flex items-center justify-center text-[#B85C3B] border border-[#E7E1DA]">
               <Heart className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-[#1C1917]">End-of-Day Reflection</h3>
+              <h3 className="text-sm font-bold text-[#1B1A19]">End-of-Day Reflection</h3>
               <p className="text-xs text-[#8F877F]">
                 Close today intentionally: complete, learn, challenge, gratitude, tomorrow
               </p>
@@ -421,7 +421,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
         {reflectionTab === 'evening' && (
           <form
             onSubmit={handleSaveReflection}
-            className="p-5 pt-0 border-t border-[#E8E2D8]/80 space-y-4 animate-in fade-in duration-150"
+            className="p-5 pt-0 border-t border-[#E7E1DA]/80 space-y-4 animate-in fade-in duration-150"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               <div>
@@ -433,7 +433,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                   placeholder="e.g. Shipped the mobile nav and ran 5km..."
                   value={reflectionWhatCompleted}
                   onChange={(e) => setReflectionWhatCompleted(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
@@ -446,7 +446,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                   placeholder="e.g. Resistance fades after 2 minutes of real motion..."
                   value={reflectionWhatLearned}
                   onChange={(e) => setReflectionWhatLearned(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
@@ -459,7 +459,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                   placeholder="e.g. Post-lunch attention dip..."
                   value={reflectionWhatChallenged}
                   onChange={(e) => setReflectionWhatChallenged(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
@@ -472,13 +472,13 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                   placeholder="e.g. An honest conversation, quiet tea..."
                   value={reflectionGratefulFor}
                   onChange={(e) => setReflectionGratefulFor(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-[11px] font-semibold text-[#C85A17] mb-1">
+              <label className="block text-[11px] font-semibold text-[#B85C3B] mb-1">
                 Tomorrow's #1 Most Important Action
               </label>
               <input
@@ -486,16 +486,16 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                 placeholder="What single anchor will you show up for tomorrow?"
                 value={reflectionTomorrowAnchor}
                 onChange={(e) => setReflectionTomorrowAnchor(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-[#E9D5C3] bg-[#FAF0E6]/30 focus:outline-none focus:border-[#C85A17] font-medium"
+                className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#F8EDE8]/30 focus:outline-none focus:border-[#B85C3B] font-medium"
               />
             </div>
 
             <div className="flex justify-end pt-2">
               <button
                 type="submit"
-                className="px-4 py-2 rounded-xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
+                className="px-4 py-2 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-[#FAF8F4] text-xs font-semibold shadow-xs transition-colors flex items-center gap-1.5"
               >
-                <Send className="w-3.5 h-3.5 text-[#C85A17]" />
+                <Send className="w-3.5 h-3.5 text-[#B85C3B]" />
                 <span>Save Reflection & Close Day</span>
               </button>
             </div>

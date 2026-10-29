@@ -95,15 +95,15 @@ export const QuickCaptureModal: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1917]/50 backdrop-blur-xs animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B1A19]/50 backdrop-blur-xs animate-in fade-in duration-150"
       role="dialog"
       aria-modal="true"
       aria-labelledby="quick-capture-title"
     >
-      <div className="relative w-full max-w-lg bg-[#FAF8F5] border border-[#E8E2D8] rounded-2xl shadow-2xl p-6 sm:p-7 text-[#1C1917]">
+      <div className="relative w-full max-w-lg bg-[#FAF8F4] border border-[#E7E1DA] rounded-2xl shadow-2xl p-6 sm:p-7 text-[#1B1A19]">
         {/* Top Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
-          <h2 id="quick-capture-title" className="text-sm font-bold text-[#1C1917] tracking-tight">
+        <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
+          <h2 id="quick-capture-title" className="text-sm font-bold text-[#1B1A19] tracking-tight">
             Quick Capture
           </h2>
           <button
@@ -127,11 +127,11 @@ export const QuickCaptureModal: React.FC = () => {
                 onClick={() => setCaptureType(t.key)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap ${
                   isSelected
-                    ? 'bg-[#1C1917] text-[#FAF8F5]'
-                    : 'bg-[#FFFFFF] border border-[#E8E2D8] text-[#57534E] hover:bg-[#F2EFEB]'
+                    ? 'bg-[#1B1A19] text-[#FAF8F4]'
+                    : 'bg-[#FFFFFF] border border-[#E7E1DA] text-[#57534E] hover:bg-[#F2EFEB]'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-[#C85A17]' : 'text-[#8F877F]'}`} />
+                <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-[#B85C3B]' : 'text-[#8F877F]'}`} />
                 <span>{t.label}</span>
               </button>
             );
@@ -157,7 +157,7 @@ export const QuickCaptureModal: React.FC = () => {
               }
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full text-sm font-medium px-3.5 py-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17] text-[#1C1917]"
+              className="w-full text-sm font-medium px-3.5 py-2.5 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B] text-[#1B1A19]"
             />
           </div>
 
@@ -167,7 +167,7 @@ export const QuickCaptureModal: React.FC = () => {
               placeholder="Add details, why it matters, or context (optional)..."
               value={secondaryText}
               onChange={(e) => setSecondaryText(e.target.value)}
-              className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17] resize-none text-[#57534E]"
+              className="w-full text-xs px-3.5 py-2.5 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B] resize-none text-[#57534E]"
             />
           </div>
 
@@ -194,7 +194,7 @@ export const QuickCaptureModal: React.FC = () => {
           )}
 
           {/* Submit Actions */}
-          <div className="flex items-center justify-between pt-3 border-t border-[#E8E2D8]">
+          <div className="flex items-center justify-between pt-3 border-t border-[#E7E1DA]">
             <span className="text-[11px] text-[#8F877F]">
               Press <kbd className="bg-[#EBE5DB] px-1 py-0.5 rounded text-[10px]">Enter</kbd> to save
             </span>
@@ -210,7 +210,7 @@ export const QuickCaptureModal: React.FC = () => {
               <button
                 type="submit"
                 disabled={!content.trim()}
-                className="px-4 py-1.5 rounded-lg bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs disabled:opacity-50 transition-colors"
+                className="px-4 py-1.5 rounded-lg bg-[#B85C3B] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs disabled:opacity-50 transition-colors"
               >
                 Capture Now
               </button>

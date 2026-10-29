@@ -11,6 +11,7 @@ import {
   Calendar,
   Target,
   Trash2,
+  Edit2,
   Archive,
   ArrowRight,
   Check,
@@ -38,6 +39,7 @@ export const TasksView: React.FC = () => {
 
   const [activeBucket, setActiveBucket] = useState<TaskBucket | 'completed'>('today');
   const [isNewTaskOpen, setIsNewTaskOpen] = useState(false);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
 
   const priorityOptions: SelectOption[] = [
     { value: 'proof', label: '#1 Proof Action', icon: <Flame className="w-3.5 h-3.5" /> },
@@ -75,24 +77,63 @@ export const TasksView: React.FC = () => {
     return t.bucket === activeBucket && t.status !== 'completed';
   });
 
-  const handleCreateTask = (e: React.FormEvent) => {
+  const handleOpenNew = () => {
+    setEditingTaskId(null);
+    setTitle('');
+    setNotes('');
+    setPriority('normal');
+    setBucket(activeBucket === 'completed' ? 'today' : activeBucket);
+    setGoalId('');
+    setDueDate('');
+    setEstimatedMinutes(30);
+    setIsNewTaskOpen(true);
+  };
+
+  const handleStartEdit = (task: Task) => {
+    setEditingTaskId(task.id);
+    setTitle(task.title);
+    setNotes(task.notes || '');
+    setPriority(task.priority);
+    setBucket(task.bucket);
+    setGoalId(task.goalId || '');
+    setDueDate(task.dueDate || '');
+    setEstimatedMinutes(task.estimatedMinutes || 30);
+    setIsNewTaskOpen(true);
+  };
+
+  const handleSaveTask = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) return;
 
-    addTask({
-      title: title.trim(),
-      notes: notes.trim() || undefined,
-      bucket,
-      priority,
-      status: 'todo',
-      goalId: goalId || undefined,
-      dueDate: dueDate || (bucket === 'today' ? new Date().toISOString().split('T')[0] : undefined),
-      estimatedMinutes: estimatedMinutes > 0 ? estimatedMinutes : undefined,
-      subtasks: [],
-    });
+    if (editingTaskId) {
+      updateTask(editingTaskId, {
+        title: title.trim(),
+        notes: notes.trim() || undefined,
+        bucket,
+        priority,
+        goalId: goalId || undefined,
+        dueDate: dueDate || undefined,
+        estimatedMinutes: estimatedMinutes > 0 ? estimatedMinutes : undefined,
+      });
+      showToast('Task updated');
+    } else {
+      addTask({
+        title: title.trim(),
+        notes: notes.trim() || undefined,
+        bucket,
+        priority,
+        status: 'todo',
+        goalId: goalId || undefined,
+        dueDate: dueDate || (bucket === 'today' ? new Date().toISOString().split('T')[0] : undefined),
+        estimatedMinutes: estimatedMinutes > 0 ? estimatedMinutes : undefined,
+        subtasks: [],
+      });
+      showToast('Task added');
+    }
 
     setTitle('');
     setNotes('');
+    setEditingTaskId(null);
     setIsNewTaskOpen(false);
   };
 
@@ -109,9 +150,9 @@ export const TasksView: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E7E1DA]/70">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+          <h1 className="text-xl font-bold tracking-tight text-[#1B1A19]">
             Tasks & Execution
           </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
@@ -120,31 +161,31 @@ export const TasksView: React.FC = () => {
         </div>
 
         <button
-          onClick={() => setIsNewTaskOpen(true)}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs transition-colors self-start sm:self-auto"
+          onClick={handleOpenNew}
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1B1A19] hover:bg-[#2B2927] text-[#FAF8F4] text-xs font-semibold shadow-xs transition-colors self-start sm:self-auto"
         >
-          <Plus className="w-4 h-4 text-[#C85A17]" />
+          <Plus className="w-4 h-4 text-[#B85C3B]" />
           <span>New Task</span>
         </button>
       </div>
 
       {/* Bucket Tabs */}
-      <div className="flex gap-1.5 overflow-x-auto pb-1 border-b border-[#E8E2D8]/60">
+      <div className="flex gap-1.5 overflow-x-auto pb-1 border-b border-[#E7E1DA]/60">
         {buckets.map((b) => (
           <button
             key={b.key}
             onClick={() => setActiveBucket(b.key)}
             className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-colors ${
               activeBucket === b.key
-                ? 'bg-[#FFFFFF] border border-[#E2DBD0] text-[#1C1917] font-semibold shadow-2xs'
-                : 'text-[#78716C] hover:text-[#1C1917] hover:bg-[#F2EFEB]'
+                ? 'bg-[#FFFFFF] border border-[#E2DBD0] text-[#1B1A19] font-semibold shadow-2xs'
+                : 'text-[#78716C] hover:text-[#1B1A19] hover:bg-[#F2EFEB]'
             }`}
           >
             <span>{b.label}</span>
             <span
               className={`px-1.5 py-0.2 rounded-full text-[10px] ${
                 activeBucket === b.key
-                  ? 'bg-[#C85A17]/10 text-[#C85A17] font-bold'
+                  ? 'bg-[#B85C3B]/10 text-[#B85C3B] font-bold'
                   : 'bg-[#EBE5DB] text-[#8F877F]'
               }`}
             >
@@ -165,18 +206,18 @@ export const TasksView: React.FC = () => {
                 task.status === 'completed'
                   ? 'bg-[#F4F9F5] border-[#CFDFD3]'
                   : task.priority === 'proof'
-                  ? 'bg-[#FFFFFF] border-[#C85A17]/40 shadow-xs ring-1 ring-[#C85A17]/10'
-                  : 'bg-[#FFFFFF] border-[#E8E2D8] hover:border-[#D6CEBE]'
+                  ? 'bg-[#FFFFFF] border-[#B85C3B]/40 shadow-xs ring-1 ring-[#B85C3B]/10'
+                  : 'bg-[#FFFFFF] border-[#E7E1DA] hover:border-[#D6CEBE]'
               }`}
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3 flex-1 min-w-0">
                   <button
                     onClick={() => toggleTaskStatus(task.id)}
-                    className="mt-0.5 text-[#8F877F] hover:text-[#C85A17] transition-colors"
+                    className="mt-0.5 text-[#8F877F] hover:text-[#B85C3B] transition-colors"
                   >
                     {task.status === 'completed' ? (
-                      <CheckCircle2 className="w-5 h-5 text-[#4D6B53]" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6B7A5B]" />
                     ) : (
                       <Circle className="w-5 h-5" />
                     )}
@@ -185,7 +226,7 @@ export const TasksView: React.FC = () => {
                   <div className="space-y-1 flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       {task.priority === 'proof' && (
-                        <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-[#FAF0E6] text-[#C85A17] border border-[#E9D5C3]">
+                        <span className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-[#F8EDE8] text-[#B85C3B] border border-[#E7E1DA]">
                           #1 Proof Action
                         </span>
                       )}
@@ -212,7 +253,7 @@ export const TasksView: React.FC = () => {
                       className={`text-sm font-semibold leading-snug ${
                         task.status === 'completed'
                           ? 'line-through text-[#8F877F]'
-                          : 'text-[#1C1917]'
+                          : 'text-[#1B1A19]'
                       }`}
                     >
                       {task.title}
@@ -223,7 +264,7 @@ export const TasksView: React.FC = () => {
                     )}
 
                     {linkedGoal && (
-                      <div className="inline-flex items-center gap-1 text-[11px] text-[#C85A17]">
+                      <div className="inline-flex items-center gap-1 text-[11px] text-[#B85C3B]">
                         <Target className="w-3 h-3" />
                         <span className="truncate">Advances: {linkedGoal.title}</span>
                       </div>
@@ -236,7 +277,7 @@ export const TasksView: React.FC = () => {
                   {task.status !== 'completed' && (
                     <button
                       onClick={() => startFocusSession(task)}
-                      className="p-1.5 rounded-lg text-[#8F877F] hover:text-[#C85A17] hover:bg-[#FAF0E6] transition-colors"
+                      className="p-1.5 rounded-lg text-[#8F877F] hover:text-[#B85C3B] hover:bg-[#F8EDE8] transition-colors"
                       title="Launch Focus Sanctuary"
                     >
                       <Play className="w-4 h-4 fill-current" />
@@ -248,7 +289,7 @@ export const TasksView: React.FC = () => {
                     <div className="relative group">
                       <button
                         onClick={() => handleReschedule(task.id, activeBucket === 'today' ? 'someday' : 'today')}
-                        className="px-2 py-1 rounded-md text-[10px] border border-[#E8E2D8] text-[#78716C] hover:bg-[#F2EFEB]"
+                        className="px-2 py-1 rounded-md text-[10px] border border-[#E7E1DA] text-[#78716C] hover:bg-[#F2EFEB]"
                         title={activeBucket === 'today' ? 'Move to Someday' : 'Move to Today'}
                       >
                         {activeBucket === 'today' ? '→ Someday' : '→ Today'}
@@ -256,13 +297,23 @@ export const TasksView: React.FC = () => {
                     </div>
                   )}
 
-                  <button
-                    onClick={() => deleteTask(task.id)}
-                    className="p-1.5 rounded-lg text-[#DDD7CB] hover:text-[#DC2626] transition-colors"
-                    title="Remove task"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
+                  {/* Edit and Delete kept together */}
+                  <div className="flex items-center gap-1 bg-[#F4EFEB] p-1 rounded-lg border border-[#E7E1DA]">
+                    <button
+                      onClick={() => handleStartEdit(task)}
+                      className="p-1 rounded text-[#78716C] hover:text-[#1B1A19] hover:bg-white transition-colors"
+                      title="Edit task"
+                    >
+                      <Edit2 className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => deleteTask(task.id)}
+                      className="p-1 rounded text-[#78716C] hover:text-[#DC2626] hover:bg-white transition-colors"
+                      title="Remove task"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -270,9 +321,9 @@ export const TasksView: React.FC = () => {
         })}
 
         {currentTasks.length === 0 && (
-          <div className="p-8 text-center rounded-2xl border border-dashed border-[#DDD7CB] bg-[#FFFFFF]/60">
+          <div className="p-8 text-center rounded-2xl border border-dashed border-[#E7E1DA] bg-[#FFFFFF]/60">
             <CheckSquare className="w-8 h-8 text-[#8F877F] mx-auto mb-2" />
-            <p className="text-sm font-semibold text-[#1C1917]">
+            <p className="text-sm font-semibold text-[#1B1A19]">
               No tasks currently in {activeBucket}.
             </p>
             <p className="text-xs text-[#8F877F] mt-0.5">
@@ -282,21 +333,26 @@ export const TasksView: React.FC = () => {
         )}
       </div>
 
-      {/* New Task Dialog */}
+      {/* Create / Edit Task Dialog */}
       {isNewTaskOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1917]/50 backdrop-blur-xs">
-          <div className="w-full max-w-lg bg-[#FAF8F5] border border-[#E8E2D8] rounded-2xl shadow-2xl p-6 sm:p-7 text-[#1C1917]">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
-              <h2 className="text-sm font-bold text-[#1C1917]">Create Task</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B1A19]/50 backdrop-blur-xs">
+          <div className="w-full max-w-lg bg-[#FAF8F4] border border-[#E7E1DA] rounded-2xl shadow-2xl p-6 sm:p-7 text-[#1B1A19]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
+              <h2 className="text-sm font-bold text-[#1B1A19]">
+                {editingTaskId ? 'Edit Task' : 'Capture New Task'}
+              </h2>
               <button
-                onClick={() => setIsNewTaskOpen(false)}
-                className="p-1 rounded-lg text-[#8F877F] hover:bg-[#EBE5DB]"
+                onClick={() => {
+                  setIsNewTaskOpen(false);
+                  setEditingTaskId(null);
+                }}
+                className="p-1 rounded-lg text-[#8F877F] hover:bg-[#F4EFEB]"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <form onSubmit={handleCreateTask} className="mt-4 space-y-3">
+            <form onSubmit={handleSaveTask} className="mt-4 space-y-3">
               <div>
                 <label className="block text-xs font-semibold text-[#57534E] mb-1">
                   Action Title
@@ -308,7 +364,7 @@ export const TasksView: React.FC = () => {
                   placeholder="e.g. Polish mobile responsive navigation"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
@@ -321,7 +377,7 @@ export const TasksView: React.FC = () => {
                   placeholder="Context, physical first step, or reminder..."
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17] resize-none"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B] resize-none"
                 />
               </div>
 
@@ -356,7 +412,7 @@ export const TasksView: React.FC = () => {
                     step={5}
                     value={estimatedMinutes}
                     onChange={(e) => setEstimatedMinutes(parseInt(e.target.value) || 25)}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                    className="w-full text-xs p-2 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                   />
                 </div>
 
@@ -380,7 +436,7 @@ export const TasksView: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-[#E8E2D8]">
+              <div className="flex justify-end gap-2 pt-3 border-t border-[#E7E1DA]">
                 <button
                   type="button"
                   onClick={() => setIsNewTaskOpen(false)}
@@ -390,7 +446,7 @@ export const TasksView: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 rounded-lg bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
+                  className="px-4 py-1.5 rounded-lg bg-[#B85C3B] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
                 >
                   Save Task
                 </button>

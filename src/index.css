@@ -2,21 +2,22 @@
 
 @layer base {
   :root {
-    --bg-primary: #FAF8F5;
-    --bg-secondary: #F3EFEA;
+    --bg-primary: #FAF8F4;      /* Ivory */
+    --bg-secondary: #F4EFEB;    /* Soft stone canvas */
     --bg-card: #FFFFFF;
     --bg-elevated: #FFFFFF;
-    --text-primary: #1C1917;
+    --text-primary: #1B1A19;    /* Charcoal */
     --text-secondary: #57534E;
     --text-muted: #8F877F;
-    --border-subtle: #E8E2D8;
+    --border-subtle: #E7E1DA;   /* Stone */
     --border-hover: #D6CEBE;
-    --accent-saffron: #C85A17;
-    --accent-saffron-light: #FAF0E6;
-    --accent-amber: #D97706;
-    --accent-bronze: #92400E;
-    --accent-sage: #4D6B53;
-    --accent-sage-light: #EEF4F0;
+    --accent-terracotta: #B85C3B; /* Terracotta Primary Accent */
+    --accent-terracotta-light: #F8EDE8;
+    --accent-charcoal: #1B1A19; /* Charcoal */
+    --accent-ivory: #FAF8F4;    /* Ivory */
+    --accent-stone: #E7E1DA;    /* Stone */
+    --accent-sage: #6B7A5B;     /* Sage Secondary Accent */
+    --accent-sage-light: #EEF2EC;
   }
 
   body {
@@ -29,7 +30,7 @@
   }
 }
 
-/* Custom scrollbar matching editorial warmth */
+/* Custom scrollbar matching brand book calmness */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -38,17 +39,23 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #DDD7CB;
+  background: #E7E1DA;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C4BCAC;
+  background: #D6CEBE;
 }
 
 /* Typography styles */
 .font-editorial {
   font-family: "Geist", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.02em;
+}
+
+.font-wordmark {
+  font-family: "Geist", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: 0.28em;
+  font-weight: 600;
 }
 
 .font-serif-quote {

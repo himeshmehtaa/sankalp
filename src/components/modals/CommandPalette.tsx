@@ -86,18 +86,18 @@ export const CommandPalette: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-[#1C1917]/50 backdrop-blur-xs animate-in fade-in duration-100"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-[#1B1A19]/50 backdrop-blur-xs animate-in fade-in duration-100"
       role="dialog"
       aria-modal="true"
       aria-label="Command Palette"
       onClick={() => setIsCommandPaletteOpen(false)}
     >
       <div
-        className="relative w-full max-w-xl bg-[#FAF8F5] border border-[#E8E2D8] rounded-2xl shadow-2xl overflow-hidden text-[#1C1917]"
+        className="relative w-full max-w-xl bg-[#FAF8F4] border border-[#E7E1DA] rounded-2xl shadow-2xl overflow-hidden text-[#1B1A19]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3.5 border-b border-[#E8E2D8] gap-3">
+        <div className="flex items-center px-4 py-3.5 border-b border-[#E7E1DA] gap-3">
           <Search className="w-5 h-5 text-[#8F877F] shrink-0" />
           <input
             type="text"
@@ -105,7 +105,7 @@ export const CommandPalette: React.FC = () => {
             placeholder="Search goals, tasks, journal, or jump to space..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 bg-transparent text-sm focus:outline-none placeholder:text-[#8F877F] text-[#1C1917]"
+            className="flex-1 bg-transparent text-sm focus:outline-none placeholder:text-[#8F877F] text-[#1B1A19]"
           />
           {query && (
             <button
@@ -115,7 +115,7 @@ export const CommandPalette: React.FC = () => {
               <X className="w-4 h-4" />
             </button>
           )}
-          <kbd className="text-[10px] bg-[#F2EFEB] px-1.5 py-0.5 rounded border border-[#E8E2D8] text-[#8F877F]">
+          <kbd className="text-[10px] bg-[#F2EFEB] px-1.5 py-0.5 rounded border border-[#E7E1DA] text-[#8F877F]">
             ESC
           </kbd>
         </div>
@@ -133,13 +133,13 @@ export const CommandPalette: React.FC = () => {
                   setIsCommandPaletteOpen(false);
                   openUnstuckWithState();
                 }}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#FAF0E6] text-xs font-semibold text-[#C85A17] text-left transition-colors"
+                className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F8EDE8] text-xs font-semibold text-[#B85C3B] text-left transition-colors"
               >
                 <div className="flex items-center gap-2.5">
                   <Zap className="w-4 h-4" />
                   <span>Get Me Unstuck</span>
                 </div>
-                <span className="text-[10px] bg-[#FAF0E6] text-[#C85A17] px-1.5 py-0.5 rounded border border-[#E9D5C3]">
+                <span className="text-[10px] bg-[#F8EDE8] text-[#B85C3B] px-1.5 py-0.5 rounded border border-[#E7E1DA]">
                   Action
                 </span>
               </button>
@@ -149,7 +149,7 @@ export const CommandPalette: React.FC = () => {
                   setIsCommandPaletteOpen(false);
                   startFocusSession(null);
                 }}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F2EFEB] text-xs font-semibold text-[#1C1917] text-left transition-colors"
+                className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F2EFEB] text-xs font-semibold text-[#1B1A19] text-left transition-colors"
               >
                 <div className="flex items-center gap-2.5">
                   <Clock className="w-4 h-4 text-[#8F877F]" />
@@ -162,7 +162,7 @@ export const CommandPalette: React.FC = () => {
                   setIsCommandPaletteOpen(false);
                   setIsQuickCaptureOpen(true);
                 }}
-                className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F2EFEB] text-xs font-semibold text-[#1C1917] text-left transition-colors"
+                className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F2EFEB] text-xs font-semibold text-[#1B1A19] text-left transition-colors"
               >
                 <div className="flex items-center gap-2.5">
                   <Plus className="w-4 h-4 text-[#8F877F]" />
@@ -207,7 +207,7 @@ export const CommandPalette: React.FC = () => {
                   <button
                     key={t.id}
                     onClick={() => navigateTo('tasks')}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F2EFEB] text-xs text-[#1C1917] text-left transition-colors"
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F2EFEB] text-xs text-[#1B1A19] text-left transition-colors"
                   >
                     <div className="flex items-center gap-2 truncate">
                       <CheckSquare className="w-3.5 h-3.5 text-[#8F877F]" />
@@ -233,10 +233,10 @@ export const CommandPalette: React.FC = () => {
                   <button
                     key={g.id}
                     onClick={() => navigateTo('goals')}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F2EFEB] text-xs text-[#1C1917] text-left transition-colors"
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F2EFEB] text-xs text-[#1B1A19] text-left transition-colors"
                   >
                     <div className="flex items-center gap-2 truncate">
-                      <Target className="w-3.5 h-3.5 text-[#C85A17]" />
+                      <Target className="w-3.5 h-3.5 text-[#B85C3B]" />
                       <span className="truncate">{g.title}</span>
                     </div>
                     <span className="text-[10px] text-[#8F877F] capitalize shrink-0 ml-2">
@@ -259,7 +259,7 @@ export const CommandPalette: React.FC = () => {
                   <button
                     key={j.id}
                     onClick={() => navigateTo('journal')}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F2EFEB] text-xs text-[#1C1917] text-left transition-colors"
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F2EFEB] text-xs text-[#1B1A19] text-left transition-colors"
                   >
                     <div className="flex items-center gap-2 truncate">
                       <BookOpen className="w-3.5 h-3.5 text-[#78716C]" />

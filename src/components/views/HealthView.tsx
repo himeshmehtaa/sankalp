@@ -55,11 +55,11 @@ export const HealthView: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E8E2D8]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E7E1DA]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#4D6B53]" />
-            <h1 className="text-xl font-bold tracking-tight text-[#1C1917] font-editorial">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#6B7A5B]" />
+            <h1 className="text-xl font-bold tracking-tight text-[#1B1A19] font-editorial">
               Health & Vitality
             </h1>
           </div>
@@ -70,9 +70,9 @@ export const HealthView: React.FC = () => {
       </div>
 
       {/* Today's Log Card */}
-      <div className="bg-[#FFFFFF] border border-[#E8E2D8] rounded-2xl p-6 sm:p-7 shadow-xs space-y-6">
-        <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]/80">
-          <h2 className="text-sm font-bold text-[#1C1917]">
+      <div className="bg-[#FFFFFF] border border-[#E7E1DA] rounded-2xl p-6 sm:p-7 shadow-xs space-y-6">
+        <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]/80">
+          <h2 className="text-sm font-bold text-[#1B1A19]">
             Today's Wellness Baseline ({todayStr})
           </h2>
           <span className="text-xs text-[#8F877F]">Private & local</span>
@@ -81,10 +81,10 @@ export const HealthView: React.FC = () => {
         <form onSubmit={handleSave} className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {/* Movement */}
-            <div className="p-4 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8] space-y-3">
+            <div className="p-4 rounded-xl bg-[#FAF8F4] border border-[#E7E1DA] space-y-3">
               <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-[#C85A17]" />
-                <span className="text-xs font-bold text-[#1C1917]">Movement & Exercise</span>
+                <Activity className="w-4 h-4 text-[#B85C3B]" />
+                <span className="text-xs font-bold text-[#1B1A19]">Movement & Exercise</span>
               </div>
 
               <div>
@@ -98,7 +98,7 @@ export const HealthView: React.FC = () => {
                   step={5}
                   value={movementMinutes}
                   onChange={(e) => setMovementMinutes(parseInt(e.target.value))}
-                  className="w-full accent-[#C85A17]"
+                  className="w-full accent-[#B85C3B]"
                 />
               </div>
 
@@ -109,16 +109,16 @@ export const HealthView: React.FC = () => {
                   placeholder="e.g. Zone 2 Run, Mobility Flow, Strength..."
                   value={movementType}
                   onChange={(e) => setMovementType(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
             </div>
 
             {/* Sleep */}
-            <div className="p-4 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8] space-y-3">
+            <div className="p-4 rounded-xl bg-[#FAF8F4] border border-[#E7E1DA] space-y-3">
               <div className="flex items-center gap-2">
                 <Moon className="w-4 h-4 text-[#7C3AED]" />
-                <span className="text-xs font-bold text-[#1C1917]">Rest & Recovery</span>
+                <span className="text-xs font-bold text-[#1B1A19]">Rest & Recovery</span>
               </div>
 
               <div>
@@ -147,7 +147,7 @@ export const HealthView: React.FC = () => {
                       className={`flex-1 py-1.5 rounded-lg text-xs font-medium capitalize border transition-colors ${
                         sleepQuality === q
                           ? 'bg-[#FFFFFF] border-[#7C3AED] text-[#7C3AED] font-semibold'
-                          : 'bg-[#FFFFFF] border-[#E8E2D8] text-[#78716C]'
+                          : 'bg-[#FFFFFF] border-[#E7E1DA] text-[#78716C]'
                       }`}
                     >
                       {q}
@@ -158,10 +158,10 @@ export const HealthView: React.FC = () => {
             </div>
 
             {/* Hydration */}
-            <div className="p-4 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8] space-y-3">
+            <div className="p-4 rounded-xl bg-[#FAF8F4] border border-[#E7E1DA] space-y-3">
               <div className="flex items-center gap-2">
                 <Droplets className="w-4 h-4 text-[#0284C7]" />
-                <span className="text-xs font-bold text-[#1C1917]">Hydration</span>
+                <span className="text-xs font-bold text-[#1B1A19]">Hydration</span>
               </div>
 
               <div className="flex items-center justify-between">
@@ -170,14 +170,14 @@ export const HealthView: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setWaterGlasses(Math.max(0, waterGlasses - 1))}
-                    className="w-7 h-7 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] text-xs font-bold hover:bg-[#F2EFEB]"
+                    className="w-7 h-7 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] text-xs font-bold hover:bg-[#F2EFEB]"
                   >
                     -
                   </button>
                   <button
                     type="button"
                     onClick={() => setWaterGlasses(waterGlasses + 1)}
-                    className="w-7 h-7 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] text-xs font-bold text-[#0284C7] hover:bg-[#F2EFEB]"
+                    className="w-7 h-7 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] text-xs font-bold text-[#0284C7] hover:bg-[#F2EFEB]"
                   >
                     +
                   </button>
@@ -186,10 +186,10 @@ export const HealthView: React.FC = () => {
             </div>
 
             {/* Energy */}
-            <div className="p-4 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8] space-y-3">
+            <div className="p-4 rounded-xl bg-[#FAF8F4] border border-[#E7E1DA] space-y-3">
               <div className="flex items-center gap-2">
                 <Zap className="w-4 h-4 text-[#D97706]" />
-                <span className="text-xs font-bold text-[#1C1917]">Vitality & Energy</span>
+                <span className="text-xs font-bold text-[#1B1A19]">Vitality & Energy</span>
               </div>
 
               <div className="flex justify-between gap-1.5">
@@ -201,7 +201,7 @@ export const HealthView: React.FC = () => {
                     className={`flex-1 py-1.5 rounded-lg text-xs font-bold border transition-colors ${
                       energyRating === lvl
                         ? 'bg-[#D97706] text-[#FFFFFF] border-[#D97706]'
-                        : 'bg-[#FFFFFF] border-[#E8E2D8] text-[#57534E]'
+                        : 'bg-[#FFFFFF] border-[#E7E1DA] text-[#57534E]'
                     }`}
                   >
                     ⚡{lvl}
@@ -220,16 +220,16 @@ export const HealthView: React.FC = () => {
               placeholder="e.g. Felt light and focused during afternoon work. Digestion smooth."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17] resize-none"
+              className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B] resize-none"
             />
           </div>
 
-          <div className="flex justify-end pt-2 border-t border-[#E8E2D8]">
+          <div className="flex justify-end pt-2 border-t border-[#E7E1DA]">
             <button
               type="submit"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-[#FAF8F4] text-xs font-semibold shadow-xs transition-colors"
             >
-              <Save className="w-3.5 h-3.5 text-[#C85A17]" />
+              <Save className="w-3.5 h-3.5 text-[#B85C3B]" />
               <span>Save Wellness Log</span>
             </button>
           </div>
@@ -244,16 +244,16 @@ export const HealthView: React.FC = () => {
         {healthLogs.map((log) => (
           <div
             key={log.id}
-            className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E8E2D8] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+            className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E7E1DA] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
           >
             <div>
-              <p className="font-bold text-[#1C1917]">{log.date}</p>
+              <p className="font-bold text-[#1B1A19]">{log.date}</p>
               <p className="text-[#78716C] mt-0.5">
                 {log.movementMinutes}m {log.movementType} • {log.sleepHours}h sleep ({log.sleepQuality}) • {log.waterGlasses} glasses
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <span className="px-2 py-0.5 rounded bg-[#FAF0E6] text-[#C85A17] font-semibold">
+              <span className="px-2 py-0.5 rounded bg-[#F8EDE8] text-[#B85C3B] font-semibold">
                 Energy: ⚡{log.energyRating}/5
               </span>
             </div>

@@ -218,12 +218,12 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
   return (
     <div className="max-w-2xl mx-auto py-4 px-4 sm:px-6 space-y-6 animate-in fade-in duration-300">
       {/* Header Banner */}
-      <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
+      <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
         <div>
           <span className="text-[10px] uppercase font-bold tracking-widest text-[#10B981]">
             Sanctuary Space
           </span>
-          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1C1917]">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1B1A19]">
             Breathe & Meditation
           </h1>
           <p className="text-xs text-[#78716C] mt-0.5">
@@ -252,8 +252,8 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
               onClick={() => handleSwitchMode(m.id)}
               className={`flex flex-col items-start p-3 rounded-2xl border text-left transition-all ${
                 isSelected
-                  ? 'bg-[#1C1917] text-white border-[#1C1917] shadow-sm'
-                  : 'bg-white border-[#E8E2D8] hover:border-[#10B981]/50 text-[#1C1917] hover:bg-[#FAF8F5]'
+                  ? 'bg-[#1B1A19] text-white border-[#1B1A19] shadow-sm'
+                  : 'bg-white border-[#E7E1DA] hover:border-[#10B981]/50 text-[#1B1A19] hover:bg-[#FAF8F4]'
               }`}
             >
               <div className="flex items-center justify-between w-full mb-1.5">
@@ -264,7 +264,7 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
                 />
                 <span
                   className={`text-[9px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded ${
-                    isSelected ? 'bg-white/10 text-white/90' : 'bg-[#FAF0E6] text-[#C85A17]'
+                    isSelected ? 'bg-white/10 text-white/90' : 'bg-[#F8EDE8] text-[#B85C3B]'
                   }`}
                 >
                   {m.id === 'box' ? '4-4-4' : m.id === 'sigh' ? 'Fast' : m.id === '478' ? 'Sleep' : 'Zen'}
@@ -284,9 +284,9 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
       </div>
 
       {/* Active Mode Description Box */}
-      <div className="p-4 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] text-xs text-[#57534E] flex items-center justify-between shadow-2xs">
+      <div className="p-4 rounded-2xl bg-[#FFFFFF] border border-[#E7E1DA] text-xs text-[#57534E] flex items-center justify-between shadow-2xs">
         <div>
-          <span className="font-semibold text-[#1C1917]">{currentConfig.name}: </span>
+          <span className="font-semibold text-[#1B1A19]">{currentConfig.name}: </span>
           <span>{currentConfig.description}</span>
         </div>
       </div>
@@ -305,8 +305,8 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
               }}
               className={`px-3 py-1 rounded-xl text-xs font-semibold border transition-all ${
                 zenMinutes === mins
-                  ? 'bg-[#1C1917] text-white border-[#1C1917]'
-                  : 'bg-white border-[#E8E2D8] text-[#78716C] hover:bg-[#FAF8F5]'
+                  ? 'bg-[#1B1A19] text-white border-[#1B1A19]'
+                  : 'bg-white border-[#E7E1DA] text-[#78716C] hover:bg-[#FAF8F4]'
               }`}
             >
               {mins}m
@@ -332,7 +332,7 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
             onClick={handleToggle}
             className={`w-52 h-52 sm:w-56 sm:h-56 rounded-full border flex flex-col items-center justify-center text-center p-4 transition-all duration-1000 ease-in-out cursor-pointer select-none relative z-10 ${getVisualScale()}`}
           >
-            <p className="text-sm sm:text-base font-semibold text-[#1C1917] transition-all leading-tight max-w-[140px]">
+            <p className="text-sm sm:text-base font-semibold text-[#1B1A19] transition-all leading-tight max-w-[140px]">
               {getPhasePrompt()}
             </p>
 
@@ -343,7 +343,7 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
                   : `${secondsLeft}s`}
               </span>
             ) : (
-              <span className="text-[11px] font-medium text-[#8F877F] mt-2 bg-white/70 px-3 py-1 rounded-full border border-[#E8E2D8]">
+              <span className="text-[11px] font-medium text-[#8F877F] mt-2 bg-white/70 px-3 py-1 rounded-full border border-[#E7E1DA]">
                 Tap to Start
               </span>
             )}
@@ -354,7 +354,7 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
         <div className="flex items-center gap-3 mt-6">
           <button
             onClick={handleToggle}
-            className="flex items-center gap-2 px-7 py-3 rounded-full bg-[#1C1917] hover:bg-[#2F2B28] text-white text-xs font-semibold shadow-md active:scale-95 transition-all"
+            className="flex items-center gap-2 px-7 py-3 rounded-full bg-[#1B1A19] hover:bg-[#2F2B28] text-white text-xs font-semibold shadow-md active:scale-95 transition-all"
           >
             {isActive ? <Pause className="w-4 h-4 text-[#10B981]" /> : <Play className="w-4 h-4 text-[#10B981] fill-current" />}
             <span>{isActive ? 'Pause Flow' : 'Begin Meditation'}</span>
@@ -362,7 +362,7 @@ export const BreathingWidget: React.FC<{ onClose?: () => void }> = ({ onClose })
 
           <button
             onClick={handleReset}
-            className="p-3 rounded-full bg-white border border-[#E8E2D8] text-[#78716C] hover:bg-[#FAF8F5] transition-colors"
+            className="p-3 rounded-full bg-white border border-[#E7E1DA] text-[#78716C] hover:bg-[#FAF8F4] transition-colors"
             title="Singing bowl chime & reset"
           >
             <RotateCcw className="w-4 h-4" />

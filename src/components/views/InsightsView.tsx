@@ -66,7 +66,7 @@ export const InsightsView: React.FC = () => {
     });
 
     try {
-      confetti({ particleCount: 35, spread: 60, colors: ['#C85A17', '#4D6B53'] });
+      confetti({ particleCount: 35, spread: 60, colors: ['#B85C3B', '#6B7A5B'] });
     } catch (e) {}
 
     setIsReviewOpen(false);
@@ -80,9 +80,9 @@ export const InsightsView: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E7E1DA]/70">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+          <h1 className="text-xl font-bold tracking-tight text-[#1B1A19]">
             Insights & Weekly Review
           </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
@@ -92,52 +92,52 @@ export const InsightsView: React.FC = () => {
 
         <button
           onClick={() => setIsReviewOpen(!isReviewOpen)}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs self-start sm:self-auto"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-[#FAF8F4] text-xs font-semibold shadow-xs self-start sm:self-auto"
         >
-          <Sparkles className="w-4 h-4 text-[#C85A17]" />
+          <Sparkles className="w-4 h-4 text-[#B85C3B]" />
           <span>Conduct Weekly Review</span>
         </button>
       </div>
 
       {/* Actual Data Metrics Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-2xs space-y-1">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-2xs space-y-1">
           <span className="text-[10px] font-bold uppercase tracking-wider text-[#8F877F] flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5 text-[#C85A17]" />
+            <Clock className="w-3.5 h-3.5 text-[#B85C3B]" />
             <span>Deep Focus</span>
           </span>
-          <p className="text-xl font-bold font-mono text-[#1C1917]">
+          <p className="text-xl font-bold font-mono text-[#1B1A19]">
             {totalFocusMinutes} <span className="text-xs font-normal text-[#8F877F]">min</span>
           </p>
           <p className="text-[10px] text-[#78716C]">{focusSessions.length} recorded blocks</p>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-2xs space-y-1">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-2xs space-y-1">
           <span className="text-[10px] font-bold uppercase tracking-wider text-[#8F877F] flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#4D6B53]" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#6B7A5B]" />
             <span>Proof Actions</span>
           </span>
-          <p className="text-xl font-bold font-mono text-[#1C1917]">
+          <p className="text-xl font-bold font-mono text-[#1B1A19]">
             {completedProof.length} <span className="text-xs font-normal text-[#8F877F]">done</span>
           </p>
           <p className="text-[10px] text-[#78716C]">{completedTasks.length} total tasks completed</p>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-2xs space-y-1">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-2xs space-y-1">
           <span className="text-[10px] font-bold uppercase tracking-wider text-[#8F877F] flex items-center gap-1">
-            <Target className="w-3.5 h-3.5 text-[#C85A17]" />
+            <Target className="w-3.5 h-3.5 text-[#B85C3B]" />
             <span>Goal Velocity</span>
           </span>
-          <p className="text-xl font-bold font-mono text-[#1C1917]">{avgGoalProgress}%</p>
+          <p className="text-xl font-bold font-mono text-[#1B1A19]">{avgGoalProgress}%</p>
           <p className="text-[10px] text-[#78716C]">{activeGoals.length} active objectives</p>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-2xs space-y-1">
+        <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-2xs space-y-1">
           <span className="text-[10px] font-bold uppercase tracking-wider text-[#8F877F] flex items-center gap-1">
             <Sparkles className="w-3.5 h-3.5 text-[#D97706]" />
             <span>Reclaimed Momentum</span>
           </span>
-          <p className="text-xl font-bold font-mono text-[#1C1917]">
+          <p className="text-xl font-bold font-mono text-[#1B1A19]">
             {unstuckLogs.length} <span className="text-xs font-normal text-[#8F877F]">times</span>
           </p>
           <p className="text-[10px] text-[#78716C]">Overcame resistance</p>
@@ -146,17 +146,17 @@ export const InsightsView: React.FC = () => {
 
       {/* Guided Weekly Review Form */}
       {isReviewOpen && (
-        <div className="bg-[#FFFFFF] border border-[#E8E2D8] rounded-2xl p-6 sm:p-7 shadow-sm space-y-4 animate-in fade-in duration-150">
-          <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
+        <div className="bg-[#FFFFFF] border border-[#E7E1DA] rounded-2xl p-6 sm:p-7 shadow-sm space-y-4 animate-in fade-in duration-150">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-[#C85A17]" />
-              <h2 className="text-sm font-bold text-[#1C1917]">
+              <Calendar className="w-4 h-4 text-[#B85C3B]" />
+              <h2 className="text-sm font-bold text-[#1B1A19]">
                 Weekly Sabbath & Recalibration
               </h2>
             </div>
             <button
               onClick={() => setIsReviewOpen(false)}
-              className="text-xs text-[#8F877F] hover:text-[#1C1917]"
+              className="text-xs text-[#8F877F] hover:text-[#1B1A19]"
             >
               Close
             </button>
@@ -174,7 +174,7 @@ export const InsightsView: React.FC = () => {
                   placeholder="e.g. Protected morning stillness 4 days, finished the prototype..."
                   value={whatWentWell}
                   onChange={(e) => setWhatWentWell(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17] resize-none"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B] resize-none"
                 />
               </div>
 
@@ -187,7 +187,7 @@ export const InsightsView: React.FC = () => {
                   placeholder="e.g. Saying no to a distracting side-project proposal..."
                   value={whatMovedForward}
                   onChange={(e) => setWhatMovedForward(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17] resize-none"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B] resize-none"
                 />
               </div>
 
@@ -200,7 +200,7 @@ export const InsightsView: React.FC = () => {
                   placeholder="e.g. Avoided drafting the difficult section on Tuesday afternoon..."
                   value={whereGotStuck}
                   onChange={(e) => setWhereGotStuck(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17] resize-none"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B] resize-none"
                 />
               </div>
 
@@ -213,13 +213,13 @@ export const InsightsView: React.FC = () => {
                   placeholder="e.g. Physical movement dissipates mental dread faster than analysis..."
                   value={lessonsLearned}
                   onChange={(e) => setLessonsLearned(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17] resize-none"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B] resize-none"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#C85A17] mb-1">
+              <label className="block text-xs font-semibold text-[#B85C3B] mb-1">
                 5. What is the single non-negotiable priority for next week?
               </label>
               <input
@@ -228,11 +228,11 @@ export const InsightsView: React.FC = () => {
                 placeholder="e.g. Ship and test SANKALP v1.0 with real feedback."
                 value={nextWeekPriority}
                 onChange={(e) => setNextWeekPriority(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-[#E9D5C3] bg-[#FAF0E6]/30 focus:outline-none focus:border-[#C85A17] font-semibold"
+                className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#F8EDE8]/30 focus:outline-none focus:border-[#B85C3B] font-semibold"
               />
             </div>
 
-            <div className="flex justify-end gap-2 pt-2 border-t border-[#E8E2D8]">
+            <div className="flex justify-end gap-2 pt-2 border-t border-[#E7E1DA]">
               <button
                 type="button"
                 onClick={() => setIsReviewOpen(false)}
@@ -242,7 +242,7 @@ export const InsightsView: React.FC = () => {
               </button>
               <button
                 type="submit"
-                className="px-4 py-1.5 rounded-lg bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
+                className="px-4 py-1.5 rounded-lg bg-[#B85C3B] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
               >
                 Save Weekly Review
               </button>
@@ -260,44 +260,44 @@ export const InsightsView: React.FC = () => {
         {weeklyReviews.map((rev) => (
           <div
             key={rev.id}
-            className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-xs space-y-4"
+            className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-xs space-y-4"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
-              <span className="text-xs font-bold text-[#1C1917]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
+              <span className="text-xs font-bold text-[#1B1A19]">
                 Week: {rev.weekStartDate} to {rev.weekEndDate}
               </span>
-              <span className="text-xs font-mono font-semibold text-[#C85A17]">
+              <span className="text-xs font-mono font-semibold text-[#B85C3B]">
                 {rev.focusMinutesTotal}m focused work
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8]">
-                <strong className="text-[10px] font-bold uppercase tracking-wider text-[#4D6B53] block mb-1">
+              <div className="p-3 rounded-xl bg-[#FAF8F4] border border-[#E7E1DA]">
+                <strong className="text-[10px] font-bold uppercase tracking-wider text-[#6B7A5B] block mb-1">
                   What Went Well
                 </strong>
                 <p className="text-[#57534E] leading-relaxed">{rev.whatWentWell}</p>
               </div>
 
-              <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8]">
-                <strong className="text-[10px] font-bold uppercase tracking-wider text-[#C85A17] block mb-1">
+              <div className="p-3 rounded-xl bg-[#FAF8F4] border border-[#E7E1DA]">
+                <strong className="text-[10px] font-bold uppercase tracking-wider text-[#B85C3B] block mb-1">
                   Where Got Stuck
                 </strong>
                 <p className="text-[#57534E] leading-relaxed">{rev.whereGotStuck}</p>
               </div>
 
-              <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8]">
+              <div className="p-3 rounded-xl bg-[#FAF8F4] border border-[#E7E1DA]">
                 <strong className="text-[10px] font-bold uppercase tracking-wider text-[#78716C] block mb-1">
                   Lesson Learned
                 </strong>
                 <p className="text-[#57534E] leading-relaxed">{rev.lessonsLearned}</p>
               </div>
 
-              <div className="p-3 rounded-xl bg-[#FAF0E6]/50 border border-[#E9D5C3]">
+              <div className="p-3 rounded-xl bg-[#F8EDE8]/50 border border-[#E7E1DA]">
                 <strong className="text-[10px] font-bold uppercase tracking-wider text-[#9A420E] block mb-1">
                   Priority Established
                 </strong>
-                <p className="text-[#1C1917] font-semibold leading-relaxed">
+                <p className="text-[#1B1A19] font-semibold leading-relaxed">
                   {rev.nextWeekPriority}
                 </p>
               </div>

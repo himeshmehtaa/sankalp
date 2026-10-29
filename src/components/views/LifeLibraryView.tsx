@@ -74,9 +74,9 @@ export const LifeLibraryView: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E7E1DA]/70">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+          <h1 className="text-xl font-bold tracking-tight text-[#1B1A19]">
             Life Library & Principles
           </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
@@ -86,9 +86,9 @@ export const LifeLibraryView: React.FC = () => {
 
         <button
           onClick={() => setIsAdding(true)}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs self-start sm:self-auto"
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-[#FAF8F4] text-xs font-semibold shadow-xs self-start sm:self-auto"
         >
-          <Plus className="w-4 h-4 text-[#C85A17]" />
+          <Plus className="w-4 h-4 text-[#B85C3B]" />
           <span>Add Insight</span>
         </button>
       </div>
@@ -102,8 +102,8 @@ export const LifeLibraryView: React.FC = () => {
               onClick={() => setActiveCategory(c.key)}
               className={`px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-colors ${
                 activeCategory === c.key
-                  ? 'bg-[#1C1917] text-[#FAF8F5] font-semibold'
-                  : 'bg-[#FFFFFF] border border-[#E8E2D8] text-[#78716C] hover:bg-[#F2EFEB]'
+                  ? 'bg-[#1B1A19] text-[#FAF8F4] font-semibold'
+                  : 'bg-[#FFFFFF] border border-[#E7E1DA] text-[#78716C] hover:bg-[#F2EFEB]'
               }`}
             >
               {c.label}
@@ -111,7 +111,7 @@ export const LifeLibraryView: React.FC = () => {
           ))}
         </div>
 
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-[#FFFFFF] border border-[#E8E2D8] rounded-xl text-xs w-full sm:w-64">
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-[#FFFFFF] border border-[#E7E1DA] rounded-xl text-xs w-full sm:w-64">
           <Search className="w-3.5 h-3.5 text-[#8F877F]" />
           <input
             type="text"
@@ -128,11 +128,11 @@ export const LifeLibraryView: React.FC = () => {
         {filteredItems.map((item) => (
           <div
             key={item.id}
-            className="p-5 sm:p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-xs space-y-3 hover:border-[#D6CEBE] transition-colors flex flex-col justify-between"
+            className="p-5 sm:p-6 rounded-2xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-xs space-y-3 hover:border-[#D6CEBE] transition-colors flex flex-col justify-between"
           >
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FAF0E6] text-[#C85A17]">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#F8EDE8] text-[#B85C3B]">
                   {item.type.replace('_', ' ')}
                 </span>
                 <span className="text-[10px] uppercase font-medium text-[#8F877F]">
@@ -140,7 +140,7 @@ export const LifeLibraryView: React.FC = () => {
                 </span>
               </div>
 
-              <h3 className="text-sm font-bold text-[#1C1917] leading-snug">{item.title}</h3>
+              <h3 className="text-sm font-bold text-[#1B1A19] leading-snug">{item.title}</h3>
 
               {item.sourceOrAuthor && (
                 <p className="text-[11px] text-[#78716C]">
@@ -154,8 +154,8 @@ export const LifeLibraryView: React.FC = () => {
             </div>
 
             {item.keyTakeaway && (
-              <div className="pt-2 border-t border-[#E8E2D8]/60 text-[11px] text-[#9A420E] bg-[#FAF8F5] p-2.5 rounded-xl">
-                <strong className="font-semibold block text-[10px] uppercase text-[#C85A17]">
+              <div className="pt-2 border-t border-[#E7E1DA]/60 text-[11px] text-[#9A420E] bg-[#FAF8F4] p-2.5 rounded-xl">
+                <strong className="font-semibold block text-[10px] uppercase text-[#B85C3B]">
                   Key Takeaway:
                 </strong>
                 {item.keyTakeaway}
@@ -167,17 +167,17 @@ export const LifeLibraryView: React.FC = () => {
         {filteredItems.length === 0 && (
           <div className="col-span-full p-8 text-center rounded-2xl border border-dashed border-[#DDD7CB] bg-[#FFFFFF]/60">
             <Library className="w-8 h-8 text-[#8F877F] mx-auto mb-2" />
-            <p className="text-sm font-semibold text-[#1C1917]">No insights match your filter.</p>
+            <p className="text-sm font-semibold text-[#1B1A19]">No insights match your filter.</p>
           </div>
         )}
       </div>
 
       {/* Add Insight Modal */}
       {isAdding && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1917]/50 backdrop-blur-xs">
-          <div className="w-full max-w-lg bg-[#FAF8F5] border border-[#E8E2D8] rounded-2xl shadow-2xl p-6 text-[#1C1917]">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
-              <h2 className="text-sm font-bold text-[#1C1917]">Save Insight to Life Library</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B1A19]/50 backdrop-blur-xs">
+          <div className="w-full max-w-lg bg-[#FAF8F4] border border-[#E7E1DA] rounded-2xl shadow-2xl p-6 text-[#1B1A19]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
+              <h2 className="text-sm font-bold text-[#1B1A19]">Save Insight to Life Library</h2>
               <button onClick={() => setIsAdding(false)} className="p-1 rounded-lg hover:bg-[#EBE5DB]">
                 <X className="w-4 h-4" />
               </button>
@@ -192,7 +192,7 @@ export const LifeLibraryView: React.FC = () => {
                   placeholder="e.g. I can move without complete certainty."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
@@ -219,7 +219,7 @@ export const LifeLibraryView: React.FC = () => {
                     placeholder="e.g. Marcus Aurelius / Personal note"
                     value={sourceOrAuthor}
                     onChange={(e) => setSourceOrAuthor(e.target.value)}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                    className="w-full text-xs p-2 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                   />
                 </div>
               </div>
@@ -232,7 +232,7 @@ export const LifeLibraryView: React.FC = () => {
                   placeholder="The original quote, thought, or memory..."
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17] resize-none"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B] resize-none"
                 />
               </div>
 
@@ -243,11 +243,11 @@ export const LifeLibraryView: React.FC = () => {
                   placeholder="e.g. Take the 2-minute physical step; courage follows movement."
                   value={keyTakeaway}
                   onChange={(e) => setKeyTakeaway(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-[#E8E2D8]">
+              <div className="flex justify-end gap-2 pt-3 border-t border-[#E7E1DA]">
                 <button
                   type="button"
                   onClick={() => setIsAdding(false)}
@@ -257,7 +257,7 @@ export const LifeLibraryView: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 rounded-lg bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
+                  className="px-4 py-1.5 rounded-lg bg-[#B85C3B] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
                 >
                   Save Insight
                 </button>

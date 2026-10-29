@@ -89,7 +89,7 @@ export const GratitudeView: React.FC = () => {
     });
 
     try {
-      confetti({ particleCount: 30, spread: 60, colors: ['#C85A17', '#FAF0E6'] });
+      confetti({ particleCount: 30, spread: 60, colors: ['#B85C3B', '#F8EDE8'] });
     } catch (e) {}
 
     setIsAdding(false);
@@ -104,9 +104,9 @@ export const GratitudeView: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E7E1DA]/70">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+          <h1 className="text-xl font-bold tracking-tight text-[#1B1A19]">
             Gratitude & Reflection
           </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
@@ -117,37 +117,37 @@ export const GratitudeView: React.FC = () => {
         {!hasEntryToday && !isAdding && (
           <button
             onClick={() => setIsAdding(true)}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs transition-colors self-start sm:self-auto"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-[#FAF8F4] text-xs font-semibold shadow-xs transition-colors self-start sm:self-auto"
           >
-            <Plus className="w-4 h-4 text-[#C85A17]" />
+            <Plus className="w-4 h-4 text-[#B85C3B]" />
             <span>Today's Reflection</span>
           </button>
         )}
       </div>
 
       {/* Guiding Principle Card */}
-      <div className="p-5 rounded-2xl bg-gradient-to-r from-[#FAF0E6]/70 to-[#F5E6D8]/50 border border-[#E9D5C3] text-center space-y-1">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[#C85A17]">
+      <div className="p-5 rounded-2xl bg-gradient-to-r from-[#F8EDE8]/70 to-[#F5E6D8]/50 border border-[#E7E1DA] text-center space-y-1">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#B85C3B]">
           Sankalp Core Principle
         </p>
-        <p className="text-sm font-medium text-[#1C1917]">
+        <p className="text-sm font-medium text-[#1B1A19]">
           "{profile.guidingPrinciple}"
         </p>
       </div>
 
       {/* Today's Entry Form */}
       {isAdding && (
-        <div className="bg-[#FFFFFF] border border-[#E8E2D8] rounded-2xl p-6 shadow-sm space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
+        <div className="bg-[#FFFFFF] border border-[#E7E1DA] rounded-2xl p-6 shadow-sm space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
             <div className="flex items-center gap-2">
-              <Heart className="w-4 h-4 text-[#C85A17]" />
-              <span className="text-xs font-bold uppercase tracking-wider text-[#1C1917]">
+              <Heart className="w-4 h-4 text-[#B85C3B]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#1B1A19]">
                 Today's Gratitude & Appreciation
               </span>
             </div>
             <button
               onClick={() => setIsAdding(false)}
-              className="text-xs text-[#8F877F] hover:text-[#1C1917]"
+              className="text-xs text-[#8F877F] hover:text-[#1B1A19]"
             >
               Cancel
             </button>
@@ -164,26 +164,26 @@ export const GratitudeView: React.FC = () => {
                 placeholder="1. e.g. The morning quiet and a warm cup of coffee..."
                 value={gratitude1}
                 onChange={(e) => setGratitude1(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+                className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
               />
               <input
                 type="text"
                 placeholder="2. e.g. A kind message from an old collaborator..."
                 value={gratitude2}
                 onChange={(e) => setGratitude2(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+                className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
               />
               <input
                 type="text"
                 placeholder="3. e.g. A body capable of moving freely and recovering..."
                 value={gratitude3}
                 onChange={(e) => setGratitude3(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+                className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#C85A17] mb-1">
+              <label className="block text-xs font-semibold text-[#B85C3B] mb-1">
                 One Thing I Appreciate About Myself
               </label>
               <input
@@ -191,7 +191,7 @@ export const GratitudeView: React.FC = () => {
                 placeholder="e.g. I chose patience when I felt like reacting with frustration..."
                 value={selfAppreciation}
                 onChange={(e) => setSelfAppreciation(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-[#E9D5C3] bg-[#FAF0E6]/30 focus:outline-none focus:border-[#C85A17]"
+                className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#F8EDE8]/30 focus:outline-none focus:border-[#B85C3B]"
               />
             </div>
 
@@ -205,7 +205,7 @@ export const GratitudeView: React.FC = () => {
                   placeholder="e.g. Shipped the interface feature..."
                   value={dailyWin}
                   onChange={(e) => setDailyWin(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
@@ -218,12 +218,12 @@ export const GratitudeView: React.FC = () => {
                   placeholder="e.g. Pausing is an active, strategic choice..."
                   value={lessonLearned}
                   onChange={(e) => setLessonLearned(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
             </div>
 
-            <div className="flex justify-end gap-2 pt-3 border-t border-[#E8E2D8]">
+            <div className="flex justify-end gap-2 pt-3 border-t border-[#E7E1DA]">
               <button
                 type="button"
                 onClick={() => setIsAdding(false)}
@@ -233,7 +233,7 @@ export const GratitudeView: React.FC = () => {
               </button>
               <button
                 type="submit"
-                className="px-4 py-1.5 rounded-lg bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
+                className="px-4 py-1.5 rounded-lg bg-[#B85C3B] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
               >
                 Save Reflection
               </button>
@@ -247,17 +247,17 @@ export const GratitudeView: React.FC = () => {
         {gratitudes.map((entry) => (
           <div
             key={entry.id}
-            className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-xs space-y-4 hover:border-[#D6CEBE] transition-colors"
+            className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-xs space-y-4 hover:border-[#D6CEBE] transition-colors"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]/60">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]/60">
               <div className="flex items-center gap-2 text-xs font-semibold text-[#78716C]">
-                <Calendar className="w-3.5 h-3.5 text-[#C85A17]" />
+                <Calendar className="w-3.5 h-3.5 text-[#B85C3B]" />
                 <span>{entry.date}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => handleOpenEdit(entry)}
-                  className="p-1.5 rounded-lg text-[#78716C] hover:text-[#C85A17] hover:bg-[#FAF0E6] transition-colors flex items-center gap-1 text-[11px] font-medium"
+                  className="p-1.5 rounded-lg text-[#78716C] hover:text-[#B85C3B] hover:bg-[#F8EDE8] transition-colors flex items-center gap-1 text-[11px] font-medium"
                   title="Edit reflection"
                 >
                   <Edit2 className="w-3.5 h-3.5" />
@@ -283,20 +283,20 @@ export const GratitudeView: React.FC = () => {
               <p className="text-[10px] font-bold uppercase tracking-wider text-[#8F877F]">
                 Grateful For
               </p>
-              <ul className="space-y-1.5 text-xs text-[#1C1917]">
+              <ul className="space-y-1.5 text-xs text-[#1B1A19]">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#C85A17] font-bold">1.</span>
+                  <span className="text-[#B85C3B] font-bold">1.</span>
                   <span>{entry.gratitude1}</span>
                 </li>
                 {entry.gratitude2 && (
                   <li className="flex items-start gap-2">
-                    <span className="text-[#C85A17] font-sans font-bold">2.</span>
+                    <span className="text-[#B85C3B] font-sans font-bold">2.</span>
                     <span>{entry.gratitude2}</span>
                   </li>
                 )}
                 {entry.gratitude3 && (
                   <li className="flex items-start gap-2">
-                    <span className="text-[#C85A17] font-sans font-bold">3.</span>
+                    <span className="text-[#B85C3B] font-sans font-bold">3.</span>
                     <span>{entry.gratitude3}</span>
                   </li>
                 )}
@@ -305,8 +305,8 @@ export const GratitudeView: React.FC = () => {
 
             {/* Self Appreciation Card */}
             {entry.selfAppreciation && (
-              <div className="p-3 rounded-xl bg-[#FAF0E6]/50 border border-[#E9D5C3] space-y-0.5">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#C85A17]">
+              <div className="p-3 rounded-xl bg-[#F8EDE8]/50 border border-[#E7E1DA] space-y-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#B85C3B]">
                   Self-Appreciation
                 </span>
                 <p className="text-xs text-[#57534E] leading-relaxed">
@@ -318,17 +318,17 @@ export const GratitudeView: React.FC = () => {
             {/* Daily Win & Lesson */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-1">
               {entry.dailyWin && (
-                <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8]">
+                <div className="p-3 rounded-xl bg-[#FAF8F4] border border-[#E7E1DA]">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#78716C]">
                     Daily Win
                   </span>
-                  <p className="text-xs font-semibold text-[#1C1917] mt-0.5">
+                  <p className="text-xs font-semibold text-[#1B1A19] mt-0.5">
                     {entry.dailyWin}
                   </p>
                 </div>
               )}
               {entry.lessonLearned && (
-                <div className="p-3 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8]">
+                <div className="p-3 rounded-xl bg-[#FAF8F4] border border-[#E7E1DA]">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#78716C]">
                     Lesson Learned
                   </span>
@@ -344,12 +344,12 @@ export const GratitudeView: React.FC = () => {
 
       {/* Edit Reflection Modal */}
       {editingEntry && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1917]/50 backdrop-blur-xs animate-in fade-in duration-150">
-          <div className="w-full max-w-lg bg-[#FAF8F5] border border-[#E8E2D8] rounded-2xl shadow-2xl p-6 text-[#1C1917] space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B1A19]/50 backdrop-blur-xs animate-in fade-in duration-150">
+          <div className="w-full max-w-lg bg-[#FAF8F4] border border-[#E7E1DA] rounded-2xl shadow-2xl p-6 text-[#1B1A19] space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
               <div className="flex items-center gap-2">
-                <Heart className="w-4 h-4 text-[#C85A17]" />
-                <h2 className="text-sm font-bold text-[#1C1917]">
+                <Heart className="w-4 h-4 text-[#B85C3B]" />
+                <h2 className="text-sm font-bold text-[#1B1A19]">
                   Edit Reflection — {editingEntry.date}
                 </h2>
               </div>
@@ -371,34 +371,34 @@ export const GratitudeView: React.FC = () => {
                   required
                   value={editG1}
                   onChange={(e) => setEditG1(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                   placeholder="1. Grateful for..."
                 />
                 <input
                   type="text"
                   value={editG2}
                   onChange={(e) => setEditG2(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                   placeholder="2. Grateful for..."
                 />
                 <input
                   type="text"
                   value={editG3}
                   onChange={(e) => setEditG3(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                   placeholder="3. Grateful for..."
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#C85A17] mb-1">
+                <label className="block text-xs font-semibold text-[#B85C3B] mb-1">
                   Self-Appreciation
                 </label>
                 <input
                   type="text"
                   value={editSelf}
                   onChange={(e) => setEditSelf(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E9D5C3] bg-[#FAF0E6]/30 focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#F8EDE8]/30 focus:outline-none focus:border-[#B85C3B]"
                   placeholder="One thing you appreciate about yourself..."
                 />
               </div>
@@ -412,7 +412,7 @@ export const GratitudeView: React.FC = () => {
                     type="text"
                     value={editDailyWin}
                     onChange={(e) => setEditDailyWin(e.target.value)}
-                    className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                    className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                     placeholder="Small win..."
                   />
                 </div>
@@ -424,13 +424,13 @@ export const GratitudeView: React.FC = () => {
                     type="text"
                     value={editLesson}
                     onChange={(e) => setEditLesson(e.target.value)}
-                    className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                    className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                     placeholder="Lesson learned..."
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-[#E8E2D8]">
+              <div className="flex justify-end gap-2 pt-3 border-t border-[#E7E1DA]">
                 <button
                   type="button"
                   onClick={() => setEditingEntry(null)}
@@ -440,7 +440,7 @@ export const GratitudeView: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
+                  className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-[#B85C3B] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
                 >
                   <Check className="w-3.5 h-3.5" />
                   <span>Update Reflection</span>

@@ -271,7 +271,7 @@ export const initialUnstuckLogs: UnstuckLog[] = [
     userNotes: 'Felt tired after lunch, ended up on social feed for 40 minutes.',
     guidanceText: 'You do not need to recover the lost time right now. Forgiveness is practical. Open your workspace and complete one small physical action for two minutes.',
     recommendedPhysicalAction: 'Close browser tabs, put phone in another room, and write out the first heading.',
-    durationSelected: '2min',
+    durationSelected: '25min',
     wasHelpful: true,
     createdAt: '2026-10-27T14:20:00Z',
   },

@@ -69,15 +69,15 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
         onClick={() => !disabled && setIsOpen(!isOpen)}
         className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-xs font-medium rounded-xl border transition-all duration-150 ${
           isOpen
-            ? 'border-[#C85A17] bg-[#FFFFFF] shadow-xs ring-1 ring-[#C85A17]/20 text-[#1C1917]'
-            : 'border-[#E8E2D8] bg-[#FFFFFF] hover:border-[#D6CEBE] text-[#1C1917] hover:bg-[#FAF8F5]'
+            ? 'border-[#B85C3B] bg-[#FFFFFF] shadow-xs ring-1 ring-[#B85C3B]/20 text-[#1B1A19]'
+            : 'border-[#E7E1DA] bg-[#FFFFFF] hover:border-[#D6CEBE] text-[#1B1A19] hover:bg-[#FAF8F4]'
         } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} ${buttonClassName}`}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
         <div className="flex items-center gap-2 truncate">
           {selectedOption?.icon && (
-            <span className="shrink-0 text-[#C85A17]">{selectedOption.icon}</span>
+            <span className="shrink-0 text-[#B85C3B]">{selectedOption.icon}</span>
           )}
           <span className="truncate">
             {selectedOption ? selectedOption.label : <span className="text-[#8F877F]">{placeholder}</span>}
@@ -85,7 +85,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
         </div>
         <ChevronDown
           className={`w-3.5 h-3.5 text-[#8F877F] shrink-0 transition-transform duration-200 ${
-            isOpen ? 'rotate-180 text-[#C85A17]' : ''
+            isOpen ? 'rotate-180 text-[#B85C3B]' : ''
           }`}
         />
       </button>
@@ -93,7 +93,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
       {/* Dropdown Menu */}
       {isOpen && (
         <div
-          className={`absolute left-0 right-0 z-50 mt-1.5 p-1 bg-[#FFFFFF] border border-[#E8E2D8] rounded-xl shadow-lg max-h-56 overflow-y-auto animate-in fade-in zoom-in-95 duration-100 ${dropdownClassName}`}
+          className={`absolute left-0 right-0 z-50 mt-1.5 p-1 bg-[#FFFFFF] border border-[#E7E1DA] rounded-xl shadow-lg max-h-56 overflow-y-auto animate-in fade-in zoom-in-95 duration-100 ${dropdownClassName}`}
           role="listbox"
         >
           {options.map((opt) => {
@@ -105,15 +105,15 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
                 onClick={() => handleSelect(opt.value)}
                 className={`w-full flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-lg text-xs transition-colors text-left ${
                   isSelected
-                    ? 'bg-[#FAF0E6] text-[#C85A17] font-semibold'
-                    : 'text-[#1C1917] hover:bg-[#FAF8F5] hover:text-[#C85A17]'
+                    ? 'bg-[#F8EDE8] text-[#B85C3B] font-semibold'
+                    : 'text-[#1B1A19] hover:bg-[#FAF8F4] hover:text-[#B85C3B]'
                 }`}
                 role="option"
                 aria-selected={isSelected}
               >
                 <div className="flex items-center gap-2 truncate">
                   {opt.icon && (
-                    <span className={`shrink-0 ${isSelected ? 'text-[#C85A17]' : 'text-[#8F877F]'}`}>
+                    <span className={`shrink-0 ${isSelected ? 'text-[#B85C3B]' : 'text-[#8F877F]'}`}>
                       {opt.icon}
                     </span>
                   )}
@@ -127,7 +127,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
                   </div>
                 </div>
 
-                {isSelected && <Check className="w-3.5 h-3.5 text-[#C85A17] shrink-0 ml-1" />}
+                {isSelected && <Check className="w-3.5 h-3.5 text-[#B85C3B] shrink-0 ml-1" />}
               </button>
             );
           })}

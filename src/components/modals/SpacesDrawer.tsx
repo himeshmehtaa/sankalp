@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { ViewType } from '../../types';
+import { SankalpSymbol } from '../brand/SankalpLogo';
 import {
   X,
   Target,
@@ -35,7 +36,7 @@ export const SpacesDrawer: React.FC<SpacesDrawerProps> = ({
 
   const spaces: { id: ViewType; label: string; desc: string; icon: React.ComponentType<{ className?: string }> }[] = [
     { id: 'goals', label: 'Goals & Vision', desc: 'Life Vision, 90-day focus & milestones', icon: Target },
-    { id: 'tasks', label: 'All Tasks & Lists', desc: 'Upcoming, someday, completed', icon: CheckSquare },
+    { id: 'tasks', label: 'All Tasks & Backlog', desc: 'Upcoming, someday, completed', icon: CheckSquare },
     { id: 'habits', label: 'Habits & Rhythms', desc: '7-day gentle consistency', icon: Repeat },
     { id: 'journal', label: 'Journal & Notes', desc: 'Private reflections & insights', icon: BookOpen },
     { id: 'health', label: 'Health & Vitality', desc: 'Movement, sleep, and hydration', icon: Activity },
@@ -43,7 +44,7 @@ export const SpacesDrawer: React.FC<SpacesDrawerProps> = ({
     { id: 'finances', label: 'Finances & Admin', desc: 'Runway funds & commitments', icon: DollarSign },
     { id: 'library', label: 'Life Library', desc: 'Guiding principles & book notes', icon: Library },
     { id: 'coach', label: 'AI Life Coach', desc: 'Strategic counsel & goal breakdown', icon: Sparkles },
-    { id: 'insights', label: 'Weekly Reviews', desc: 'Actual focus data & sabbath reflections', icon: BarChart3 },
+    { id: 'insights', label: 'Weekly Reviews', desc: 'Actual focus data & reflections', icon: BarChart3 },
     { id: 'settings', label: 'Settings & Privacy', desc: 'Data backup, restore, and profile', icon: Settings },
   ];
 
@@ -51,35 +52,31 @@ export const SpacesDrawer: React.FC<SpacesDrawerProps> = ({
     <div className="fixed inset-0 z-50 flex justify-end">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-[#1C1917]/30 backdrop-blur-xs transition-opacity animate-in fade-in"
+        className="fixed inset-0 bg-[#1B1A19]/40 backdrop-blur-xs transition-opacity animate-in fade-in"
         onClick={onClose}
       />
 
       {/* Drawer */}
-      <div className="relative w-full max-w-sm bg-[#FAF8F5] border-l border-[#E8E2D8] shadow-2xl h-full flex flex-col justify-between p-6 z-10 animate-in slide-in-from-right duration-200">
+      <div className="relative w-full max-w-sm bg-[#FAF8F4] border-l border-[#E7E1DA] shadow-2xl h-full flex flex-col justify-between p-6 z-10 animate-in slide-in-from-right duration-200">
         <div>
           {/* Top */}
-          <div className="flex items-center justify-between pb-4 border-b border-[#E8E2D8]">
+          <div className="flex items-center justify-between pb-4 border-b border-[#E7E1DA]">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#C85A17]" />
-              <h2 className="text-sm font-bold tracking-wider font-editorial uppercase text-[#1C1917]">
-                Life Spaces
+              <SankalpSymbol className="w-4 h-4" fillColor="#B85C3B" />
+              <h2 className="text-sm font-semibold tracking-wider font-wordmark uppercase text-[#1B1A19]">
+                SANKALP SPACES
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="p-1 rounded-full text-[#8F877F] hover:bg-[#EBE5DB]"
+              className="p-1 rounded-lg text-[#8F877F] hover:bg-[#F4EFEB] hover:text-[#1B1A19] transition-colors"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
           </div>
 
-          <p className="text-xs text-[#8F877F] mt-2 mb-4">
-            Deep life management spaces, kept calm and out of the way until you need them.
-          </p>
-
           {/* Spaces List */}
-          <div className="space-y-1.5 max-h-[72vh] overflow-y-auto pr-1">
+          <div className="mt-4 space-y-1 overflow-y-auto max-h-[calc(100vh-210px)] pr-1">
             {spaces.map((s) => {
               const Icon = s.icon;
               return (
@@ -89,14 +86,16 @@ export const SpacesDrawer: React.FC<SpacesDrawerProps> = ({
                     onSelectSpace(s.id);
                     onClose();
                   }}
-                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] hover:border-[#C85A17]/40 hover:bg-[#FAF0E6]/30 text-left transition-all shadow-2xs group"
+                  className="w-full flex items-start gap-3 p-2.5 rounded-xl text-left hover:bg-white border border-transparent hover:border-[#E7E1DA] transition-all group"
                 >
-                  <div className="w-8 h-8 rounded-xl bg-[#FAF8F5] group-hover:bg-[#FAF0E6] flex items-center justify-center text-[#78716C] group-hover:text-[#C85A17] shrink-0 border border-[#E8E2D8] transition-colors">
+                  <div className="p-2 rounded-lg bg-white border border-[#E7E1DA] text-[#78716C] group-hover:text-[#B85C3B] group-hover:border-[#B85C3B]/30 transition-colors shrink-0">
                     <Icon className="w-4 h-4" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-bold text-[#1C1917] truncate">{s.label}</p>
-                    <p className="text-[10px] text-[#8F877F] truncate">{s.desc}</p>
+                  <div className="truncate">
+                    <p className="text-xs font-semibold text-[#1B1A19] group-hover:text-[#B85C3B] transition-colors">
+                      {s.label}
+                    </p>
+                    <p className="text-[11px] text-[#8F877F] truncate">{s.desc}</p>
                   </div>
                 </button>
               );
@@ -104,22 +103,23 @@ export const SpacesDrawer: React.FC<SpacesDrawerProps> = ({
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="pt-4 border-t border-[#E8E2D8] flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-[#E5DDCF] flex items-center justify-center text-[10px] font-bold text-[#57534E]">
-              {profile.name.charAt(0)}
-            </div>
-            <span className="font-semibold text-[#1C1917]">{profile.name}</span>
+        {/* Footer: User & Quick Backup */}
+        <div className="pt-4 border-t border-[#E7E1DA] space-y-3">
+          <div className="flex items-center justify-between text-xs text-[#8F877F]">
+            <span>{profile.name}</span>
+            <span className="font-mono text-[10px] text-[#B85C3B]">Offline & Encrypted</span>
           </div>
 
-          <button
-            onClick={exportDataJSON}
-            className="flex items-center gap-1 text-[11px] text-[#C85A17] hover:underline"
-          >
-            <Download className="w-3 h-3" />
-            <span>Export Backup</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={exportDataJSON}
+              className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-white border border-[#E7E1DA] text-xs font-medium text-[#57534E] hover:bg-[#FAF8F4] transition-colors"
+              title="Download local JSON copy"
+            >
+              <Download className="w-3.5 h-3.5 text-[#B85C3B]" />
+              <span>Backup JSON</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

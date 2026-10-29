@@ -26,6 +26,7 @@ import { FocusModeModal } from './components/modals/FocusModeModal';
 import { QuickCaptureModal } from './components/modals/QuickCaptureModal';
 import { CommandPalette } from './components/modals/CommandPalette';
 import { OnboardingModal } from './components/onboarding/OnboardingModal';
+import { AppSplashScreen } from './components/layout/AppSplashScreen';
 
 import {
   ArrowLeft,
@@ -61,15 +62,15 @@ const CalmMainLayout: React.FC = () => {
     if (activeDeepSpace) {
       return (
         <div className="space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]/70">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]/70">
             <button
               onClick={handleReturnToSanctuary}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FFFFFF] border border-[#E8E2D8] hover:bg-[#FAF8F5] text-xs font-medium text-[#57534E] hover:text-[#1C1917] shadow-2xs transition-all"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FFFFFF] border border-[#E7E1DA] hover:bg-[#FAF8F4] text-xs font-medium text-[#57534E] hover:text-[#1B1A19] shadow-2xs transition-all"
             >
-              <ArrowLeft className="w-3.5 h-3.5 text-[#C85A17]" />
+              <ArrowLeft className="w-3.5 h-3.5 text-[#B85C3B]" />
               <span>Back to Sanctuary</span>
             </button>
-            <span className="text-xs font-semibold text-[#1C1917] capitalize">
+            <span className="text-xs font-semibold text-[#1B1A19] capitalize">
               {activeDeepSpace === 'library'
                 ? 'Life Library'
                 : activeDeepSpace === 'coach'
@@ -119,7 +120,7 @@ const CalmMainLayout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-screen overflow-x-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F8F5EE] to-[#FAF8F5] text-[#1C1917] flex flex-col justify-between">
+    <div className="min-h-screen w-screen overflow-x-hidden bg-[#FAF8F4] text-[#1B1A19] flex flex-col justify-between">
       {/* Calm Header */}
       <CalmHeader
         onOpenSpaces={() => setIsSpacesDrawerOpen(true)}
@@ -138,8 +139,8 @@ const CalmMainLayout: React.FC = () => {
         {renderActiveScreen()}
       </main>
 
-      {/* Mobile Dark Bottom Bar - Matching Screenshot 1 */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0B0D18]/95 backdrop-blur-xl border-t border-[#1C2237] px-2 pt-2.5 pb-6 flex items-center justify-around shadow-2xl">
+      {/* Mobile Dark Bottom Bar - Matching Brand & Screenshot 1 */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#1B1A19]/95 backdrop-blur-xl border-t border-[#2D2A28] px-2 pt-2.5 pb-6 flex items-center justify-around shadow-2xl">
         {/* 1. Today */}
         <button
           onClick={() => {
@@ -148,8 +149,8 @@ const CalmMainLayout: React.FC = () => {
           }}
           className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
             !activeDeepSpace && activeTab === 'today'
-              ? 'text-[#F59E0B]'
-              : 'text-[#8E95A5] hover:text-white'
+              ? 'text-[#B85C3B]'
+              : 'text-[#8F877F] hover:text-white'
           }`}
         >
           <Sun className="w-5 h-5 stroke-[2.2]" />
@@ -163,8 +164,8 @@ const CalmMainLayout: React.FC = () => {
           }}
           className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
             activeDeepSpace === 'tasks'
-              ? 'text-[#F59E0B]'
-              : 'text-[#8E95A5] hover:text-white'
+              ? 'text-[#B85C3B]'
+              : 'text-[#8F877F] hover:text-white'
           }`}
         >
           <CheckSquare className="w-5 h-5 stroke-[2.2]" />
@@ -175,7 +176,7 @@ const CalmMainLayout: React.FC = () => {
         <div className="flex flex-1 items-center justify-center">
           <button
             onClick={() => setIsQuickCaptureOpen(true)}
-            className="w-12 h-12 -mt-5 rounded-full bg-white text-[#0B0D18] shadow-xl shadow-black/50 flex items-center justify-center hover:scale-105 active:scale-95 transition-all"
+            className="w-12 h-12 -mt-5 rounded-full bg-white text-[#1B1A19] shadow-xl shadow-black/40 flex items-center justify-center hover:scale-105 active:scale-95 transition-all"
             title="Quick Capture"
           >
             <Plus className="w-6 h-6 stroke-[2.5]" />
@@ -190,8 +191,8 @@ const CalmMainLayout: React.FC = () => {
           }}
           className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
             !activeDeepSpace && activeTab === 'breathe'
-              ? 'text-[#F59E0B]'
-              : 'text-[#8E95A5] hover:text-white'
+              ? 'text-[#B85C3B]'
+              : 'text-[#8F877F] hover:text-white'
           }`}
         >
           <Wind className="w-5 h-5 stroke-[2.2]" />
@@ -203,8 +204,8 @@ const CalmMainLayout: React.FC = () => {
           onClick={() => setIsSpacesDrawerOpen(true)}
           className={`flex flex-1 flex-col items-center justify-center gap-1 transition-colors ${
             isSpacesDrawerOpen || (activeDeepSpace && activeDeepSpace !== 'tasks')
-              ? 'text-[#F59E0B]'
-              : 'text-[#8E95A5] hover:text-white'
+              ? 'text-[#B85C3B]'
+              : 'text-[#8F877F] hover:text-white'
           }`}
         >
           <MoreHorizontal className="w-5 h-5 stroke-[2.2]" />
@@ -226,11 +227,14 @@ const CalmMainLayout: React.FC = () => {
       <CommandPalette />
       <OnboardingModal />
 
+      {/* App Splash/Loading Screen on Opening */}
+      <AppSplashScreen />
+
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-24 md:bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-150">
-          <div className="bg-[#1C1917] text-[#FAF8F5] text-xs font-medium px-4 py-2 rounded-full shadow-lg border border-[#3E3A37] flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#C85A17] animate-pulse" />
+          <div className="bg-[#1B1A19] text-[#FAF8F4] text-xs font-medium px-4 py-2 rounded-full shadow-lg border border-[#2D2A28] flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#B85C3B] animate-pulse" />
             <span>{toastMessage}</span>
           </div>
         </div>

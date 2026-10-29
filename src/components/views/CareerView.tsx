@@ -66,9 +66,9 @@ export const CareerView: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E7E1DA]/70">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+          <h1 className="text-xl font-bold tracking-tight text-[#1B1A19]">
             Career & Professional Mastery
           </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
@@ -82,7 +82,7 @@ export const CareerView: React.FC = () => {
             onClick={() => setActiveTab('skills')}
             className={`px-3 py-1.5 rounded-lg font-medium transition-colors ${
               activeTab === 'skills'
-                ? 'bg-[#FFFFFF] text-[#1C1917] shadow-2xs font-semibold'
+                ? 'bg-[#FFFFFF] text-[#1B1A19] shadow-2xs font-semibold'
                 : 'text-[#78716C]'
             }`}
           >
@@ -92,7 +92,7 @@ export const CareerView: React.FC = () => {
             onClick={() => setActiveTab('portfolio')}
             className={`px-3 py-1.5 rounded-lg font-medium transition-colors ${
               activeTab === 'portfolio'
-                ? 'bg-[#FFFFFF] text-[#1C1917] shadow-2xs font-semibold'
+                ? 'bg-[#FFFFFF] text-[#1B1A19] shadow-2xs font-semibold'
                 : 'text-[#78716C]'
             }`}
           >
@@ -102,7 +102,7 @@ export const CareerView: React.FC = () => {
             onClick={() => setActiveTab('pipeline')}
             className={`px-3 py-1.5 rounded-lg font-medium transition-colors ${
               activeTab === 'pipeline'
-                ? 'bg-[#FFFFFF] text-[#1C1917] shadow-2xs font-semibold'
+                ? 'bg-[#FFFFFF] text-[#1B1A19] shadow-2xs font-semibold'
                 : 'text-[#78716C]'
             }`}
           >
@@ -124,35 +124,35 @@ export const CareerView: React.FC = () => {
             {careerSkills.map((skill) => (
               <div
                 key={skill.id}
-                className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-xs space-y-3"
+                className="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-xs space-y-3"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FAF8F5] text-[#78716C] border border-[#E8E2D8]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FAF8F4] text-[#78716C] border border-[#E7E1DA]">
                     {skill.category}
                   </span>
-                  <span className="text-xs font-bold capitalize text-[#C85A17]">
+                  <span className="text-xs font-bold capitalize text-[#B85C3B]">
                     {skill.level}
                   </span>
                 </div>
 
-                <h3 className="text-sm font-bold text-[#1C1917]">{skill.name}</h3>
+                <h3 className="text-sm font-bold text-[#1B1A19]">{skill.name}</h3>
 
                 {skill.targetMilestone && (
                   <p className="text-xs text-[#57534E] leading-relaxed">
-                    <strong className="text-[#1C1917]">Target milestone:</strong> {skill.targetMilestone}
+                    <strong className="text-[#1B1A19]">Target milestone:</strong> {skill.targetMilestone}
                   </p>
                 )}
 
                 {/* Level selector buttons */}
-                <div className="pt-2 border-t border-[#E8E2D8]/60 flex gap-1">
+                <div className="pt-2 border-t border-[#E7E1DA]/60 flex gap-1">
                   {skillLevels.map((lvl) => (
                     <button
                       key={lvl}
                       onClick={() => updateCareerSkill(skill.id, { level: lvl })}
                       className={`flex-1 py-1 rounded text-[10px] font-medium capitalize transition-colors ${
                         skill.level === lvl
-                          ? 'bg-[#1C1917] text-[#FAF8F5] font-semibold'
-                          : 'bg-[#F2EFEB] text-[#78716C] hover:bg-[#E8E2D8]'
+                          ? 'bg-[#1B1A19] text-[#FAF8F4] font-semibold'
+                          : 'bg-[#F2EFEB] text-[#78716C] hover:bg-[#E7E1DA]'
                       }`}
                     >
                       {lvl.slice(0, 5)}
@@ -178,15 +178,15 @@ export const CareerView: React.FC = () => {
             {portfolioProjects.map((proj) => (
               <div
                 key={proj.id}
-                className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-xs space-y-3"
+                className="p-6 rounded-2xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-xs space-y-3"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FAF0E6] text-[#C85A17]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#F8EDE8] text-[#B85C3B]">
                     Stage: {proj.stage}
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-[#1C1917] tracking-tight">
+                <h3 className="text-base font-bold text-[#1B1A19] tracking-tight">
                   {proj.title}
                 </h3>
                 <p className="text-xs text-[#57534E] leading-relaxed">{proj.description}</p>
@@ -205,7 +205,7 @@ export const CareerView: React.FC = () => {
             </span>
             <button
               onClick={() => setIsNewAppOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1C1917] text-[#FAF8F5] text-xs font-semibold"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1B1A19] text-[#FAF8F4] text-xs font-semibold"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Add Opportunity</span>
@@ -217,9 +217,9 @@ export const CareerView: React.FC = () => {
             {pipelineStages.map((stage) => {
               const items = jobApplications.filter((a) => a.stage === stage);
               return (
-                <div key={stage} className="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E8E2D8] space-y-2">
-                  <div className="flex items-center justify-between pb-2 border-b border-[#E8E2D8]">
-                    <span className="text-xs font-bold uppercase tracking-wider capitalize text-[#1C1917]">
+                <div key={stage} className="p-3.5 rounded-xl bg-[#FAF8F4] border border-[#E7E1DA] space-y-2">
+                  <div className="flex items-center justify-between pb-2 border-b border-[#E7E1DA]">
+                    <span className="text-xs font-bold uppercase tracking-wider capitalize text-[#1B1A19]">
                       {stage}
                     </span>
                     <span className="text-[11px] font-mono text-[#8F877F]">{items.length}</span>
@@ -229,17 +229,17 @@ export const CareerView: React.FC = () => {
                     {items.map((app) => (
                       <div
                         key={app.id}
-                        className="p-3 rounded-lg bg-[#FFFFFF] border border-[#E8E2D8] shadow-2xs space-y-1.5 text-xs"
+                        className="p-3 rounded-lg bg-[#FFFFFF] border border-[#E7E1DA] shadow-2xs space-y-1.5 text-xs"
                       >
-                        <h4 className="font-bold text-[#1C1917]">{app.role}</h4>
+                        <h4 className="font-bold text-[#1B1A19]">{app.role}</h4>
                         <p className="text-[#78716C]">{app.organization}</p>
                         {app.salaryTarget && (
-                          <span className="text-[10px] text-[#C85A17] font-semibold block">
+                          <span className="text-[10px] text-[#B85C3B] font-semibold block">
                             {app.salaryTarget}
                           </span>
                         )}
                         {app.nextFollowUp && (
-                          <p className="text-[10px] text-[#8F877F] bg-[#FAF8F5] p-1.5 rounded">
+                          <p className="text-[10px] text-[#8F877F] bg-[#FAF8F4] p-1.5 rounded">
                             Next: {app.nextFollowUp}
                           </p>
                         )}
@@ -252,7 +252,7 @@ export const CareerView: React.FC = () => {
                                 const nextIdx = pipelineStages.indexOf(stage) + 1;
                                 updateJobApplication(app.id, { stage: pipelineStages[nextIdx] });
                               }}
-                              className="text-[10px] text-[#C85A17] hover:underline"
+                              className="text-[10px] text-[#B85C3B] hover:underline"
                             >
                               Advance →
                             </button>
@@ -276,10 +276,10 @@ export const CareerView: React.FC = () => {
 
       {/* New Opportunity Modal */}
       {isNewAppOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1917]/50 backdrop-blur-xs">
-          <div className="w-full max-w-lg bg-[#FAF8F5] border border-[#E8E2D8] rounded-2xl shadow-2xl p-6 text-[#1C1917]">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
-              <h2 className="text-sm font-bold text-[#1C1917]">Add Career Opportunity</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B1A19]/50 backdrop-blur-xs">
+          <div className="w-full max-w-lg bg-[#FAF8F4] border border-[#E7E1DA] rounded-2xl shadow-2xl p-6 text-[#1B1A19]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
+              <h2 className="text-sm font-bold text-[#1B1A19]">Add Career Opportunity</h2>
               <button onClick={() => setIsNewAppOpen(false)} className="p-1 rounded-lg hover:bg-[#EBE5DB]">
                 <X className="w-4 h-4" />
               </button>
@@ -294,7 +294,7 @@ export const CareerView: React.FC = () => {
                   placeholder="e.g. Principal Systems Architect"
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
@@ -306,7 +306,7 @@ export const CareerView: React.FC = () => {
                   placeholder="e.g. Craft Studio / Independent Venture"
                   value={org}
                   onChange={(e) => setOrg(e.target.value)}
-                  className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                  className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                 />
               </div>
 
@@ -318,7 +318,7 @@ export const CareerView: React.FC = () => {
                     placeholder="e.g. ₹3,50,000 / mo"
                     value={salary}
                     onChange={(e) => setSalary(e.target.value)}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                    className="w-full text-xs p-2 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                   />
                 </div>
 
@@ -329,12 +329,12 @@ export const CareerView: React.FC = () => {
                     placeholder="e.g. Thursday 15:00 Architecture review"
                     value={followUp}
                     onChange={(e) => setFollowUp(e.target.value)}
-                    className="w-full text-xs p-2 rounded-lg border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                    className="w-full text-xs p-2 rounded-lg border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-[#E8E2D8]">
+              <div className="flex justify-end gap-2 pt-3 border-t border-[#E7E1DA]">
                 <button
                   type="button"
                   onClick={() => setIsNewAppOpen(false)}
@@ -344,7 +344,7 @@ export const CareerView: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 rounded-lg bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
+                  className="px-4 py-1.5 rounded-lg bg-[#B85C3B] hover:bg-[#B34D10] text-[#FFFFFF] text-xs font-semibold shadow-xs"
                 >
                   Save Opportunity
                 </button>

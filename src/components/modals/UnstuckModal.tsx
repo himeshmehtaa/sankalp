@@ -245,7 +245,7 @@ export const UnstuckModal: React.FC = () => {
     }
   };
 
-  const handleStartFocus = (duration: '2min' | '10min') => {
+  const handleStartFocus = (duration: '25min' | '10min' | '50min') => {
     if (!currentProtocol) return;
 
     let targetTaskTitle = currentProtocol.defaultMicroAction;
@@ -273,13 +273,14 @@ export const UnstuckModal: React.FC = () => {
         particleCount: 30,
         spread: 50,
         origin: { y: 0.8 },
-        colors: ['#C85A17', '#E9D5C3', '#FAF0E6'],
+        colors: ['#B85C3B', '#E7E1DA', '#FAF8F4'],
       });
     } catch (e) {}
 
     setIsUnstuckModalOpen(false);
 
-    // Seed task and launch
+    // Seed task and launch with 25m or selected duration
+    const durationMins = duration === '25min' ? 25 : duration === '10min' ? 10 : 50;
     const existingTask = tasks.find((t) => t.id === selectedProofTaskId);
     startFocusSession(
       existingTask || {
@@ -290,10 +291,11 @@ export const UnstuckModal: React.FC = () => {
         status: 'in_progress',
         subtasks: [],
         createdAt: new Date().toISOString(),
-      }
+      },
+      durationMins
     );
 
-    showToast(`Micro-focus launched (${duration}). You are moving forward.`);
+    showToast(`Focus session launched (${durationMins}m). You are moving forward.`);
   };
 
   const handleCopyScript = (text: string) => {
@@ -305,28 +307,28 @@ export const UnstuckModal: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1C1917]/55 backdrop-blur-xs animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1B1A19]/55 backdrop-blur-xs animate-in fade-in duration-150"
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-xl max-h-[90vh] flex flex-col bg-[#FAF8F5] border border-[#E8E2D8] rounded-3xl shadow-2xl overflow-hidden text-[#1C1917]">
+      <div className="relative w-full max-w-xl max-h-[90vh] flex flex-col bg-[#FAF8F4] border border-[#E7E1DA] rounded-3xl shadow-2xl overflow-hidden text-[#1B1A19]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E8E2D8] bg-[#FFFFFF]/80 shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E7E1DA] bg-[#FFFFFF]/80 shrink-0">
           <div className="flex items-center gap-2.5">
             {stage === 'protocol' && (
               <button
                 onClick={() => setStage('select')}
-                className="p-1 rounded-lg text-[#8F877F] hover:text-[#1C1917] hover:bg-[#F2EFEB] transition-colors mr-1"
+                className="p-1 rounded-lg text-[#8F877F] hover:text-[#1B1A19] hover:bg-[#F2EFEB] transition-colors mr-1"
                 title="Back to states"
               >
                 <ArrowLeft className="w-4 h-4" />
               </button>
             )}
-            <div className="w-8 h-8 rounded-full bg-[#FAF0E6] flex items-center justify-center text-[#C85A17] border border-[#E9D5C3]">
+            <div className="w-8 h-8 rounded-full bg-[#F8EDE8] flex items-center justify-center text-[#B85C3B] border border-[#E7E1DA]">
               <Zap className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-[#1C1917] tracking-tight">
+              <h2 className="text-sm font-semibold text-[#1B1A19] tracking-tight">
                 Get Me Unstuck
               </h2>
               <p className="text-[11px] text-[#8F877F]">
@@ -339,7 +341,7 @@ export const UnstuckModal: React.FC = () => {
 
           <button
             onClick={() => setIsUnstuckModalOpen(false)}
-            className="p-1.5 rounded-xl text-[#8F877F] hover:text-[#1C1917] hover:bg-[#EBE5DB] transition-colors"
+            className="p-1.5 rounded-xl text-[#8F877F] hover:text-[#1B1A19] hover:bg-[#EBE5DB] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -362,13 +364,13 @@ export const UnstuckModal: React.FC = () => {
                   <button
                     key={p.key}
                     onClick={() => handleSelectProtocol(p.key)}
-                    className="w-full flex items-center justify-between p-3.5 sm:p-4 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] hover:border-[#C85A17]/60 hover:bg-[#FAF8F5] text-left transition-all group shadow-2xs"
+                    className="w-full flex items-center justify-between p-3.5 sm:p-4 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] hover:border-[#B85C3B]/60 hover:bg-[#FAF8F4] text-left transition-all group shadow-2xs"
                   >
                     <div className="space-y-1 pr-3">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-[#C85A17]">
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-[#B85C3B]">
                         {p.category}
                       </span>
-                      <p className="text-xs sm:text-sm font-semibold text-[#1C1917] leading-snug">
+                      <p className="text-xs sm:text-sm font-semibold text-[#1B1A19] leading-snug">
                         {p.label}
                       </p>
                       <p className="text-[11px] text-[#78716C]">
@@ -376,7 +378,7 @@ export const UnstuckModal: React.FC = () => {
                       </p>
                     </div>
 
-                    <div className="w-7 h-7 rounded-full bg-[#FAF8F5] group-hover:bg-[#FAF0E6] flex items-center justify-center text-[#8F877F] group-hover:text-[#C85A17] shrink-0 transition-colors">
+                    <div className="w-7 h-7 rounded-full bg-[#FAF8F4] group-hover:bg-[#F8EDE8] flex items-center justify-center text-[#8F877F] group-hover:text-[#B85C3B] shrink-0 transition-colors">
                       <ArrowRight className="w-3.5 h-3.5" />
                     </div>
                   </button>
@@ -389,9 +391,9 @@ export const UnstuckModal: React.FC = () => {
           {stage === 'protocol' && currentProtocol && (
             <div className="space-y-5 animate-in fade-in duration-150">
               {/* Protocol Title & Diagnosis */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-2xs space-y-2.5">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-2xs space-y-2.5">
                 <div className="flex items-center justify-between flex-wrap gap-2">
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-[#C85A17]">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-[#B85C3B]">
                     {currentProtocol.protocolName}
                   </span>
                   <span className="text-[10px] text-[#8F877F]">
@@ -399,11 +401,11 @@ export const UnstuckModal: React.FC = () => {
                   </span>
                 </div>
 
-                <p className="text-sm font-medium text-[#1C1917] leading-relaxed">
+                <p className="text-sm font-medium text-[#1B1A19] leading-relaxed">
                   "{currentProtocol.quote}"
                 </p>
 
-                <div className="pt-2 border-t border-[#E8E2D8]/60 text-xs text-[#57534E] flex items-start gap-1.5">
+                <div className="pt-2 border-t border-[#E7E1DA]/60 text-xs text-[#57534E] flex items-start gap-1.5">
                   <span className="font-semibold text-[#8F877F] shrink-0">Diagnosis:</span>
                   <span>{currentProtocol.rootCause}</span>
                 </div>
@@ -423,15 +425,15 @@ export const UnstuckModal: React.FC = () => {
                         onClick={() => toggleStep(idx)}
                         className={`w-full flex items-start gap-3 p-3 rounded-xl border text-left text-xs transition-all ${
                           isDone
-                            ? 'bg-[#EEF4F0] border-[#CFDFD3] text-[#4D6B53]'
-                            : 'bg-[#FFFFFF] border-[#E8E2D8] text-[#1C1917] hover:border-[#D6CEBE]'
+                            ? 'bg-[#EEF2EC] border-[#CFDFD3] text-[#6B7A5B]'
+                            : 'bg-[#FFFFFF] border-[#E7E1DA] text-[#1B1A19] hover:border-[#D6CEBE]'
                         }`}
                       >
                         <div
                           className={`w-4 h-4 rounded-md border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
                             isDone
-                              ? 'bg-[#4D6B53] border-[#4D6B53] text-[#FFFFFF]'
-                              : 'border-[#DDD7CB] bg-[#FAF8F5]'
+                              ? 'bg-[#6B7A5B] border-[#6B7A5B] text-[#FFFFFF]'
+                              : 'border-[#DDD7CB] bg-[#FAF8F4]'
                           }`}
                         >
                           {isDone && <Check className="w-3 h-3 stroke-[3]" />}
@@ -446,11 +448,11 @@ export const UnstuckModal: React.FC = () => {
               </div>
 
               {/* Interactive Micro-Tool for this Specific Protocol */}
-              <div className="p-4 rounded-2xl bg-[#FAF0E6]/50 border border-[#E9D5C3] space-y-3">
+              <div className="p-4 rounded-2xl bg-[#F8EDE8]/50 border border-[#E7E1DA] space-y-3">
                 {/* TOOL: Anchor Line for Scrolling */}
                 {currentProtocol.toolType === 'anchor_line' && (
                   <div className="space-y-2">
-                    <label className="block text-xs font-bold text-[#1C1917]">
+                    <label className="block text-xs font-bold text-[#1B1A19]">
                       Type 1 ugly sentence or code line to break the freeze:
                     </label>
                     <input
@@ -459,7 +461,7 @@ export const UnstuckModal: React.FC = () => {
                       placeholder="e.g. In this section, we need to test the auth callback handler..."
                       value={anchorLine}
                       onChange={(e) => setAnchorLine(e.target.value)}
-                      className="w-full text-xs p-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                      className="w-full text-xs p-2.5 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                     />
                   </div>
                 )}
@@ -467,7 +469,7 @@ export const UnstuckModal: React.FC = () => {
                 {/* TOOL: Reversibility Coin for Overthinking */}
                 {currentProtocol.toolType === 'reversibility_coin' && (
                   <div className="space-y-2 text-center">
-                    <p className="text-xs font-semibold text-[#1C1917]">
+                    <p className="text-xs font-semibold text-[#1B1A19]">
                       Coin-Flip Decider for Reversible Choices
                     </p>
                     <div className="flex items-center justify-center gap-3 pt-1">
@@ -475,8 +477,8 @@ export const UnstuckModal: React.FC = () => {
                         onClick={() => setCoinResult('A')}
                         className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
                           coinResult === 'A'
-                            ? 'bg-[#C85A17] text-[#FFFFFF] border-[#C85A17] shadow-xs'
-                            : 'bg-[#FFFFFF] border-[#E8E2D8] text-[#1C1917]'
+                            ? 'bg-[#B85C3B] text-[#FFFFFF] border-[#B85C3B] shadow-xs'
+                            : 'bg-[#FFFFFF] border-[#E7E1DA] text-[#1B1A19]'
                         }`}
                       >
                         Lock in Option A (Recommended)
@@ -485,15 +487,15 @@ export const UnstuckModal: React.FC = () => {
                         onClick={() => setCoinResult('B')}
                         className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
                           coinResult === 'B'
-                            ? 'bg-[#C85A17] text-[#FFFFFF] border-[#C85A17] shadow-xs'
-                            : 'bg-[#FFFFFF] border-[#E8E2D8] text-[#1C1917]'
+                            ? 'bg-[#B85C3B] text-[#FFFFFF] border-[#B85C3B] shadow-xs'
+                            : 'bg-[#FFFFFF] border-[#E7E1DA] text-[#1B1A19]'
                         }`}
                       >
                         Lock in Option B
                       </button>
                     </div>
                     {coinResult && (
-                      <p className="text-[11px] text-[#4D6B53] font-medium pt-1">
+                      <p className="text-[11px] text-[#6B7A5B] font-medium pt-1">
                         Locked Option {coinResult}. Execute for 15 minutes before re-evaluating.
                       </p>
                     )}
@@ -504,7 +506,7 @@ export const UnstuckModal: React.FC = () => {
                 {currentProtocol.toolType === 'shitty_draft' && (
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-bold text-[#1C1917]">
+                      <span className="font-bold text-[#1B1A19]">
                         Unfiltered Draft Sandbox (No Backspacing Allowed)
                       </span>
                       <span className="text-[10px] text-[#8F877F] uppercase tracking-wider">
@@ -516,7 +518,7 @@ export const UnstuckModal: React.FC = () => {
                       placeholder="Write freely here. Do not edit, do not judge, just get raw words onto the screen..."
                       value={anchorLine}
                       onChange={(e) => setAnchorLine(e.target.value)}
-                      className="w-full text-xs p-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17] resize-none"
+                      className="w-full text-xs p-2.5 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B] resize-none"
                     />
                   </div>
                 )}
@@ -524,7 +526,7 @@ export const UnstuckModal: React.FC = () => {
                 {/* TOOL: Task Sieve */}
                 {currentProtocol.toolType === 'task_sieve' && (
                   <div className="space-y-2">
-                    <label className="block text-xs font-bold text-[#1C1917]">
+                    <label className="block text-xs font-bold text-[#1B1A19]">
                       Pick ONLY ONE task to protect for today:
                     </label>
                     <CustomSelect
@@ -549,7 +551,7 @@ export const UnstuckModal: React.FC = () => {
                 {currentProtocol.toolType === 'communication_script' && (
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-[#1C1917]">
+                      <span className="text-xs font-bold text-[#1B1A19]">
                         Ready-to-Use Direct Message Template:
                       </span>
                       <button
@@ -558,13 +560,13 @@ export const UnstuckModal: React.FC = () => {
                             `Hey [Name], I've been reflecting on our project timeline. I want to ensure we're both completely aligned and not carrying unnecessary friction. Can we grab 10 minutes tomorrow morning to sync quickly?`
                           )
                         }
-                        className="flex items-center gap-1 text-[11px] font-semibold text-[#C85A17] hover:underline"
+                        className="flex items-center gap-1 text-[11px] font-semibold text-[#B85C3B] hover:underline"
                       >
                         {scriptCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>{scriptCopied ? 'Copied' : 'Copy Template'}</span>
                       </button>
                     </div>
-                    <div className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E8E2D8] text-xs text-[#57534E] leading-relaxed font-mono">
+                    <div className="p-3 rounded-xl bg-[#FFFFFF] border border-[#E7E1DA] text-xs text-[#57534E] leading-relaxed font-mono">
                       "Hey [Name], I've been reflecting on our project timeline. I want to ensure we're both completely aligned and not carrying unnecessary friction. Can we grab 10 minutes tomorrow morning to sync quickly?"
                     </div>
                   </div>
@@ -573,19 +575,19 @@ export const UnstuckModal: React.FC = () => {
                 {/* TOOL: Vagus Nerve Physiological Sigh Pacer */}
                 {currentProtocol.toolType === 'sigh_pacer' && (
                   <div className="text-center space-y-3 py-1">
-                    <div className="flex items-center justify-center gap-2 text-xs font-bold text-[#1C1917]">
-                      <Wind className="w-4 h-4 text-[#C85A17]" />
+                    <div className="flex items-center justify-center gap-2 text-xs font-bold text-[#1B1A19]">
+                      <Wind className="w-4 h-4 text-[#B85C3B]" />
                       <span>Physiological Sigh Pacer (Huberman Protocol)</span>
                     </div>
                     <div className="flex items-center justify-center gap-3">
                       <button
                         onClick={() => setSighCount((c) => Math.min(3, c + 1))}
-                        className="px-4 py-2 rounded-xl bg-[#FFFFFF] border border-[#E9D5C3] text-xs font-semibold text-[#1C1917] hover:bg-[#FAF0E6] transition-colors"
+                        className="px-4 py-2 rounded-xl bg-[#FFFFFF] border border-[#E7E1DA] text-xs font-semibold text-[#1B1A19] hover:bg-[#F8EDE8] transition-colors"
                       >
                         Completed Rep ({sighCount}/3)
                       </button>
                       {sighCount >= 3 && (
-                        <span className="text-xs font-semibold text-[#4D6B53] flex items-center gap-1">
+                        <span className="text-xs font-semibold text-[#6B7A5B] flex items-center gap-1">
                           <Check className="w-4 h-4" /> Reset completed
                         </span>
                       )}
@@ -598,7 +600,7 @@ export const UnstuckModal: React.FC = () => {
 
                 {/* TOOL: Never Twice */}
                 {currentProtocol.toolType === 'never_twice' && (
-                  <div className="space-y-1.5 text-xs text-[#1C1917]">
+                  <div className="space-y-1.5 text-xs text-[#1B1A19]">
                     <span className="font-bold">The Minimum Atomic Rep:</span>
                     <p className="text-[#57534E] leading-relaxed">
                       "Even if you only write 2 sentences, do 5 pushups, or review 1 note—doing it today keeps the habit chain intact."
@@ -609,7 +611,7 @@ export const UnstuckModal: React.FC = () => {
                 {/* TOOL: Custom Input */}
                 {currentProtocol.toolType === 'custom_input' && (
                   <div className="space-y-2">
-                    <label className="block text-xs font-bold text-[#1C1917]">
+                    <label className="block text-xs font-bold text-[#1B1A19]">
                       Describe what you are avoiding or feeling:
                     </label>
                     <input
@@ -617,32 +619,32 @@ export const UnstuckModal: React.FC = () => {
                       placeholder="e.g. Afraid of getting rejected by the client..."
                       value={customText}
                       onChange={(e) => setCustomText(e.target.value)}
-                      className="w-full text-xs p-2.5 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"
+                      className="w-full text-xs p-2.5 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B]"
                     />
                   </div>
                 )}
               </div>
 
-              {/* Action Bridge: Micro-Start or Focus Session */}
+              {/* Action Bridge: 25-Min Deep Focus or 10-Min Sprint */}
               <div className="pt-2 space-y-2">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#8F877F] block">
                   Bridge to Momentum (Select Start Option)
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <button
-                    onClick={() => handleStartFocus('2min')}
-                    className="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs transition-all active:scale-[0.99]"
+                    onClick={() => handleStartFocus('25min')}
+                    className="flex items-center justify-center gap-2 p-3.5 rounded-2xl bg-[#1B1A19] hover:bg-[#2B2927] text-[#FAF8F4] text-xs font-semibold shadow-xs transition-all active:scale-[0.99]"
                   >
-                    <Clock className="w-4 h-4 text-[#C85A17]" />
-                    <span>Start 2-Min Micro Start</span>
+                    <Clock className="w-4 h-4 text-[#B85C3B]" />
+                    <span>Launch 25-Min Deep Focus</span>
                   </button>
 
                   <button
                     onClick={() => handleStartFocus('10min')}
-                    className="flex items-center justify-center gap-2 p-3.5 rounded-2xl border border-[#D6CEBE] bg-[#FFFFFF] hover:bg-[#FAF8F5] text-[#1C1917] text-xs font-semibold shadow-xs transition-all active:scale-[0.99]"
+                    className="flex items-center justify-center gap-2 p-3.5 rounded-2xl border border-[#E7E1DA] bg-[#FFFFFF] hover:bg-[#FAF8F4] text-[#1B1A19] text-xs font-semibold shadow-xs transition-all active:scale-[0.99]"
                   >
                     <Clock className="w-4 h-4 text-[#78716C]" />
-                    <span>Launch 10-Min Focus Block</span>
+                    <span>10-Min Sprint</span>
                   </button>
                 </div>
               </div>
@@ -652,10 +654,10 @@ export const UnstuckModal: React.FC = () => {
 
         {/* Footer */}
         {stage === 'protocol' && (
-          <div className="px-6 py-3 border-t border-[#E8E2D8] bg-[#FFFFFF]/60 flex items-center justify-between text-xs text-[#8F877F] shrink-0">
+          <div className="px-6 py-3 border-t border-[#E7E1DA] bg-[#FFFFFF]/60 flex items-center justify-between text-xs text-[#8F877F] shrink-0">
             <button
               onClick={() => setStage('select')}
-              className="text-[#78716C] hover:text-[#1C1917] font-medium"
+              className="text-[#78716C] hover:text-[#1B1A19] font-medium"
             >
               ← Choose different state
             </button>

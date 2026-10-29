@@ -55,7 +55,8 @@ interface AppContextType {
   isFocusModalOpen: boolean;
   setIsFocusModalOpen: (open: boolean) => void;
   activeFocusTask: Task | null;
-  startFocusSession: (task?: Task | null) => void;
+  focusInitialMinutes: number;
+  startFocusSession: (task?: Task | null, durationMinutes?: number) => void;
   isUnstuckModalOpen: boolean;
   setIsUnstuckModalOpen: (open: boolean) => void;
   openUnstuckWithState: (stateKey?: UnstuckStateKey) => void;
@@ -117,6 +118,7 @@ interface AppContextType {
   // Habits
   habits: Habit[];
   addHabit: (habit: Omit<Habit, 'id' | 'createdAt'>) => void;
+  updateHabit: (id: string, updates: Partial<Habit>) => void;
   toggleHabitDate: (habitId: string, dateStr: string) => void;
   deleteHabit: (id: string) => void;
 
@@ -183,6 +185,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Modals
   const [isFocusModalOpen, setIsFocusModalOpen] = useState(false);
   const [activeFocusTask, setActiveFocusTask] = useState<Task | null>(null);
+  const [focusInitialMinutes, setFocusInitialMinutes] = useState<number>(25);
   const [isUnstuckModalOpen, setIsUnstuckModalOpen] = useState(false);
   const [unstuckPreselectedKey, setUnstuckPreselectedKey] = useState<UnstuckStateKey | undefined>(undefined);
   const [isQuickCaptureOpen, setIsQuickCaptureOpen] = useState(false);
@@ -310,8 +313,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   // Helper actions
-  const startFocusSession = (task: Task | null = null) => {
+  const startFocusSession = (task: Task | null = null, durationMinutes: number = 25) => {
     setActiveFocusTask(task);
+    setFocusInitialMinutes(durationMinutes);
     setIsFocusModalOpen(true);
   };
 
@@ -530,6 +534,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     );
   };
 
+  const updateHabit = (id: string, updates: Partial<Habit>) => {
+    setHabits((prev) => prev.map((h) => (h.id === id ? { ...h, ...updates } : h)));
+    showToast('Habit updated');
+  };
+
   const deleteHabit = (id: string) => {
     setHabits((prev) => prev.filter((h) => h.id !== id));
     showToast('Habit archived');
@@ -718,6 +727,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         isFocusModalOpen,
         setIsFocusModalOpen,
         activeFocusTask,
+        focusInitialMinutes,
         startFocusSession,
         isUnstuckModalOpen,
         setIsUnstuckModalOpen,
@@ -760,6 +770,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         deleteGratitudeEntry,
         habits,
         addHabit,
+        updateHabit,
         toggleHabitDate,
         deleteHabit,
         healthLogs,

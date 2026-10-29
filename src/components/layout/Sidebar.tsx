@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { ViewType } from '../../types';
+import { SankalpLogo } from '../brand/SankalpLogo';
 import {
   Compass,
   Target,
@@ -63,35 +64,26 @@ export const Sidebar: React.FC = () => {
 
   return (
     <aside
-      className={`hidden md:flex flex-col border-r border-[#E8E2D8] bg-[#F7F4EE] transition-all duration-300 ease-in-out select-none ${
+      className={`hidden md:flex flex-col border-r border-[#E7E1DA] bg-[#F7F4EE] transition-all duration-300 ease-in-out select-none ${
         sidebarCollapsed ? 'w-20' : 'w-64'
       }`}
       aria-label="Main sidebar navigation"
     >
       {/* Brand Header */}
-      <div className="p-5 flex items-center justify-between border-b border-[#E8E2D8]/60">
+      <div className="p-5 flex items-center justify-between border-b border-[#E7E1DA]">
         {!sidebarCollapsed ? (
           <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#C85A17] shadow-xs animate-pulse" />
-              <span className="text-xl font-bold tracking-[0.22em] text-[#1C1917] font-editorial">
-                SANKALP
-              </span>
-            </div>
-            <p className="text-[11px] text-[#8F877F] mt-1 tracking-normal font-medium">
-              A promise to the person you're becoming
-            </p>
+            <SankalpLogo variant="full" size="md" />
           </div>
         ) : (
           <div className="mx-auto flex flex-col items-center">
-            <span className="w-3 h-3 rounded-full bg-[#C85A17]" />
-            <span className="text-[10px] font-bold tracking-widest text-[#1C1917] mt-1">S</span>
+            <SankalpLogo variant="symbol" size="sm" />
           </div>
         )}
 
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-          className="p-1.5 rounded-md text-[#8F877F] hover:text-[#1C1917] hover:bg-[#EBE5DB] transition-colors"
+          className="p-1.5 rounded-md text-[#8F877F] hover:text-[#1B1A19] hover:bg-[#E7E1DA] transition-colors"
           title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
@@ -106,16 +98,16 @@ export const Sidebar: React.FC = () => {
           onClick={() => openUnstuckWithState()}
           className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all group shadow-xs ${
             sidebarCollapsed
-              ? 'justify-center bg-[#FAF0E6] text-[#C85A17] hover:bg-[#F5E2D0]'
-              : 'bg-gradient-to-r from-[#FAF0E6] to-[#F5E6D8] text-[#9A420E] border border-[#E9D5C3] hover:border-[#D97706]/40 hover:shadow-sm'
+              ? 'justify-center bg-[#F8EDE8] text-[#B85C3B] hover:bg-[#F5E2D0]'
+              : 'bg-gradient-to-r from-[#F8EDE8] to-[#F5E6D8] text-[#9A420E] border border-[#E7E1DA] hover:border-[#D97706]/40 hover:shadow-sm'
           }`}
           title="Get Me Unstuck (Press U)"
         >
-          <Zap className="w-4 h-4 text-[#C85A17] shrink-0 group-hover:scale-110 transition-transform" />
+          <Zap className="w-4 h-4 text-[#B85C3B] shrink-0 group-hover:scale-110 transition-transform" />
           {!sidebarCollapsed && (
             <div className="flex items-center justify-between flex-1 text-left">
               <span className="font-semibold text-xs tracking-wide">Get Me Unstuck</span>
-              <kbd className="text-[10px] bg-[#FFFFFF]/80 text-[#8F877F] px-1.5 py-0.5 rounded border border-[#E8E2D8]">
+              <kbd className="text-[10px] bg-[#FFFFFF]/80 text-[#8F877F] px-1.5 py-0.5 rounded border border-[#E7E1DA]">
                 U
               </kbd>
             </div>
@@ -125,7 +117,7 @@ export const Sidebar: React.FC = () => {
         {/* Focus Mode */}
         <button
           onClick={() => startFocusSession(null)}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors text-[#57534E] hover:text-[#1C1917] hover:bg-[#EBE5DB] ${
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors text-[#57534E] hover:text-[#1B1A19] hover:bg-[#EBE5DB] ${
             sidebarCollapsed ? 'justify-center' : ''
           }`}
           title="Start Focus Timer"
@@ -146,22 +138,22 @@ export const Sidebar: React.FC = () => {
               onClick={() => setCurrentView(item.id)}
               className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-all text-left ${
                 isActive
-                  ? 'bg-[#FFFFFF] text-[#1C1917] shadow-xs font-semibold border border-[#E2DBD0]'
-                  : 'text-[#6B655F] hover:text-[#1C1917] hover:bg-[#EBE5DB]/70'
+                  ? 'bg-[#FFFFFF] text-[#1B1A19] shadow-xs font-semibold border border-[#E2DBD0]'
+                  : 'text-[#6B655F] hover:text-[#1B1A19] hover:bg-[#EBE5DB]/70'
               } ${sidebarCollapsed ? 'justify-center px-2' : ''}`}
               title={item.label}
               aria-current={isActive ? 'page' : undefined}
             >
               <Icon
                 className={`w-4 h-4 shrink-0 transition-colors ${
-                  isActive ? 'text-[#C85A17]' : 'text-[#8F877F]'
+                  isActive ? 'text-[#B85C3B]' : 'text-[#8F877F]'
                 }`}
               />
               {!sidebarCollapsed && (
                 <div className="flex items-center justify-between flex-1 truncate">
                   <span className="truncate">{item.label}</span>
                   {item.badge !== undefined && (
-                    <span className="ml-2 px-1.5 py-0.5 text-[10px] font-semibold bg-[#C85A17]/10 text-[#C85A17] rounded-full">
+                    <span className="ml-2 px-1.5 py-0.5 text-[10px] font-semibold bg-[#B85C3B]/10 text-[#B85C3B] rounded-full">
                       {item.badge}
                     </span>
                   )}
@@ -173,14 +165,14 @@ export const Sidebar: React.FC = () => {
       </nav>
 
       {/* User & Guiding Principle Footer */}
-      <div className="p-3 border-t border-[#E8E2D8]/60 bg-[#F3EFE8]/70">
+      <div className="p-3 border-t border-[#E7E1DA]/60 bg-[#F3EFE8]/70">
         {!sidebarCollapsed ? (
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-[#E5DDCF] flex items-center justify-center text-xs font-bold text-[#57534E] border border-[#DDD4C3]">
               {profile.name.charAt(0)}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-[#1C1917] truncate">{profile.name}</p>
+              <p className="text-xs font-semibold text-[#1B1A19] truncate">{profile.name}</p>
               <p className="text-[10px] text-[#8F877F] truncate capitalize">
                 Mood: {profile.todayMood.replace('-', ' ')}
               </p>

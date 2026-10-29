@@ -58,7 +58,7 @@ export const InteractiveTaskScratchpad: React.FC = () => {
     // Promote selected
     updateTask(taskId, { priority: 'proof' });
     try {
-      confetti({ particleCount: 20, spread: 40, colors: ['#C85A17', '#F59E0B'] });
+      confetti({ particleCount: 20, spread: 40, colors: ['#B85C3B', '#F59E0B'] });
     } catch (e) {}
     showToast('Promoted to today’s #1 Proof Action');
   };
@@ -74,8 +74,8 @@ export const InteractiveTaskScratchpad: React.FC = () => {
       <div className="lg:col-span-7 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#C85A17]" />
-            <h3 className="text-sm font-bold uppercase tracking-wider text-[#1C1917] font-editorial">
+            <span className="w-2 h-2 rounded-full bg-[#B85C3B]" />
+            <h3 className="text-sm font-bold uppercase tracking-wider text-[#1B1A19] font-editorial">
               Today's Action Flow
             </h3>
           </div>
@@ -91,12 +91,12 @@ export const InteractiveTaskScratchpad: React.FC = () => {
             placeholder="Type an action and press Enter to add..."
             value={newTaskTitle}
             onChange={(e) => setNewTaskTitle(e.target.value)}
-            className="w-full text-xs font-medium pl-4 pr-12 py-3 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-2xs focus:outline-none focus:border-[#C85A17] focus:ring-2 focus:ring-[#C85A17]/10 transition-all text-[#1C1917] placeholder:text-[#8F877F]"
+            className="w-full text-xs font-medium pl-4 pr-12 py-3 rounded-2xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-2xs focus:outline-none focus:border-[#B85C3B] focus:ring-2 focus:ring-[#B85C3B]/10 transition-all text-[#1B1A19] placeholder:text-[#8F877F]"
           />
           <button
             type="submit"
             disabled={!newTaskTitle.trim()}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-xl bg-[#1C1917] hover:bg-[#2F2B28] text-white disabled:opacity-30 transition-opacity"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-white disabled:opacity-30 transition-opacity"
             title="Add task"
           >
             <Plus className="w-4 h-4" />
@@ -116,32 +116,32 @@ export const InteractiveTaskScratchpad: React.FC = () => {
                   isDone
                     ? 'bg-[#F4F9F5] border-[#CFDFD3]/70 opacity-75'
                     : isProof
-                    ? 'bg-gradient-to-r from-[#FAF0E6]/80 to-[#FFFFFF] border-[#E9D5C3] shadow-xs ring-1 ring-[#C85A17]/20'
-                    : 'bg-[#FFFFFF] border-[#E8E2D8] hover:border-[#D6CEBE]'
+                    ? 'bg-gradient-to-r from-[#F8EDE8]/80 to-[#FFFFFF] border-[#E7E1DA] shadow-xs ring-1 ring-[#B85C3B]/20'
+                    : 'bg-[#FFFFFF] border-[#E7E1DA] hover:border-[#D6CEBE]'
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0 flex-1">
                   <button
                     onClick={() => toggleTaskStatus(t.id)}
-                    className="text-[#8F877F] hover:text-[#C85A17] transition-colors shrink-0"
+                    className="text-[#8F877F] hover:text-[#B85C3B] transition-colors shrink-0"
                   >
                     {isDone ? (
-                      <CheckCircle2 className="w-5 h-5 text-[#4D6B53] fill-[#EEF4F0]" />
+                      <CheckCircle2 className="w-5 h-5 text-[#6B7A5B] fill-[#EEF2EC]" />
                     ) : (
-                      <Circle className="w-5 h-5 hover:text-[#C85A17]" />
+                      <Circle className="w-5 h-5 hover:text-[#B85C3B]" />
                     )}
                   </button>
 
                   <div className="min-w-0 flex-1">
                     <p
                       className={`text-xs font-semibold truncate ${
-                        isDone ? 'line-through text-[#8F877F]' : 'text-[#1C1917]'
+                        isDone ? 'line-through text-[#8F877F]' : 'text-[#1B1A19]'
                       }`}
                     >
                       {t.title}
                     </p>
                     {isProof && (
-                      <span className="text-[9px] uppercase font-bold tracking-widest text-[#C85A17]">
+                      <span className="text-[9px] uppercase font-bold tracking-widest text-[#B85C3B]">
                         ★ Primary Anchor
                       </span>
                     )}
@@ -167,7 +167,7 @@ export const InteractiveTaskScratchpad: React.FC = () => {
                   {!isDone && (
                     <button
                       onClick={() => startFocusSession(t)}
-                      className="p-1.5 rounded-lg text-[#8F877F] hover:text-[#C85A17] hover:bg-[#FAF0E6]"
+                      className="p-1.5 rounded-lg text-[#8F877F] hover:text-[#B85C3B] hover:bg-[#F8EDE8]"
                       title="Launch Focus Session"
                     >
                       <Play className="w-3.5 h-3.5 fill-current" />
@@ -192,25 +192,25 @@ export const InteractiveTaskScratchpad: React.FC = () => {
       <div className="lg:col-span-5 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Edit3 className="w-3.5 h-3.5 text-[#C85A17]" />
-            <h3 className="text-sm font-bold uppercase tracking-wider text-[#1C1917] font-editorial">
+            <Edit3 className="w-3.5 h-3.5 text-[#B85C3B]" />
+            <h3 className="text-sm font-bold uppercase tracking-wider text-[#1B1A19] font-editorial">
               Thought Sanctuary & Scratchpad
             </h3>
           </div>
           <span className="text-[10px] text-[#8F877F]">Auto-saves locally</span>
         </div>
 
-        <div className="p-4 rounded-3xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-xs space-y-2">
+        <div className="p-4 rounded-3xl bg-[#FFFFFF] border border-[#E7E1DA] shadow-xs space-y-2">
           <textarea
             rows={8}
             value={scratchpadText}
             onChange={(e) => handleScratchpadChange(e.target.value)}
             placeholder="Jot down quick thoughts, fleeting ideas, phone numbers, or immediate reminders without breaking focus..."
-            className="w-full text-xs leading-relaxed p-2 bg-transparent focus:outline-none resize-none text-[#1C1917] placeholder:text-[#8F877F]"
+            className="w-full text-xs leading-relaxed p-2 bg-transparent focus:outline-none resize-none text-[#1B1A19] placeholder:text-[#8F877F]"
           />
-          <div className="flex items-center justify-between pt-2 border-t border-[#E8E2D8]/60 text-[10px] text-[#8F877F]">
+          <div className="flex items-center justify-between pt-2 border-t border-[#E7E1DA]/60 text-[10px] text-[#8F877F]">
             <span>{scratchpadText.length} characters</span>
-            <span className="text-[#4D6B53]">● In sync</span>
+            <span className="text-[#6B7A5B]">● In sync</span>
           </div>
         </div>
       </div>

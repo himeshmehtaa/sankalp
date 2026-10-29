@@ -60,13 +60,13 @@ export const MobileNav: React.FC = () => {
     <>
       {/* Mobile Bottom Bar */}
       <nav
-        className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-[#FAF8F5]/98 backdrop-blur-md border-t border-[#E8E2D8] px-3 py-2 flex items-center justify-around"
+        className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-[#FAF8F4]/98 backdrop-blur-md border-t border-[#E7E1DA] px-3 py-2 flex items-center justify-around"
         aria-label="Mobile Navigation"
       >
         <button
           onClick={() => handleSelectView('today')}
           className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-[11px] font-medium transition-colors ${
-            currentView === 'today' ? 'text-[#C85A17] font-semibold' : 'text-[#78716C]'
+            currentView === 'today' ? 'text-[#B85C3B] font-semibold' : 'text-[#78716C]'
           }`}
         >
           <Compass className="w-5 h-5" />
@@ -76,7 +76,7 @@ export const MobileNav: React.FC = () => {
         <button
           onClick={() => handleSelectView('goals')}
           className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-[11px] font-medium transition-colors ${
-            currentView === 'goals' ? 'text-[#C85A17] font-semibold' : 'text-[#78716C]'
+            currentView === 'goals' ? 'text-[#B85C3B] font-semibold' : 'text-[#78716C]'
           }`}
         >
           <Target className="w-5 h-5" />
@@ -86,7 +86,7 @@ export const MobileNav: React.FC = () => {
         {/* Center Floating Quick-Capture FAB */}
         <button
           onClick={() => setIsQuickCaptureOpen(true)}
-          className="w-12 h-12 -mt-5 rounded-full bg-[#1C1917] text-[#FAF8F5] flex items-center justify-center shadow-md active:scale-95 transition-transform border-2 border-[#FAF8F5]"
+          className="w-12 h-12 -mt-5 rounded-full bg-[#1B1A19] text-[#FAF8F4] flex items-center justify-center shadow-md active:scale-95 transition-transform border-2 border-[#FAF8F4]"
           title="Quick Capture"
           aria-label="Quick Capture"
         >
@@ -96,7 +96,7 @@ export const MobileNav: React.FC = () => {
         <button
           onClick={() => handleSelectView('insights')}
           className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-[11px] font-medium transition-colors ${
-            currentView === 'insights' ? 'text-[#C85A17] font-semibold' : 'text-[#78716C]'
+            currentView === 'insights' ? 'text-[#B85C3B] font-semibold' : 'text-[#78716C]'
           }`}
         >
           <BarChart3 className="w-5 h-5" />
@@ -107,7 +107,7 @@ export const MobileNav: React.FC = () => {
           onClick={() => setIsMenuOpen(true)}
           className={`flex flex-col items-center gap-1 py-1 px-2.5 rounded-lg text-[11px] font-medium transition-colors ${
             isMenuOpen || drawerItems.some((d) => d.id === currentView)
-              ? 'text-[#C85A17] font-semibold'
+              ? 'text-[#B85C3B] font-semibold'
               : 'text-[#78716C]'
           }`}
         >
@@ -120,16 +120,16 @@ export const MobileNav: React.FC = () => {
       {isMenuOpen && (
         <div className="md:hidden fixed inset-0 z-40 flex flex-col justify-end">
           <div
-            className="fixed inset-0 bg-[#1C1917]/40 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-[#1B1A19]/40 backdrop-blur-xs transition-opacity"
             onClick={() => setIsMenuOpen(false)}
           />
 
-          <div className="relative bg-[#FAF8F5] rounded-t-2xl max-h-[82vh] overflow-y-auto p-5 border-t border-[#E8E2D8] shadow-2xl z-50 animate-in slide-in-from-bottom duration-200">
+          <div className="relative bg-[#FAF8F4] rounded-t-2xl max-h-[82vh] overflow-y-auto p-5 border-t border-[#E7E1DA] shadow-2xl z-50 animate-in slide-in-from-bottom duration-200">
             {/* Drawer Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#C85A17]" />
-                <span className="font-bold text-sm tracking-widest font-editorial text-[#1C1917]">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#B85C3B]" />
+                <span className="font-bold text-sm tracking-widest font-editorial text-[#1B1A19]">
                   SANKALP SPACES
                 </span>
               </div>
@@ -148,10 +148,10 @@ export const MobileNav: React.FC = () => {
                   setIsMenuOpen(false);
                   openUnstuckWithState();
                 }}
-                className="w-full flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-[#FAF0E6] to-[#F5E6D8] border border-[#E9D5C3] text-[#9A420E]"
+                className="w-full flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-[#F8EDE8] to-[#F5E6D8] border border-[#E7E1DA] text-[#9A420E]"
               >
                 <div className="flex items-center gap-3">
-                  <Zap className="w-5 h-5 text-[#C85A17]" />
+                  <Zap className="w-5 h-5 text-[#B85C3B]" />
                   <div className="text-left">
                     <p className="text-xs font-bold">Get Me Unstuck</p>
                     <p className="text-[11px] text-[#78716C]">
@@ -159,7 +159,7 @@ export const MobileNav: React.FC = () => {
                     </p>
                   </div>
                 </div>
-                <span className="text-xs font-semibold bg-[#FFFFFF]/80 px-2 py-0.5 rounded text-[#C85A17]">
+                <span className="text-xs font-semibold bg-[#FFFFFF]/80 px-2 py-0.5 rounded text-[#B85C3B]">
                   Action
                 </span>
               </button>
@@ -176,8 +176,8 @@ export const MobileNav: React.FC = () => {
                     onClick={() => handleSelectView(item.id)}
                     className={`flex items-center gap-2.5 p-3 rounded-xl border text-left text-xs font-medium transition-all ${
                       isActive
-                        ? 'bg-[#FFFFFF] border-[#C85A17] text-[#C85A17] font-semibold shadow-2xs'
-                        : 'bg-[#FFFFFF] border-[#E8E2D8] text-[#57534E] hover:border-[#D6CEBE]'
+                        ? 'bg-[#FFFFFF] border-[#B85C3B] text-[#B85C3B] font-semibold shadow-2xs'
+                        : 'bg-[#FFFFFF] border-[#E7E1DA] text-[#57534E] hover:border-[#D6CEBE]'
                     }`}
                   >
                     <Icon className="w-4 h-4 shrink-0 text-[#8F877F]" />

@@ -169,7 +169,7 @@ What is the single smallest physical action you can take in the next 120 seconds
         subtasks: [],
       });
       try {
-        confetti({ particleCount: 25, spread: 50, colors: ['#C85A17', '#FAF0E6'] });
+        confetti({ particleCount: 25, spread: 50, colors: ['#B85C3B', '#F8EDE8'] });
       } catch (e) {}
       showToast('Task added to your list with your confirmation.');
     } else if (action.type === 'start_focus') {
@@ -180,9 +180,9 @@ What is the single smallest physical action you can take in the next 120 seconds
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E7E1DA]/70">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+          <h1 className="text-xl font-bold tracking-tight text-[#1B1A19]">
             AI Life Coach & Strategic Counsel
           </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
@@ -197,7 +197,7 @@ What is the single smallest physical action you can take in the next 120 seconds
           <button
             key={i}
             onClick={() => handleSendMessage(p)}
-            className="text-xs text-[#57534E] hover:text-[#C85A17] bg-[#FFFFFF] border border-[#E8E2D8] hover:border-[#C85A17]/40 px-3 py-1.5 rounded-full whitespace-nowrap shadow-2xs transition-colors"
+            className="text-xs text-[#57534E] hover:text-[#B85C3B] bg-[#FFFFFF] border border-[#E7E1DA] hover:border-[#B85C3B]/40 px-3 py-1.5 rounded-full whitespace-nowrap shadow-2xs transition-colors"
           >
             {p}
           </button>
@@ -205,7 +205,7 @@ What is the single smallest physical action you can take in the next 120 seconds
       </div>
 
       {/* Chat Messages Log */}
-      <div className="bg-[#FFFFFF] border border-[#E8E2D8] rounded-2xl p-6 shadow-xs space-y-4 min-h-[420px] max-h-[58vh] overflow-y-auto">
+      <div className="bg-[#FFFFFF] border border-[#E7E1DA] rounded-2xl p-6 shadow-xs space-y-4 min-h-[420px] max-h-[58vh] overflow-y-auto">
         {messages.map((m) => {
           const isUser = m.role === 'user';
           return (
@@ -222,21 +222,21 @@ What is the single smallest physical action you can take in the next 120 seconds
               <div
                 className={`p-4 rounded-2xl max-w-xl text-xs leading-relaxed ${
                   isUser
-                    ? 'bg-[#1C1917] text-[#FAF8F5] rounded-br-xs'
-                    : 'bg-[#FAF8F5] border border-[#E8E2D8] text-[#1C1917] rounded-bl-xs'
+                    ? 'bg-[#1B1A19] text-[#FAF8F4] rounded-br-xs'
+                    : 'bg-[#FAF8F4] border border-[#E7E1DA] text-[#1B1A19] rounded-bl-xs'
                 }`}
               >
                 <div className="whitespace-pre-wrap">{m.content}</div>
 
                 {/* Suggested Action Pill requiring confirmation */}
                 {m.suggestedAction && (
-                  <div className="mt-3 pt-3 border-t border-[#E8E2D8] flex items-center justify-between gap-3">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#C85A17]">
+                  <div className="mt-3 pt-3 border-t border-[#E7E1DA] flex items-center justify-between gap-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#B85C3B]">
                       Proposed Change
                     </span>
                     <button
                       onClick={() => handleApplyAction(m.suggestedAction)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#C85A17] hover:bg-[#B34D10] text-[#FFFFFF] text-[11px] font-bold shadow-xs transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#B85C3B] hover:bg-[#B34D10] text-[#FFFFFF] text-[11px] font-bold shadow-xs transition-colors"
                     >
                       <span>{m.suggestedAction.label}</span>
                       <ArrowRight className="w-3 h-3" />
@@ -262,14 +262,14 @@ What is the single smallest physical action you can take in the next 120 seconds
           placeholder="Ask for guidance on priorities, goal breakdown, or overcoming resistance..."
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
-          className="flex-1 text-xs px-4 py-3 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17] text-[#1C1917]"
+          className="flex-1 text-xs px-4 py-3 rounded-xl border border-[#E7E1DA] bg-[#FFFFFF] focus:outline-none focus:border-[#B85C3B] text-[#1B1A19]"
         />
         <button
           type="submit"
           disabled={!inputMessage.trim()}
-          className="px-5 py-3 rounded-xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs disabled:opacity-40 transition-colors flex items-center gap-1.5"
+          className="px-5 py-3 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-[#FAF8F4] text-xs font-semibold shadow-xs disabled:opacity-40 transition-colors flex items-center gap-1.5"
         >
-          <Send className="w-3.5 h-3.5 text-[#C85A17]" />
+          <Send className="w-3.5 h-3.5 text-[#B85C3B]" />
           <span>Send</span>
         </button>
       </form>

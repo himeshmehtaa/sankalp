@@ -75,9 +75,9 @@ export const SettingsView: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]/70">
+      <div className="flex items-center justify-between pb-3 border-b border-[#E7E1DA]/70">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+          <h1 className="text-xl font-bold tracking-tight text-[#1B1A19]">
             Settings & Data Sovereignty
           </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
@@ -87,10 +87,10 @@ export const SettingsView: React.FC = () => {
       </div>
 
       {/* 1. Profile & Guiding Philosophy Form */}
-      <div className="bg-[#FFFFFF] border border-[#E8E2D8] rounded-2xl p-6 sm:p-7 shadow-xs space-y-4">
-        <div className="flex items-center gap-2 pb-2 border-b border-[#E8E2D8]">
-          <User className="w-4 h-4 text-[#C85A17]" />
-          <h2 className="text-sm font-bold text-[#1C1917]">Personal Identity & Vision</h2>
+      <div className="bg-[#FFFFFF] border border-[#E7E1DA] rounded-2xl p-6 sm:p-7 shadow-xs space-y-4">
+        <div className="flex items-center gap-2 pb-2 border-b border-[#E7E1DA]">
+          <User className="w-4 h-4 text-[#B85C3B]" />
+          <h2 className="text-sm font-bold text-[#1B1A19]">Personal Identity & Vision</h2>
         </div>
 
         <form onSubmit={handleSaveProfile} className="space-y-4">
@@ -101,7 +101,7 @@ export const SettingsView: React.FC = () => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+                className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
               />
             </div>
 
@@ -117,8 +117,8 @@ export const SettingsView: React.FC = () => {
                     onClick={() => setDensity(d)}
                     className={`flex-1 py-2 rounded-lg text-xs font-medium capitalize border transition-colors ${
                       density === d
-                        ? 'bg-[#1C1917] text-[#FAF8F5] border-[#1C1917]'
-                        : 'bg-[#FAF8F5] border-[#E8E2D8] text-[#78716C]'
+                        ? 'bg-[#1B1A19] text-[#FAF8F4] border-[#1B1A19]'
+                        : 'bg-[#FAF8F4] border-[#E7E1DA] text-[#78716C]'
                     }`}
                   >
                     {d}
@@ -137,7 +137,7 @@ export const SettingsView: React.FC = () => {
               value={guidingPrinciple}
               onChange={(e) => setGuidingPrinciple(e.target.value)}
               placeholder="e.g. I can move without complete certainty."
-              className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17]"
+              className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B]"
             />
           </div>
 
@@ -149,14 +149,14 @@ export const SettingsView: React.FC = () => {
               rows={2}
               value={lifeVision}
               onChange={(e) => setLifeVision(e.target.value)}
-              className="w-full text-xs p-2.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17] resize-none"
+              className="w-full text-xs p-2.5 rounded-lg border border-[#E7E1DA] bg-[#FAF8F4] focus:outline-none focus:border-[#B85C3B] resize-none"
             />
           </div>
 
           <div className="flex justify-end pt-2">
             <button
               type="submit"
-              className="px-4 py-2 rounded-xl bg-[#1C1917] hover:bg-[#2F2B28] text-[#FAF8F5] text-xs font-semibold shadow-xs transition-colors"
+              className="px-4 py-2 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-[#FAF8F4] text-xs font-semibold shadow-xs transition-colors"
             >
               Save Preferences
             </button>
@@ -165,10 +165,10 @@ export const SettingsView: React.FC = () => {
       </div>
 
       {/* 2. Data Sovereignty & Backup */}
-      <div className="bg-[#FFFFFF] border border-[#E8E2D8] rounded-2xl p-6 sm:p-7 shadow-xs space-y-4">
-        <div className="flex items-center gap-2 pb-2 border-b border-[#E8E2D8]">
-          <Shield className="w-4 h-4 text-[#4D6B53]" />
-          <h2 className="text-sm font-bold text-[#1C1917]">Data Sovereignty & Local Storage</h2>
+      <div className="bg-[#FFFFFF] border border-[#E7E1DA] rounded-2xl p-6 sm:p-7 shadow-xs space-y-4">
+        <div className="flex items-center gap-2 pb-2 border-b border-[#E7E1DA]">
+          <Shield className="w-4 h-4 text-[#6B7A5B]" />
+          <h2 className="text-sm font-bold text-[#1B1A19]">Data Sovereignty & Local Storage</h2>
         </div>
 
         <p className="text-xs text-[#57534E] leading-relaxed">
@@ -181,16 +181,16 @@ export const SettingsView: React.FC = () => {
           {/* Export */}
           <button
             onClick={exportDataJSON}
-            className="flex items-center justify-center gap-2 p-3.5 rounded-xl border border-[#E8E2D8] bg-[#FAF8F5] hover:bg-[#F2EFEB] text-xs font-semibold text-[#1C1917] shadow-2xs transition-colors"
+            className="flex items-center justify-center gap-2 p-3.5 rounded-xl border border-[#E7E1DA] bg-[#FAF8F4] hover:bg-[#F2EFEB] text-xs font-semibold text-[#1B1A19] shadow-2xs transition-colors"
           >
-            <Download className="w-4 h-4 text-[#C85A17]" />
+            <Download className="w-4 h-4 text-[#B85C3B]" />
             <span>Export Full JSON Backup</span>
           </button>
 
           {/* Import */}
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="flex items-center justify-center gap-2 p-3.5 rounded-xl border border-[#E8E2D8] bg-[#FAF8F5] hover:bg-[#F2EFEB] text-xs font-semibold text-[#1C1917] shadow-2xs transition-colors"
+            className="flex items-center justify-center gap-2 p-3.5 rounded-xl border border-[#E7E1DA] bg-[#FAF8F4] hover:bg-[#F2EFEB] text-xs font-semibold text-[#1B1A19] shadow-2xs transition-colors"
           >
             <Upload className="w-4 h-4 text-[#78716C]" />
             <span>Restore Backup JSON</span>
@@ -204,10 +204,10 @@ export const SettingsView: React.FC = () => {
           />
         </div>
 
-        <div className="pt-3 border-t border-[#E8E2D8] flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="pt-3 border-t border-[#E7E1DA] flex flex-col sm:flex-row items-center justify-between gap-3">
           <button
             onClick={resetToSampleData}
-            className="text-xs text-[#78716C] hover:text-[#C85A17] flex items-center gap-1.5"
+            className="text-xs text-[#78716C] hover:text-[#B85C3B] flex items-center gap-1.5"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>Reset to Authentic Sample Data</span>
@@ -224,28 +224,28 @@ export const SettingsView: React.FC = () => {
       </div>
 
       {/* 3. Keyboard Shortcuts Reference */}
-      <div className="bg-[#FFFFFF] border border-[#E8E2D8] rounded-2xl p-6 shadow-xs space-y-3">
-        <div className="flex items-center gap-2 pb-2 border-b border-[#E8E2D8]">
+      <div className="bg-[#FFFFFF] border border-[#E7E1DA] rounded-2xl p-6 shadow-xs space-y-3">
+        <div className="flex items-center gap-2 pb-2 border-b border-[#E7E1DA]">
           <Key className="w-4 h-4 text-[#8F877F]" />
-          <h2 className="text-sm font-bold text-[#1C1917]">Keyboard Mastery</h2>
+          <h2 className="text-sm font-bold text-[#1B1A19]">Keyboard Mastery</h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-          <div className="p-3 rounded-lg bg-[#FAF8F5] border border-[#E8E2D8] flex items-center justify-between">
+          <div className="p-3 rounded-lg bg-[#FAF8F4] border border-[#E7E1DA] flex items-center justify-between">
             <span className="text-[#57534E]">Command Palette</span>
             <kbd className="bg-[#FFFFFF] px-2 py-0.5 rounded border border-[#DDD7CB] text-[10px] font-mono">
               ⌘K / Ctrl+K
             </kbd>
           </div>
 
-          <div className="p-3 rounded-lg bg-[#FAF8F5] border border-[#E8E2D8] flex items-center justify-between">
+          <div className="p-3 rounded-lg bg-[#FAF8F4] border border-[#E7E1DA] flex items-center justify-between">
             <span className="text-[#57534E]">Get Me Unstuck</span>
             <kbd className="bg-[#FFFFFF] px-2 py-0.5 rounded border border-[#DDD7CB] text-[10px] font-mono">
               U
             </kbd>
           </div>
 
-          <div className="p-3 rounded-lg bg-[#FAF8F5] border border-[#E8E2D8] flex items-center justify-between">
+          <div className="p-3 rounded-lg bg-[#FAF8F4] border border-[#E7E1DA] flex items-center justify-between">
             <span className="text-[#57534E]">Quick Capture</span>
             <kbd className="bg-[#FFFFFF] px-2 py-0.5 rounded border border-[#DDD7CB] text-[10px] font-mono">
               C

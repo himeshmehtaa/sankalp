@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useApp } from '../../context/AppContext';
+import { SankalpSymbol } from '../brand/SankalpLogo';
 import {
   Clock,
   CheckCircle2,
-  Circle,
   Repeat,
-  Flame,
   Droplets,
   Play,
-  Zap,
   Target,
   Sun,
   Moon,
-  Sparkles,
+  Zap,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -23,7 +21,6 @@ export const VitalityRings: React.FC = () => {
     habits,
     healthLogs,
     addOrUpdateHealthLog,
-    toggleTaskStatus,
     startFocusSession,
     showToast,
   } = useApp();
@@ -65,7 +62,7 @@ export const VitalityRings: React.FC = () => {
     });
 
     try {
-      confetti({ particleCount: 15, spread: 35, colors: ['#06B6D4', '#3B82F6', '#60A5FA'] });
+      confetti({ particleCount: 15, spread: 35, colors: ['#B85C3B', '#E7E1DA', '#6B7A5B'] });
     } catch (e) {}
 
     showToast(`Hydration logged: ${nextWater}/8 glasses 💧`);
@@ -93,72 +90,68 @@ export const VitalityRings: React.FC = () => {
     circadianDesc = 'Melatonin synthesis. Unclutter mind with reflection and dim warm light.';
   }
 
-  // SVG Circular math
+  // SVG Concentric Rings Geometry
   const size = 150;
-  const strokeWidth = 10;
+  const strokeWidth = 9;
   const center = size / 2;
 
-  // Ring 1 (Focus - Amber Glow): r = 60
+  // Ring 1 (Focus - Terracotta): r = 60
   const r1 = 60;
   const c1 = 2 * Math.PI * r1;
   const offset1 = c1 - (focusPct / 100) * c1;
 
-  // Ring 2 (Actions - Electric Indigo): r = 46
+  // Ring 2 (Actions - Ivory/Stone): r = 46
   const r2 = 46;
   const c2 = 2 * Math.PI * r2;
   const offset2 = c2 - (taskPct / 100) * c2;
 
-  // Ring 3 (Habits - Emerald Cyan): r = 32
+  // Ring 3 (Habits - Sage): r = 32
   const r3 = 32;
   const c3 = 2 * Math.PI * r3;
   const offset3 = c3 - (habitPct / 100) * c3;
 
-  const totalMomentumScore = Math.round((focusPct + taskPct + habitPct) / 3);
-
   return (
-    <div className="rounded-3xl bg-gradient-to-br from-[#0B0F1C] via-[#0E1528] to-[#070A14] text-white border border-indigo-500/20 shadow-2xl relative overflow-hidden transition-all">
-      {/* Ambient background glows */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-
-      {/* Main Top Row: Info & Glowing Rings */}
+    <div className="rounded-3xl bg-[#1B1A19] text-[#FAF8F4] border border-[#2D2A28] shadow-xl overflow-hidden transition-all relative">
+      {/* Main Top Row: Info & Concentric Rings */}
       <div className="p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
         {/* Left Information Column */}
         <div className="space-y-3 flex-1 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#F59E0B] animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-300">
+            <span className="w-2 h-2 rounded-full bg-[#B85C3B] animate-pulse" />
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-[#E7E1DA] font-wordmark">
               Live Daily Momentum
             </span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-200 border border-indigo-400/20 font-medium">
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-[#FAF8F4] border border-white/10 font-medium">
               Sankalp OS
             </span>
           </div>
 
-          <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white">
+          <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white font-editorial">
             Daily Vitality & Rhythm
           </h3>
 
-          <p className="text-xs text-white/70 leading-relaxed max-w-md">
-            Holistic progress without punitive guilt. Show up for deep focus, your daily proof action, and restorative physical health.
+          <p className="text-xs text-[#FAF8F4]/70 leading-relaxed max-w-md">
+            Deliberate commitment in action: deep focused craft, intentional daily proof, and healthy biological recovery.
           </p>
 
           {/* Key Metrics Row */}
           <div className="grid grid-cols-3 gap-3 pt-2">
-            <div className="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
+            {/* Metric 1: Focus */}
+            <div className="p-3 rounded-2xl bg-white/5 border border-white/10">
               <div className="flex items-center gap-1.5 mb-1">
-                <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />
+                <span className="w-2 h-2 rounded-full bg-[#B85C3B]" />
                 <span className="text-[10px] text-white/60 uppercase tracking-wider font-semibold">
                   Focus
                 </span>
               </div>
               <p className="text-sm font-bold text-white">{totalFocusMinutes}m</p>
-              <p className="text-[10px] text-white/50">{targetFocus}m goal</p>
+              <p className="text-[10px] text-white/50">{targetFocus}m target</p>
             </div>
 
-            <div className="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
+            {/* Metric 2: Actions */}
+            <div className="p-3 rounded-2xl bg-white/5 border border-white/10">
               <div className="flex items-center gap-1.5 mb-1">
-                <span className="w-2 h-2 rounded-full bg-[#818CF8]" />
+                <span className="w-2 h-2 rounded-full bg-[#E7E1DA]" />
                 <span className="text-[10px] text-white/60 uppercase tracking-wider font-semibold">
                   Actions
                 </span>
@@ -169,9 +162,10 @@ export const VitalityRings: React.FC = () => {
               <p className="text-[10px] text-white/50">Done today</p>
             </div>
 
-            <div className="p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xs">
+            {/* Metric 3: Habits */}
+            <div className="p-3 rounded-2xl bg-white/5 border border-white/10">
               <div className="flex items-center gap-1.5 mb-1">
-                <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+                <span className="w-2 h-2 rounded-full bg-[#6B7A5B]" />
                 <span className="text-[10px] text-white/60 uppercase tracking-wider font-semibold">
                   Rhythms
                 </span>
@@ -184,35 +178,21 @@ export const VitalityRings: React.FC = () => {
           </div>
         </div>
 
-        {/* Right: SVG Multi-Layer Glowing Rings */}
+        {/* Right: SVG Concentric Rings */}
         <div className="relative shrink-0 flex items-center justify-center select-none">
-          <svg width={size} height={size} className="transform -rotate-90 drop-shadow-lg">
-            <defs>
-              <linearGradient id="glowFocus" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#F59E0B" />
-                <stop offset="100%" stopColor="#FB923C" />
-              </linearGradient>
-              <linearGradient id="glowAction" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#6366F1" />
-                <stop offset="100%" stopColor="#8B5CF6" />
-              </linearGradient>
-              <linearGradient id="glowRhythm" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#10B981" />
-                <stop offset="100%" stopColor="#06B6D4" />
-              </linearGradient>
-            </defs>
-
-            {/* Crystal Translucent Glass Background Tracks */}
+          <svg width={size} height={size} className="transform -rotate-90">
+            {/* Background Tracks */}
             <circle cx={center} cy={center} r={r1} stroke="rgba(255,255,255,0.08)" strokeWidth={strokeWidth} fill="none" />
             <circle cx={center} cy={center} r={r2} stroke="rgba(255,255,255,0.08)" strokeWidth={strokeWidth} fill="none" />
             <circle cx={center} cy={center} r={r3} stroke="rgba(255,255,255,0.08)" strokeWidth={strokeWidth} fill="none" />
 
-            {/* Active Vibrant Gradient Rings */}
+            {/* Active Brand Arcs */}
+            {/* 1. Focus: Terracotta #B85C3B */}
             <circle
               cx={center}
               cy={center}
               r={r1}
-              stroke="url(#glowFocus)"
+              stroke="#B85C3B"
               strokeWidth={strokeWidth}
               fill="none"
               strokeDasharray={c1}
@@ -220,11 +200,12 @@ export const VitalityRings: React.FC = () => {
               strokeLinecap="round"
               className="transition-all duration-1000 ease-out"
             />
+            {/* 2. Actions: Ivory/Stone #E7E1DA */}
             <circle
               cx={center}
               cy={center}
               r={r2}
-              stroke="url(#glowAction)"
+              stroke="#E7E1DA"
               strokeWidth={strokeWidth}
               fill="none"
               strokeDasharray={c2}
@@ -232,11 +213,12 @@ export const VitalityRings: React.FC = () => {
               strokeLinecap="round"
               className="transition-all duration-1000 ease-out"
             />
+            {/* 3. Habits: Sage #6B7A5B */}
             <circle
               cx={center}
               cy={center}
               r={r3}
-              stroke="url(#glowRhythm)"
+              stroke="#6B7A5B"
               strokeWidth={strokeWidth}
               fill="none"
               strokeDasharray={c3}
@@ -246,49 +228,41 @@ export const VitalityRings: React.FC = () => {
             />
           </svg>
 
-          {/* Center Momentum Badge */}
+          {/* Center Brand Symbol */}
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <Flame className="w-5 h-5 text-[#F59E0B] fill-[#F59E0B]/20 animate-pulse" />
-            <span className="text-xs font-mono font-bold text-white mt-0.5 tracking-tight">
-              {totalMomentumScore}%
+            <SankalpSymbol className="w-5 h-5" fillColor="#B85C3B" />
+            <span className="text-[10px] font-mono font-bold text-white/90 mt-1">
+              {Math.round((focusPct + taskPct + habitPct) / 3)}%
             </span>
           </div>
         </div>
       </div>
 
-      {/* Visual Circadian Energy Wave Banner */}
-      <div className="px-6 py-4 bg-white/5 border-t border-b border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs relative z-10">
+      {/* Circadian Energy Wave Banner */}
+      <div className="px-6 sm:px-8 py-3 bg-white/5 border-t border-b border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
         <div className="flex items-center gap-2">
-          {currentHour >= 6 && currentHour < 18 ? (
-            <Sun className="w-4 h-4 text-[#F59E0B] shrink-0" />
+          {currentHour >= 18 || currentHour < 6 ? (
+            <Moon className="w-4 h-4 text-[#E7E1DA]" />
           ) : (
-            <Moon className="w-4 h-4 text-[#818CF8] shrink-0" />
+            <Sun className="w-4 h-4 text-[#B85C3B]" />
           )}
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-semibold text-white">{circadianPhase}</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/80 font-mono">
-              {circadianBadge}
-            </span>
-            <span className="text-white/60 text-[11px] hidden md:inline">
-              — {circadianDesc}
-            </span>
-          </div>
+          <span className="font-semibold text-white">{circadianPhase}</span>
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/80 border border-white/10">
+            {circadianBadge}
+          </span>
         </div>
-
-        {/* Live Hour Indicator */}
-        <div className="flex items-center gap-1.5 text-[11px] text-white/60 font-mono">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-ping" />
-          <span>Active Window</span>
-        </div>
+        <p className="text-[11px] text-white/70 italic truncate">
+          "{circadianDesc}"
+        </p>
       </div>
 
-      {/* Bottom Interactive Utility Dials: Real Actions right from the card */}
-      <div className="p-4 sm:p-6 bg-black/20 grid grid-cols-1 sm:grid-cols-2 gap-3 relative z-10">
+      {/* High-Utility Quick Actions Row */}
+      <div className="p-4 sm:p-6 bg-black/20 grid grid-cols-1 sm:grid-cols-2 gap-3">
         {/* 1. Quick Hydration Dial */}
         <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-400/20 flex items-center justify-center shrink-0">
-              <Droplets className="w-4 h-4" />
+            <div className="w-9 h-9 rounded-xl bg-white/10 text-[#FAF8F4] border border-white/10 flex items-center justify-center shrink-0">
+              <Droplets className="w-4 h-4 text-[#FAF8F4]" />
             </div>
             <div>
               <p className="text-xs font-semibold text-white">Daily Hydration</p>
@@ -300,7 +274,7 @@ export const VitalityRings: React.FC = () => {
 
           <button
             onClick={handleAddWater}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-[#070A14] text-xs font-bold transition-transform active:scale-95 shadow-md shadow-cyan-500/20"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#FAF8F4] hover:bg-white text-[#1B1A19] text-xs font-bold transition-transform active:scale-95 shadow-sm"
           >
             <span>+1 Glass</span>
           </button>
@@ -309,7 +283,7 @@ export const VitalityRings: React.FC = () => {
         {/* 2. Instant Proof Action Shortcut */}
         <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 truncate">
-            <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-400/20 flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-[#B85C3B]/20 text-[#B85C3B] border border-[#B85C3B]/30 flex items-center justify-center shrink-0">
               <Target className="w-4 h-4" />
             </div>
             <div className="truncate">
@@ -326,8 +300,8 @@ export const VitalityRings: React.FC = () => {
 
           {proofTask && proofTask.status !== 'completed' && (
             <button
-              onClick={() => startFocusSession(proofTask)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F59E0B] hover:bg-[#D97706] text-[#070A14] text-xs font-bold transition-transform active:scale-95 shadow-md shadow-amber-500/20 shrink-0"
+              onClick={() => startFocusSession(proofTask, 25)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#B85C3B] hover:bg-[#A34E30] text-white text-xs font-bold transition-transform active:scale-95 shadow-md shadow-[#B85C3B]/20 shrink-0"
             >
               <Play className="w-3.5 h-3.5 fill-current" />
               <span>Focus</span>
