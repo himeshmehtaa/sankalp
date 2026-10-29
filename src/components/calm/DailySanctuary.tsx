@@ -44,19 +44,22 @@ export const DailySanctuary: React.FC<DailySanctuaryProps> = ({
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 py-2 animate-in fade-in duration-300">
-      {/* 1. Greeting & Atmospheric Quote */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
-        <div>
-          <span className="text-[11px] uppercase font-bold tracking-[0.2em] text-[#8F877F]">
+      {/* 1. Greeting & Context */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pb-2 border-b border-[#E8E2D8]/60">
+        <div className="space-y-1">
+          <p className="text-[11px] uppercase font-semibold tracking-wider text-[#8F877F]">
             {todayDateStr}
-          </span>
-          <h1 className="text-2xl sm:text-3xl font-light text-[#1C1917] tracking-tight font-editorial">
+          </p>
+          <h1 className="text-2xl sm:text-3xl font-semibold text-[#1C1917] tracking-tight">
             Peace and clarity, {profile.name}
           </h1>
         </div>
-        <p className="text-xs font-serif-quote italic text-[#78716C] bg-[#FFFFFF] px-3.5 py-1.5 rounded-full border border-[#E8E2D8] shadow-2xs self-start sm:self-auto">
-          "{profile.guidingPrinciple}"
-        </p>
+        {profile.guidingPrinciple && (
+          <div className="flex items-center gap-2 text-xs text-[#78716C] self-start sm:self-auto py-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C85A17] shrink-0" />
+            <span className="font-medium">"{profile.guidingPrinciple}"</span>
+          </div>
+        )}
       </div>
 
       {/* 2. Visual Vitality Rings (Apple Watch / Endel style) */}

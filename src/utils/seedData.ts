@@ -20,7 +20,7 @@ import {
 } from '../types';
 
 export const initialProfile: UserProfile = {
-  name: 'Arjun',
+  name: 'Himesh',
   lifeVision: 'Build enduring, meaningful work while maintaining deep family presence, physical vitality, and inner stillness.',
   guidingPrinciple: 'I can move without complete certainty.',
   primaryDomain: 'career',

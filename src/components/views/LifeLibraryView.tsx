@@ -74,14 +74,11 @@ export const LifeLibraryView: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E8E2D8]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#C85A17]" />
-            <h1 className="text-xl font-bold tracking-tight text-[#1C1917] font-editorial">
-              Life Library & Wisdom Vault
-            </h1>
-          </div>
+          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+            Life Library & Principles
+          </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
             A permanent sanctuary for timeless principles, seminal book insights, and future visions
           </p>
@@ -146,12 +143,12 @@ export const LifeLibraryView: React.FC = () => {
               <h3 className="text-sm font-bold text-[#1C1917] leading-snug">{item.title}</h3>
 
               {item.sourceOrAuthor && (
-                <p className="text-[11px] text-[#78716C] italic font-serif-quote">
+                <p className="text-[11px] text-[#78716C]">
                   — {item.sourceOrAuthor}
                 </p>
               )}
 
-              <p className="text-xs text-[#57534E] leading-relaxed font-serif-quote">
+              <p className="text-xs text-[#57534E] leading-relaxed">
                 "{item.content}"
               </p>
             </div>

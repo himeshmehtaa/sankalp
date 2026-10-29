@@ -189,8 +189,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
 
+  const initialResolvedProfile: UserProfile = stored?.profile
+    ? {
+        ...stored.profile,
+        name: !stored.profile.name || stored.profile.name === 'Arjun' ? 'Himesh' : stored.profile.name,
+      }
+    : { ...initialProfile, name: 'Himesh' };
+
   // Data States
-  const [profile, setProfile] = useState<UserProfile>(stored?.profile || initialProfile);
+  const [profile, setProfile] = useState<UserProfile>(initialResolvedProfile);
   const [goals, setGoals] = useState<Goal[]>(stored?.goals || initialGoals);
   const [tasks, setTasks] = useState<Task[]>(stored?.tasks || initialTasks);
   const [routines, setRoutines] = useState<RoutineItem[]>(stored?.routines || initialRoutines);

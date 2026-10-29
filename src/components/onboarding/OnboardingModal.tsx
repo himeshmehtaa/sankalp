@@ -15,7 +15,7 @@ export const OnboardingModal: React.FC = () => {
 
   const handleFinish = () => {
     updateProfile({
-      name: name.trim() || 'Arjun',
+      name: name.trim() || 'Himesh',
       lifeVision: vision.trim() || profile.lifeVision,
       guidingPrinciple: principle.trim() || 'I can move without complete certainty.',
       onboardingCompleted: true,
@@ -50,7 +50,7 @@ export const OnboardingModal: React.FC = () => {
               <h2 className="text-xl sm:text-2xl font-bold text-[#1C1917] tracking-tight font-editorial">
                 A promise to the person you're becoming.
               </h2>
-              <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed max-w-md mx-auto font-serif-quote italic">
+              <p className="text-xs sm:text-sm text-[#57534E] leading-relaxed max-w-md mx-auto font-medium">
                 "Self-awareness → Intention → Action → Reflection → Growth"
               </p>
             </div>
@@ -90,7 +90,7 @@ export const OnboardingModal: React.FC = () => {
                 <input
                   type="text"
                   autoFocus
-                  placeholder="e.g. Arjun"
+                  placeholder="e.g. Himesh"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full text-xs p-3 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17]"

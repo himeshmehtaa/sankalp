@@ -131,14 +131,11 @@ export const GoalsView: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Top Header & Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E8E2D8]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#C85A17]" />
-            <h1 className="text-xl font-bold tracking-tight text-[#1C1917] font-editorial">
-              Goals & Life Planning
-            </h1>
-          </div>
+          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+            Goals & Life Planning
+          </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
             Connecting deep life ambitions to concrete daily execution
           </p>
@@ -225,7 +222,7 @@ export const GoalsView: React.FC = () => {
                           Life Vision
                         </span>
                         <h3 className="text-sm font-bold text-[#1C1917] mt-0.5">{vision.title}</h3>
-                        <p className="text-xs text-[#78716C] mt-1 font-serif-quote italic">
+                        <p className="text-xs text-[#78716C] mt-1">
                           "{vision.whyItMatters}"
                         </p>
                       </div>
@@ -304,7 +301,7 @@ export const GoalsView: React.FC = () => {
                       </p>
                     )}
                     {goal.whyItMatters && (
-                      <p className="text-xs text-[#78716C] font-serif-quote italic">
+                      <p className="text-xs text-[#78716C]">
                         Why it matters: "{goal.whyItMatters}"
                       </p>
                     )}

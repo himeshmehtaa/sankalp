@@ -53,7 +53,7 @@ export const Header: React.FC = () => {
             Good {greetingTime}, {profile.name}
           </h1>
           <span className="hidden sm:inline-block text-[#DDD7CB]">•</span>
-          <span className="hidden sm:inline-block text-xs font-serif-quote italic text-[#78716C]">
+          <span className="hidden sm:inline-block text-xs font-medium text-[#78716C]">
             "{profile.guidingPrinciple}"
           </span>
         </div>

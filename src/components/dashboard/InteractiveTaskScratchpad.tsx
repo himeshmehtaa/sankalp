@@ -206,7 +206,7 @@ export const InteractiveTaskScratchpad: React.FC = () => {
             value={scratchpadText}
             onChange={(e) => handleScratchpadChange(e.target.value)}
             placeholder="Jot down quick thoughts, fleeting ideas, phone numbers, or immediate reminders without breaking focus..."
-            className="w-full text-xs leading-relaxed font-serif-quote p-2 bg-transparent focus:outline-none resize-none text-[#292524] placeholder:text-[#A8A29E]"
+            className="w-full text-xs leading-relaxed p-2 bg-transparent focus:outline-none resize-none text-[#1C1917] placeholder:text-[#8F877F]"
           />
           <div className="flex items-center justify-between pt-2 border-t border-[#E8E2D8]/60 text-[10px] text-[#8F877F]">
             <span>{scratchpadText.length} characters</span>

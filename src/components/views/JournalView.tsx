@@ -108,14 +108,11 @@ export const JournalView: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E8E2D8]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#C85A17]" />
-            <h1 className="text-xl font-bold tracking-tight text-[#1C1917] font-editorial">
-              Journal & Personal Knowledge
-            </h1>
-          </div>
+          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+            Journal & Personal Knowledge
+          </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
             A quiet sanctuary for self-awareness, learning notes, and honest self-reflection
           </p>
@@ -132,24 +129,24 @@ export const JournalView: React.FC = () => {
 
       {/* Editor Modal / View */}
       {isWriting ? (
-        <div className="bg-[#FFFFFF] border border-[#E8E2D8] rounded-2xl p-6 shadow-sm space-y-4">
+        <div className="bg-[#FFFFFF] border border-[#E8E2D8] rounded-2xl p-5 sm:p-6 shadow-sm space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#C85A17]">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#C85A17]">
               New Reflection Entry
             </span>
             <button
               onClick={() => setIsWriting(false)}
-              className="text-xs text-[#8F877F] hover:text-[#1C1917]"
+              className="text-xs text-[#8F877F] hover:text-[#1C1917] font-medium"
             >
               Cancel
             </button>
           </div>
 
           {/* Prompts Drawer */}
-          <div className="bg-[#FAF8F5] p-3 rounded-xl border border-[#E8E2D8] space-y-1.5">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-[#78716C] flex items-center gap-1">
+          <div className="bg-[#FAF8F5] p-3 rounded-xl border border-[#E8E2D8] space-y-2">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-[#78716C] flex items-center gap-1">
               <Sparkles className="w-3 h-3 text-[#C85A17]" />
-              <span>Optional Inquiries to spark depth</span>
+              <span>Optional prompts (Click to insert)</span>
             </p>
             <div className="flex flex-wrap gap-1.5">
               {prompts.map((p, idx) => (
@@ -157,9 +154,9 @@ export const JournalView: React.FC = () => {
                   key={idx}
                   type="button"
                   onClick={() => applyPrompt(p)}
-                  className="text-[11px] text-[#57534E] hover:text-[#C85A17] bg-[#FFFFFF] px-2.5 py-1 rounded-md border border-[#E8E2D8] hover:border-[#C85A17]/40 transition-colors text-left"
+                  className="text-xs text-[#57534E] hover:text-[#C85A17] bg-[#FFFFFF] px-2.5 py-1.5 rounded-lg border border-[#E8E2D8] hover:border-[#C85A17]/40 transition-colors text-left"
                 >
-                  {p}
+                  + {p}
                 </button>
               ))}
             </div>
@@ -173,17 +170,17 @@ export const JournalView: React.FC = () => {
                 placeholder="Title of this reflection..."
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full text-base font-bold text-[#1C1917] placeholder:text-[#8F877F] focus:outline-none"
+                className="w-full text-base font-semibold text-[#1C1917] placeholder:text-[#8F877F] px-3.5 py-2.5 rounded-xl border border-[#E8E2D8] bg-[#FAF8F5] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17] transition-all"
               />
             </div>
 
             <div>
               <textarea
-                rows={10}
+                rows={9}
                 placeholder="Write freely. Autosaved locally. No judgment, no rush..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-full text-xs font-serif-quote leading-relaxed p-3.5 rounded-xl border border-[#E8E2D8] bg-[#FAF8F5] focus:outline-none focus:border-[#C85A17] resize-none"
+                className="w-full text-xs leading-relaxed p-3.5 rounded-xl border border-[#E8E2D8] bg-[#FAF8F5] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#C85A17] resize-none text-[#1C1917] placeholder:text-[#8F877F] transition-all"
               />
             </div>
 
@@ -357,7 +354,7 @@ export const JournalView: React.FC = () => {
                   {activeEntry.title}
                 </h2>
 
-                <div className="text-xs sm:text-sm text-[#292524] font-serif-quote leading-relaxed whitespace-pre-wrap">
+                <div className="text-xs sm:text-sm text-[#1C1917] leading-relaxed whitespace-pre-wrap">
                   {activeEntry.content}
                 </div>
 

@@ -128,7 +128,7 @@ ${reflectionTomorrowAnchor || 'N/A'}`,
                 Personal Direction
               </span>
             </div>
-            <p className="text-sm sm:text-base font-serif-quote italic text-[#1C1917] leading-relaxed">
+            <p className="text-sm font-medium text-[#1C1917] leading-relaxed">
               "{profile.lifeVision}"
             </p>
           </div>

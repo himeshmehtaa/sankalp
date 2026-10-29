@@ -237,7 +237,7 @@ export const CalmReflectView: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="space-y-1 text-xs text-[#1C1917] font-serif-quote italic">
+                <div className="space-y-1.5 text-xs text-[#1C1917]">
                   <p>"{g.gratitude1}"</p>
                   {g.gratitude2 && <p>"{g.gratitude2}"</p>}
                   {g.gratitude3 && <p>"{g.gratitude3}"</p>}

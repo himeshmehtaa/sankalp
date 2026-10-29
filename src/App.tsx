@@ -50,16 +50,20 @@ const CalmMainLayout: React.FC = () => {
     if (activeDeepSpace) {
       return (
         <div className="space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]/70">
             <button
               onClick={handleReturnToSanctuary}
-              className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFFFFF] border border-[#E8E2D8] hover:bg-[#F2EFEB] text-xs font-semibold text-[#1C1917] shadow-2xs transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FFFFFF] border border-[#E8E2D8] hover:bg-[#FAF8F5] text-xs font-medium text-[#57534E] hover:text-[#1C1917] shadow-2xs transition-all"
             >
               <ArrowLeft className="w-3.5 h-3.5 text-[#C85A17]" />
               <span>Back to Sanctuary</span>
             </button>
-            <span className="text-xs font-mono uppercase text-[#8F877F]">
-              Space: {activeDeepSpace}
+            <span className="text-xs font-semibold text-[#1C1917] capitalize">
+              {activeDeepSpace === 'library'
+                ? 'Life Library'
+                : activeDeepSpace === 'coach'
+                ? 'AI Coach'
+                : activeDeepSpace}
             </span>
           </div>
 

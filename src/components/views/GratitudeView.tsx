@@ -104,14 +104,11 @@ export const GratitudeView: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E8E2D8]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#C85A17]" />
-            <h1 className="text-xl font-bold tracking-tight text-[#1C1917] font-editorial">
-              Gratitude & Peaceful Self-Reflection
-            </h1>
-          </div>
+          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+            Gratitude & Reflection
+          </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
             Grounded appreciation without guilt-based streaks or punitive metrics
           </p>
@@ -133,7 +130,7 @@ export const GratitudeView: React.FC = () => {
         <p className="text-[10px] font-bold uppercase tracking-widest text-[#C85A17]">
           Sankalp Core Principle
         </p>
-        <p className="text-sm sm:text-base font-serif-quote italic text-[#1C1917]">
+        <p className="text-sm font-medium text-[#1C1917]">
           "{profile.guidingPrinciple}"
         </p>
       </div>
@@ -286,9 +283,9 @@ export const GratitudeView: React.FC = () => {
               <p className="text-[10px] font-bold uppercase tracking-wider text-[#8F877F]">
                 Grateful For
               </p>
-              <ul className="space-y-1 text-xs text-[#1C1917] font-serif-quote italic">
+              <ul className="space-y-1.5 text-xs text-[#1C1917]">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#C85A17] font-sans font-bold">1.</span>
+                  <span className="text-[#C85A17] font-bold">1.</span>
                   <span>{entry.gratitude1}</span>
                 </li>
                 {entry.gratitude2 && (

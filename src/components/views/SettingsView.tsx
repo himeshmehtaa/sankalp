@@ -75,14 +75,11 @@ export const SettingsView: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex items-center justify-between pb-2 border-b border-[#E8E2D8]">
+      <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]/70">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#C85A17]" />
-            <h1 className="text-xl font-bold tracking-tight text-[#1C1917] font-editorial">
-              Settings, Privacy & Data Sovereignty
-            </h1>
-          </div>
+          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+            Settings & Data Sovereignty
+          </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
             Your data remains strictly private and client-side by design
           </p>

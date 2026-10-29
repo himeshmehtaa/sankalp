@@ -78,7 +78,7 @@ export const Sidebar: React.FC = () => {
                 SANKALP
               </span>
             </div>
-            <p className="text-[11px] text-[#8F877F] mt-1 font-serif-quote italic tracking-wide">
+            <p className="text-[11px] text-[#8F877F] mt-1 tracking-normal font-medium">
               A promise to the person you're becoming
             </p>
           </div>

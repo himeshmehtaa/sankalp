@@ -180,14 +180,11 @@ What is the single smallest physical action you can take in the next 120 seconds
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E8E2D8]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#C85A17]" />
-            <h1 className="text-xl font-bold tracking-tight text-[#1C1917] font-editorial">
-              AI Life Coach & Strategic Counsel
-            </h1>
-          </div>
+          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+            AI Life Coach & Strategic Counsel
+          </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
             Empathetic, accountable, and grounded. Requires your explicit confirmation before saving any changes.
           </p>

@@ -311,7 +311,7 @@ export const UnstuckModal: React.FC = () => {
     >
       <div className="relative w-full max-w-xl max-h-[90vh] flex flex-col bg-[#FAF8F5] border border-[#E8E2D8] rounded-3xl shadow-2xl overflow-hidden text-[#1C1917]">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E8E2D8] bg-[#FFFFFF]/70 shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E8E2D8] bg-[#FFFFFF]/80 shrink-0">
           <div className="flex items-center gap-2.5">
             {stage === 'protocol' && (
               <button
@@ -326,12 +326,12 @@ export const UnstuckModal: React.FC = () => {
               <Zap className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-[#1C1917] tracking-tight">
+              <h2 className="text-sm font-semibold text-[#1C1917] tracking-tight">
                 Get Me Unstuck
               </h2>
               <p className="text-[11px] text-[#8F877F]">
                 {stage === 'select'
-                  ? 'Select your current mental resistance for a tailored protocol'
+                  ? 'Identify your current friction to activate a tailored protocol'
                   : currentProtocol?.tagline}
               </p>
             </div>
@@ -350,35 +350,35 @@ export const UnstuckModal: React.FC = () => {
           {/* STAGE 1: Specific Mental State Selection */}
           {stage === 'select' && (
             <div className="space-y-3">
-              <div className="flex items-center justify-between text-xs text-[#8F877F]">
+              <div className="flex items-center justify-between text-xs text-[#8F877F] pb-1">
                 <span className="font-semibold uppercase tracking-wider text-[10px]">
-                  What are you experiencing right now?
+                  What describes your situation right now?
                 </span>
-                <span>8 Clinical Protocols</span>
+                <span className="text-[11px] font-medium">8 Protocols</span>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 {detailedProtocols.map((p) => (
                   <button
                     key={p.key}
                     onClick={() => handleSelectProtocol(p.key)}
-                    className="w-full flex items-center justify-between p-3.5 rounded-2xl border border-[#E8E2D8] bg-[#FFFFFF] hover:border-[#C85A17] hover:bg-[#FAF0E6]/30 text-left transition-all group shadow-2xs"
+                    className="w-full flex items-center justify-between p-3.5 sm:p-4 rounded-xl border border-[#E8E2D8] bg-[#FFFFFF] hover:border-[#C85A17]/60 hover:bg-[#FAF8F5] text-left transition-all group shadow-2xs"
                   >
-                    <div className="space-y-0.5">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#FAF0E6] text-[#C85A17] border border-[#E9D5C3]">
-                          {p.category}
-                        </span>
-                        <span className="text-xs font-semibold text-[#1C1917]">
-                          {p.label}
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-[#78716C] pl-0.5">
+                    <div className="space-y-1 pr-3">
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-[#C85A17]">
+                        {p.category}
+                      </span>
+                      <p className="text-xs sm:text-sm font-semibold text-[#1C1917] leading-snug">
+                        {p.label}
+                      </p>
+                      <p className="text-[11px] text-[#78716C]">
                         {p.protocolName}
                       </p>
                     </div>
 
-                    <ArrowRight className="w-4 h-4 text-[#8F877F] group-hover:text-[#C85A17] group-hover:translate-x-0.5 transition-all shrink-0 ml-3" />
+                    <div className="w-7 h-7 rounded-full bg-[#FAF8F5] group-hover:bg-[#FAF0E6] flex items-center justify-center text-[#8F877F] group-hover:text-[#C85A17] shrink-0 transition-colors">
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </div>
                   </button>
                 ))}
               </div>
@@ -389,21 +389,21 @@ export const UnstuckModal: React.FC = () => {
           {stage === 'protocol' && currentProtocol && (
             <div className="space-y-5 animate-in fade-in duration-150">
               {/* Protocol Title & Diagnosis */}
-              <div className="p-4 rounded-2xl bg-[#FFFFFF] border border-[#E2DBD0] shadow-2xs space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#C85A17] bg-[#FAF0E6] px-2 py-0.5 rounded-md border border-[#E9D5C3]">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#FFFFFF] border border-[#E8E2D8] shadow-2xs space-y-2.5">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-[#C85A17]">
                     {currentProtocol.protocolName}
                   </span>
-                  <span className="text-[10px] font-mono font-medium text-[#8F877F]">
+                  <span className="text-[10px] text-[#8F877F]">
                     {currentProtocol.tagline}
                   </span>
                 </div>
 
-                <p className="text-sm text-[#1C1917] font-serif-quote italic leading-relaxed pt-1">
+                <p className="text-sm font-medium text-[#1C1917] leading-relaxed">
                   "{currentProtocol.quote}"
                 </p>
 
-                <div className="pt-2 border-t border-[#E8E2D8]/60 text-[11px] text-[#57534E] flex items-start gap-1.5">
+                <div className="pt-2 border-t border-[#E8E2D8]/60 text-xs text-[#57534E] flex items-start gap-1.5">
                   <span className="font-semibold text-[#8F877F] shrink-0">Diagnosis:</span>
                   <span>{currentProtocol.rootCause}</span>
                 </div>
@@ -411,8 +411,8 @@ export const UnstuckModal: React.FC = () => {
 
               {/* Interactive Tactical Checklist */}
               <div className="space-y-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#8F877F] block">
-                  Tactical Action Checklist (Click to Complete)
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-[#8F877F] block">
+                  Action Checklist (Complete before restarting)
                 </span>
                 <div className="space-y-2">
                   {currentProtocol.steps.map((step, idx) => {

@@ -61,16 +61,13 @@ export const FinancesView: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E8E2D8]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#E8E2D8]/70">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#C85A17]" />
-            <h1 className="text-xl font-bold tracking-tight text-[#1C1917] font-editorial">
-              Finances & Life Administration
-            </h1>
-          </div>
+          <h1 className="text-xl font-bold tracking-tight text-[#1C1917]">
+            Finances & Administration
+          </h1>
           <p className="text-xs text-[#8F877F] mt-0.5">
-            Manual, private tracking to ensure freedom runway, timely commitments, and administrative peace
+            Private tracking to ensure freedom runway, timely commitments, and administrative peace
           </p>
         </div>
 
