@@ -6,6 +6,7 @@ import { CalmFocusView } from './components/views/CalmFocusView';
 import { BreathingWidget } from './components/calm/BreathingWidget';
 import { CalmReflectView } from './components/views/CalmReflectView';
 import { SpacesDrawer } from './components/modals/SpacesDrawer';
+import { MusicPlayerDock } from './components/audio/MusicPlayerDock';
 
 // Deep spaces (accessible via drawer)
 import { GoalsView } from './components/views/GoalsView';
@@ -53,7 +54,7 @@ const CalmMainLayout: React.FC = () => {
           <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D8]">
             <button
               onClick={handleReturnToSanctuary}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FFFFFF] border border-[#E8E2D8] hover:bg-[#F2EFEB] text-xs font-semibold text-[#1C1917] shadow-2xs transition-colors"
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFFFFF] border border-[#E8E2D8] hover:bg-[#F2EFEB] text-xs font-semibold text-[#1C1917] shadow-2xs transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5 text-[#C85A17]" />
               <span>Back to Sanctuary</span>
@@ -116,12 +117,15 @@ const CalmMainLayout: React.FC = () => {
       />
 
       {/* Main Sanctuary Area */}
-      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-8 py-6 pb-28 md:pb-12">
+      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-8 py-6 pb-32 md:pb-16">
         {renderActiveScreen()}
       </main>
 
+      {/* Floating Focus Music Player Dock */}
+      <MusicPlayerDock />
+
       {/* Mobile Floating Bottom Bar */}
-      <nav className="md:hidden fixed bottom-4 left-4 right-4 z-40 bg-[#FFFFFF]/95 backdrop-blur-md border border-[#E8E2D8] rounded-full shadow-lg px-4 py-2 flex items-center justify-around">
+      <nav className="md:hidden fixed bottom-4 left-4 right-4 z-30 bg-[#FFFFFF]/95 backdrop-blur-md border border-[#E8E2D8] rounded-full shadow-lg px-4 py-2 flex items-center justify-around">
         <button
           onClick={() => {
             setActiveDeepSpace(null);
@@ -154,7 +158,7 @@ const CalmMainLayout: React.FC = () => {
             setActiveTab('breathe');
           }}
           className={`flex flex-col items-center gap-0.5 text-[10px] font-semibold transition-colors ${
-            !activeDeepSpace && activeTab === 'breathe' ? 'text-[#4D6B53]' : 'text-[#78716C]'
+            !activeDeepSpace && activeTab === 'breathe' ? 'text-[#10B981]' : 'text-[#78716C]'
           }`}
         >
           <Wind className="w-4 h-4" />
@@ -201,7 +205,7 @@ const CalmMainLayout: React.FC = () => {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-20 md:bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-150">
+        <div className="fixed bottom-24 md:bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none animate-in fade-in slide-in-from-bottom-2 duration-150">
           <div className="bg-[#1C1917] text-[#FAF8F5] text-xs font-medium px-4 py-2 rounded-full shadow-lg border border-[#3E3A37] flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#C85A17] animate-pulse" />
             <span>{toastMessage}</span>
