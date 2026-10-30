@@ -4,6 +4,7 @@ import { ViewType } from '../../types';
 import { SankalpSymbol } from '../brand/SankalpLogo';
 import {
   X,
+  Compass,
   Target,
   CheckSquare,
   BookOpen,
@@ -35,6 +36,7 @@ export const SpacesDrawer: React.FC<SpacesDrawerProps> = ({
   if (!isOpen) return null;
 
   const spaces: { id: ViewType; label: string; desc: string; icon: React.ComponentType<{ className?: string }> }[] = [
+    { id: 'journeys', label: 'Guided Journeys', desc: 'Mentor & coach programmes day-by-day', icon: Compass },
     { id: 'goals', label: 'Goals & Vision', desc: 'Life Vision, 90-day focus & milestones', icon: Target },
     { id: 'tasks', label: 'All Tasks & Backlog', desc: 'Upcoming, someday, completed', icon: CheckSquare },
     { id: 'habits', label: 'Habits & Rhythms', desc: '7-day gentle consistency', icon: Repeat },

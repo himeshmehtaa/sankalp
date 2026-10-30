@@ -19,6 +19,7 @@ import { LifeLibraryView } from './components/views/LifeLibraryView';
 import { AICoachView } from './components/views/AICoachView';
 import { InsightsView } from './components/views/InsightsView';
 import { SettingsView } from './components/views/SettingsView';
+import { GuidedJourneysView } from './components/journeys/GuidedJourneysView';
 
 // Modals
 import { UnstuckModal } from './components/modals/UnstuckModal';
@@ -43,13 +44,13 @@ import {
 import { ViewType } from './types';
 
 const CalmMainLayout: React.FC = () => {
-  const { toastMessage, setIsQuickCaptureOpen } = useApp();
+  const { toastMessage, setIsQuickCaptureOpen, setActiveJourneyDayId } = useApp();
 
   const [activeTab, setActiveTab] = useState<'today' | 'focus' | 'breathe' | 'reflect'>('today');
   const [activeDeepSpace, setActiveDeepSpace] = useState<ViewType | null>(null);
   const [isSpacesDrawerOpen, setIsSpacesDrawerOpen] = useState(false);
 
-  const handleSelectDeepSpace = (space: ViewType) => {
+  const handleSelectDeepSpace = (space: ViewType | null) => {
     setActiveDeepSpace(space);
   };
 
@@ -71,7 +72,9 @@ const CalmMainLayout: React.FC = () => {
               <span>Back to Sanctuary</span>
             </button>
             <span className="text-xs font-semibold text-[#1B1A19] capitalize">
-              {activeDeepSpace === 'library'
+              {activeDeepSpace === 'journeys'
+                ? 'Guided Journeys'
+                : activeDeepSpace === 'library'
                 ? 'Life Library'
                 : activeDeepSpace === 'coach'
                 ? 'AI Coach'
@@ -79,6 +82,7 @@ const CalmMainLayout: React.FC = () => {
             </span>
           </div>
 
+          {activeDeepSpace === 'journeys' && <GuidedJourneysView />}
           {activeDeepSpace === 'goals' && <GoalsView />}
           {activeDeepSpace === 'tasks' && <TasksView />}
           {activeDeepSpace === 'habits' && <HabitsView />}
@@ -101,6 +105,11 @@ const CalmMainLayout: React.FC = () => {
           <DailySanctuary
             onStartBreathe={() => setActiveTab('breathe')}
             onStartReflect={() => setActiveTab('reflect')}
+            onOpenJourneys={() => setActiveDeepSpace('journeys')}
+            onOpenDay={(dayId) => {
+              setActiveJourneyDayId(dayId);
+              setActiveDeepSpace('journeys');
+            }}
           />
         );
       case 'focus':
@@ -114,6 +123,11 @@ const CalmMainLayout: React.FC = () => {
           <DailySanctuary
             onStartBreathe={() => setActiveTab('breathe')}
             onStartReflect={() => setActiveTab('reflect')}
+            onOpenJourneys={() => setActiveDeepSpace('journeys')}
+            onOpenDay={(dayId) => {
+              setActiveJourneyDayId(dayId);
+              setActiveDeepSpace('journeys');
+            }}
           />
         );
     }

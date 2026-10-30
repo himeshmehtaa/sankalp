@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { VitalityRings } from '../dashboard/VitalityRings';
 import { InteractiveTaskScratchpad } from '../dashboard/InteractiveTaskScratchpad';
+import { ActiveJourneyCard } from '../journeys/ActiveJourneyCard';
 import {
   LeafMotif,
   SunRadiance,
@@ -27,11 +28,15 @@ import {
 interface DailySanctuaryProps {
   onStartBreathe: () => void;
   onStartReflect: () => void;
+  onOpenJourneys?: () => void;
+  onOpenDay?: (dayId: string) => void;
 }
 
 export const DailySanctuary: React.FC<DailySanctuaryProps> = ({
   onStartBreathe,
   onStartReflect,
+  onOpenJourneys = () => {},
+  onOpenDay = () => {},
 }) => {
   const {
     profile,
@@ -152,6 +157,12 @@ export const DailySanctuary: React.FC<DailySanctuaryProps> = ({
           </div>
         </button>
       </div>
+
+      {/* 3b. Active Guided Journey (Mentor, Coach & Trainer Programme) */}
+      <ActiveJourneyCard
+        onOpenJourneys={onOpenJourneys}
+        onOpenDay={onOpenDay}
+      />
 
       {/* Organic leaf divider */}
       <LeafDivider className="px-8 sm:px-16" />

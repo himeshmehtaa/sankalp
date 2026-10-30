@@ -4,6 +4,7 @@ import { ViewType } from '../../types';
 import { SankalpLogo } from '../brand/SankalpLogo';
 import {
   Sun,
+  Compass,
   CheckSquare,
   Wind,
   Clock,
@@ -79,6 +80,21 @@ export const CalmHeader: React.FC<CalmHeaderProps> = ({
         >
           <CheckSquare className="w-3.5 h-3.5 text-[#1B1A19]" />
           <span>Tasks</span>
+        </button>
+
+        {/* Guided Journeys */}
+        <button
+          onClick={() => {
+            if (onSelectDeepSpace) onSelectDeepSpace('journeys');
+          }}
+          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+            activeDeepSpace === 'journeys'
+              ? 'bg-[#FFFFFF] text-[#1B1A19] shadow-2xs'
+              : 'text-[#78716C] hover:text-[#1B1A19]'
+          }`}
+        >
+          <Compass className="w-3.5 h-3.5 text-[#B85C3B]" />
+          <span>Journeys</span>
         </button>
 
         {/* Breathe & Meditation */}

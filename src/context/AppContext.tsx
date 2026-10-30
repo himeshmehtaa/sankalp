@@ -20,7 +20,10 @@ import {
   WeeklyReview,
   ViewType,
   UnstuckStateKey,
+  GuidedJourney,
+  JourneyDayStatus,
 } from '../types';
+import { resetEntropyJourney } from '../utils/transformationSeed';
 import {
   initialProfile,
   initialGoals,
@@ -43,6 +46,7 @@ import {
 } from '../utils/seedData';
 
 const STORAGE_KEY = 'sankalp_os_state_v1';
+const JOURNEYS_STORAGE_KEY = 'sankalp_guided_journeys_v1';
 
 interface AppContextType {
   // Navigation & View
@@ -153,6 +157,24 @@ interface AppContextType {
   weeklyReviews: WeeklyReview[];
   addWeeklyReview: (review: Omit<WeeklyReview, 'id' | 'createdAt'>) => void;
 
+  // Guided Journeys (Mentor, Coach & Trainer Programmes)
+  journeys: GuidedJourney[];
+  activeJourneyId: string | null;
+  setActiveJourneyId: (id: string | null) => void;
+  activeJourneyDayId: string | null;
+  setActiveJourneyDayId: (id: string | null) => void;
+  addJourney: (journey: GuidedJourney) => void;
+  updateJourney: (journeyId: string, updates: Partial<GuidedJourney>) => void;
+  deleteJourney: (journeyId: string) => void;
+  toggleJourneyDayActivity: (journeyId: string, dayId: string, activityId: string) => void;
+  updateJourneyDayReflection: (journeyId: string, dayId: string, reflection: string) => void;
+  updateJourneyDayProof: (journeyId: string, dayId: string, proof: string) => void;
+  updateJourneyDayNotes: (journeyId: string, dayId: string, notes: string) => void;
+  markJourneyDayStatus: (journeyId: string, dayId: string, status: JourneyDayStatus, skipReason?: string) => void;
+  toggleJourneyDayMinimum: (journeyId: string, dayId: string) => void;
+  toggleJourneyDayBookmark: (journeyId: string, dayId: string) => void;
+  syncJourneyActivityToDailyTasks: (activityText: string, dayNumber: number) => void;
+
   // Backup & Reset
   exportDataJSON: () => void;
   importDataJSON: (jsonString: string) => boolean;
@@ -218,6 +240,35 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [lifeAdminItems, setLifeAdminItems] = useState<LifeAdminItem[]>(stored?.lifeAdminItems || initialLifeAdminItems);
   const [libraryItems, setLibraryItems] = useState<LifeLibraryItem[]>(stored?.libraryItems || initialLibraryItems);
   const [weeklyReviews, setWeeklyReviews] = useState<WeeklyReview[]>(stored?.weeklyReviews || initialWeeklyReviews);
+
+  // Guided Journeys State
+  const loadStoredJourneys = (): GuidedJourney[] => {
+    try {
+      const data = localStorage.getItem(JOURNEYS_STORAGE_KEY);
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to parse saved guided journeys from localStorage:', e);
+    }
+    return [resetEntropyJourney];
+  };
+
+  const [journeys, setJourneys] = useState<GuidedJourney[]>(loadStoredJourneys);
+  const [activeJourneyId, setActiveJourneyId] = useState<string | null>(journeys[0]?.id || null);
+  const [activeJourneyDayId, setActiveJourneyDayId] = useState<string | null>(null);
+
+  // Sync journeys to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem(JOURNEYS_STORAGE_KEY, JSON.stringify(journeys));
+    } catch (e) {
+      console.error('Failed to save journeys to localStorage:', e);
+    }
+  }, [journeys]);
 
   // Sync to localStorage
   useEffect(() => {
@@ -714,7 +765,163 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setLifeAdminItems(initialLifeAdminItems);
     setLibraryItems(initialLibraryItems);
     setWeeklyReviews(initialWeeklyReviews);
+    setJourneys([resetEntropyJourney]);
+    setActiveJourneyId(resetEntropyJourney.id);
+    setActiveJourneyDayId(null);
     showToast('Reset to authentic sample data');
+  };
+
+  // Guided Journey Actions
+  const addJourney = (journey: GuidedJourney) => {
+    setJourneys((prev) => [journey, ...prev]);
+    setActiveJourneyId(journey.id);
+    setActiveJourneyDayId(null);
+    showToast(`Added programme: "${journey.title}"`);
+  };
+
+  const updateJourney = (journeyId: string, updates: Partial<GuidedJourney>) => {
+    setJourneys((prev) =>
+      prev.map((j) => (j.id === journeyId ? { ...j, ...updates, updatedAt: new Date().toISOString() } : j))
+    );
+  };
+
+  const deleteJourney = (journeyId: string) => {
+    setJourneys((prev) => prev.filter((j) => j.id !== journeyId));
+    if (activeJourneyId === journeyId) {
+      setActiveJourneyId(journeys.find((j) => j.id !== journeyId)?.id || null);
+      setActiveJourneyDayId(null);
+    }
+    showToast('Programme removed');
+  };
+
+  const toggleJourneyDayActivity = (journeyId: string, dayId: string, activityId: string) => {
+    setJourneys((prev) =>
+      prev.map((j) => {
+        if (j.id !== journeyId) return j;
+        const updatedDays = j.days.map((day) => {
+          if (day.id !== dayId) return day;
+          const updatedSections = day.sections.map((sec) => {
+            const updatedChecklist = sec.checklist.map((item) => {
+              if (item.id === activityId) {
+                return { ...item, completed: !item.completed };
+              }
+              return item;
+            });
+            return { ...sec, checklist: updatedChecklist };
+          });
+
+          const newStatus: JourneyDayStatus =
+            day.status === 'completed'
+              ? day.status
+              : day.status === 'skipped'
+              ? day.status
+              : 'in_progress';
+
+          return {
+            ...day,
+            status: newStatus,
+            sections: updatedSections,
+          };
+        });
+        return { ...j, days: updatedDays, updatedAt: new Date().toISOString() };
+      })
+    );
+  };
+
+  const updateJourneyDayReflection = (journeyId: string, dayId: string, reflection: string) => {
+    setJourneys((prev) =>
+      prev.map((j) => {
+        if (j.id !== journeyId) return j;
+        const updatedDays = j.days.map((d) => (d.id === dayId ? { ...d, reflectionResponse: reflection } : d));
+        return { ...j, days: updatedDays, updatedAt: new Date().toISOString() };
+      })
+    );
+  };
+
+  const updateJourneyDayProof = (journeyId: string, dayId: string, proof: string) => {
+    setJourneys((prev) =>
+      prev.map((j) => {
+        if (j.id !== journeyId) return j;
+        const updatedDays = j.days.map((d) => (d.id === dayId ? { ...d, proofSubmitted: proof } : d));
+        return { ...j, days: updatedDays, updatedAt: new Date().toISOString() };
+      })
+    );
+  };
+
+  const updateJourneyDayNotes = (journeyId: string, dayId: string, notes: string) => {
+    setJourneys((prev) =>
+      prev.map((j) => {
+        if (j.id !== journeyId) return j;
+        const updatedDays = j.days.map((d) => (d.id === dayId ? { ...d, userNotes: notes } : d));
+        return { ...j, days: updatedDays, updatedAt: new Date().toISOString() };
+      })
+    );
+  };
+
+  const markJourneyDayStatus = (
+    journeyId: string,
+    dayId: string,
+    status: JourneyDayStatus,
+    skipReason?: string
+  ) => {
+    setJourneys((prev) =>
+      prev.map((j) => {
+        if (j.id !== journeyId) return j;
+        const updatedDays = j.days.map((d) => {
+          if (d.id !== dayId) return d;
+          return {
+            ...d,
+            status,
+            skipReason: skipReason !== undefined ? skipReason : d.skipReason,
+            completedAt: status === 'completed' ? new Date().toISOString() : d.completedAt,
+          };
+        });
+        return { ...j, days: updatedDays, updatedAt: new Date().toISOString() };
+      })
+    );
+    if (status === 'completed') {
+      showToast('Day completed! One step closer.');
+    } else if (status === 'skipped') {
+      showToast('Day marked as skipped — no penalty, no doubling tomorrow.');
+    }
+  };
+
+  const toggleJourneyDayMinimum = (journeyId: string, dayId: string) => {
+    setJourneys((prev) =>
+      prev.map((j) => {
+        if (j.id !== journeyId) return j;
+        const updatedDays = j.days.map((d) =>
+          d.id === dayId ? { ...d, isMinimumDayUsed: !d.isMinimumDayUsed } : d
+        );
+        return { ...j, days: updatedDays, updatedAt: new Date().toISOString() };
+      })
+    );
+  };
+
+  const toggleJourneyDayBookmark = (journeyId: string, dayId: string) => {
+    setJourneys((prev) =>
+      prev.map((j) => {
+        if (j.id !== journeyId) return j;
+        const updatedDays = j.days.map((d) =>
+          d.id === dayId ? { ...d, isBookmarked: !d.isBookmarked } : d
+        );
+        return { ...j, days: updatedDays, updatedAt: new Date().toISOString() };
+      })
+    );
+  };
+
+  const syncJourneyActivityToDailyTasks = (activityText: string, dayNumber: number) => {
+    const newTask: Task = {
+      id: `task-journey-${Date.now()}`,
+      title: `[Day ${String(dayNumber).padStart(2, '0')}] ${activityText}`,
+      bucket: 'today',
+      priority: 'proof',
+      status: 'todo',
+      subtasks: [],
+      createdAt: new Date().toISOString(),
+    };
+    setTasks((prev) => [newTask, ...prev]);
+    showToast(`Synced Day ${dayNumber} action to Today's Tasks!`);
   };
 
   return (
@@ -794,6 +1001,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addLibraryItem,
         weeklyReviews,
         addWeeklyReview,
+        journeys,
+        activeJourneyId,
+        setActiveJourneyId,
+        activeJourneyDayId,
+        setActiveJourneyDayId,
+        addJourney,
+        updateJourney,
+        deleteJourney,
+        toggleJourneyDayActivity,
+        updateJourneyDayReflection,
+        updateJourneyDayProof,
+        updateJourneyDayNotes,
+        markJourneyDayStatus,
+        toggleJourneyDayMinimum,
+        toggleJourneyDayBookmark,
+        syncJourneyActivityToDailyTasks,
         exportDataJSON,
         importDataJSON,
         resetToSampleData,

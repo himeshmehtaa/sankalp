@@ -257,6 +257,7 @@ export interface UserProfile {
 
 export type ViewType =
   | 'today'
+  | 'journeys'
   | 'goals'
   | 'tasks'
   | 'journal'
@@ -269,3 +270,5 @@ export type ViewType =
   | 'coach'
   | 'insights'
   | 'settings';
+
+export * from './journeys';
