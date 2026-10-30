@@ -105,9 +105,8 @@ export const ActiveJourneyCard: React.FC<ActiveJourneyCardProps> = ({
             {todayDay && (
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F8EDE8] border border-[#B85C3B]/20 text-[#B85C3B] text-xs font-bold self-start sm:self-auto">
                 <span className="w-2 h-2 rounded-full bg-[#B85C3B] animate-pulse" />
-                <span>
-                  Day {String(todayDay.dayNumber).padStart(2, '0')} · {todayDay.dateString}
-                </span>
+                <span className="font-extrabold">{todayDay.dayLabel || `D${todayDay.dayNumber}`}</span>
+                <span className="font-normal text-[#78716C]">· {todayDay.dateString}</span>
               </div>
             )}
           </div>
@@ -177,7 +176,7 @@ export const ActiveJourneyCard: React.FC<ActiveJourneyCardProps> = ({
               onClick={() => onOpenDay(todayDay.id)}
               className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[#1B1A19] hover:bg-[#2F2B28] text-white text-xs font-semibold shadow-md active:scale-98 transition-all"
             >
-              <span>Continue Day {String(todayDay.dayNumber).padStart(2, '0')} Journey</span>
+              <span>Continue {todayDay.dayLabel || `Day ${todayDay.dayNumber}`} Journey</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#B85C3B]" />
             </button>
           )}

@@ -205,10 +205,10 @@ export const GuidedJourneysView: React.FC = () => {
 
             <button
               onClick={() => setIsUploadModalOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-white text-xs font-semibold shadow-2xs transition-colors"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#1B1A19] hover:bg-[#2F2B28] text-white text-xs font-bold shadow-2xs transition-colors"
             >
               <Upload className="w-3.5 h-3.5 text-[#B85C3B]" />
-              <span>Upload New Programme</span>
+              <span>Upload PDF / Design Schedule</span>
             </button>
           </div>
         </div>
@@ -348,6 +348,45 @@ export const GuidedJourneysView: React.FC = () => {
         </div>
       </div>
 
+      {/* 4b. D1–DN Interactive Quick Ribbon Strip */}
+      <div className="bg-white p-3 sm:p-4 rounded-2xl border border-[#E7E1DA] shadow-2xs space-y-2.5">
+        <div className="flex items-center justify-between px-1">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#78716C] flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#B85C3B]" />
+            <span>Interactive Day Matrix (D1–D{journey.days.length})</span>
+          </span>
+          <span className="text-xs text-[#B85C3B] font-semibold">
+            Tap any D-badge to jump
+          </span>
+        </div>
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
+          {journey.days.map((day) => {
+            const isToday = day.status === 'today';
+            const isCompleted = day.status === 'completed';
+            const label = day.dayLabel || `D${day.dayNumber}`;
+
+            return (
+              <button
+                key={day.id}
+                onClick={() => setActiveJourneyDayId(day.id)}
+                className={`shrink-0 flex flex-col items-center justify-center min-w-[54px] py-1.5 px-2 rounded-xl text-xs font-bold transition-all ${
+                  isToday
+                    ? 'bg-[#B85C3B] text-white shadow-xs scale-105'
+                    : isCompleted
+                    ? 'bg-[#EEF2EC] text-[#6B7A5B] border border-[#6B7A5B]/30 hover:border-[#6B7A5B]'
+                    : 'bg-[#FAF8F4] text-[#57534E] border border-[#E7E1DA] hover:border-[#B85C3B] hover:text-[#1B1A19]'
+                }`}
+              >
+                <span>{label}</span>
+                <span className="text-[9px] font-normal opacity-85">
+                  {isToday ? 'Today' : isCompleted ? 'Done' : day.dateString.split(' ')[0]}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* 5. Main Content by View Mode */}
       {viewMode === 'timeline' && (
         <div className="space-y-6">
@@ -396,14 +435,16 @@ export const GuidedJourneysView: React.FC = () => {
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <span
-                                className={`text-xs font-bold ${
-                                  isToday ? 'text-[#B85C3B]' : 'text-[#1B1A19]'
+                                className={`px-2.5 py-0.5 rounded-lg text-xs font-bold ${
+                                  isToday
+                                    ? 'bg-[#B85C3B] text-white shadow-xs'
+                                    : 'bg-[#F8EDE8] text-[#B85C3B] border border-[#B85C3B]/20'
                                 }`}
                               >
-                                DAY {String(day.dayNumber).padStart(2, '0')}
+                                {day.dayLabel || `D${day.dayNumber}`}
                               </span>
-                              <span className="text-[11px] text-[#78716C]">
-                                • {day.dateString}
+                              <span className="text-xs font-semibold text-[#1B1A19]">
+                                {day.dateString}
                               </span>
                             </div>
 

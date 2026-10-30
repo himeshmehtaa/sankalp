@@ -50,6 +50,7 @@ export interface JourneyDaySection {
 export interface JourneyDay {
   id: string;
   dayNumber: number; // 1, 2, ...
+  dayLabel?: string; // "D1", "D2", "D3", ...
   dateString: string; // e.g. "Thu 29 Oct 2026"
   isoDate?: string; // e.g. "2026-10-29"
   theme: string; // e.g. "Show yourself what already works"
@@ -89,6 +90,7 @@ export interface GuidedJourney {
   startDate: string; // YYYY-MM-DD
   endDate: string; // YYYY-MM-DD
   status: 'active' | 'completed' | 'paused' | 'archived';
+  themeColor?: 'terracotta' | 'sage' | 'charcoal' | 'amber' | 'sand';
   sourceFileName: string;
   sourceRawText: string;
   summary: string;

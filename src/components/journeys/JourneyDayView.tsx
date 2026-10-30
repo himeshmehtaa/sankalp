@@ -172,8 +172,11 @@ export const JourneyDayView: React.FC<JourneyDayViewProps> = ({
 
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-[#B85C3B]">
-                DAY {String(day.dayNumber).padStart(2, '0')}
+              <span className="px-3 py-1 rounded-xl text-xs font-bold bg-[#B85C3B] text-white shadow-2xs">
+                {day.dayLabel || `D${day.dayNumber}`}
+              </span>
+              <span className="text-sm font-bold text-[#1B1A19]">
+                Day {String(day.dayNumber).padStart(2, '0')}
               </span>
               <span
                 className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
