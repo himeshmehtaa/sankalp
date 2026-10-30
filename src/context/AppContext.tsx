@@ -71,6 +71,8 @@ interface AppContextType {
   setIsCommandPaletteOpen: (open: boolean) => void;
   isOnboardingOpen: boolean;
   setIsOnboardingOpen: (open: boolean) => void;
+  isJourneyUploadOpen: boolean;
+  setIsJourneyUploadOpen: (open: boolean) => void;
 
   // Toast
   toastMessage: string | null;
@@ -213,6 +215,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isQuickCaptureOpen, setIsQuickCaptureOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
+  const [isJourneyUploadOpen, setIsJourneyUploadOpen] = useState(false);
 
   const initialResolvedProfile: UserProfile = stored?.profile
     ? {
@@ -946,6 +949,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setIsCommandPaletteOpen,
         isOnboardingOpen,
         setIsOnboardingOpen,
+        isJourneyUploadOpen,
+        setIsJourneyUploadOpen,
         toastMessage,
         showToast,
         profile,

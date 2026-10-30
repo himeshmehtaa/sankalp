@@ -3,6 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { VitalityRings } from '../dashboard/VitalityRings';
 import { InteractiveTaskScratchpad } from '../dashboard/InteractiveTaskScratchpad';
 import { ActiveJourneyCard } from '../journeys/ActiveJourneyCard';
+import { ScheduleConverterCard } from '../journeys/ScheduleConverterCard';
 import {
   LeafMotif,
   SunRadiance,
@@ -167,96 +168,8 @@ export const DailySanctuary: React.FC<DailySanctuaryProps> = ({
       {/* Organic leaf divider */}
       <LeafDivider className="px-8 sm:px-16" />
 
-      {/* 4. The Daily Anchor (Proof Action Hero Card) */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#F8EDE8] via-[#FFFFFF] to-[#F2E2DA] border border-[#E7E1DA] p-6 sm:p-8 shadow-sm">
-        {/* Decorative corner */}
-        <div className="absolute -bottom-6 -right-6 opacity-20 pointer-events-none">
-          <LotusMotif className="w-28 h-28" color="#B85C3B" />
-        </div>
-
-        <div className="relative z-10 space-y-5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-[#B85C3B] flex items-center justify-center shadow-2xs">
-                <Sparkles className="w-3.5 h-3.5 text-white" />
-              </div>
-              <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#B85C3B]">
-                  Today's #1 Proof Action
-                </span>
-              </div>
-            </div>
-
-            {proofGoal && (
-              <span className="text-[11px] text-[#78716C] bg-[#FFFFFF]/80 px-2.5 py-1 rounded-full border border-[#E7E1DA] flex items-center gap-1.5 shadow-2xs">
-                <Target className="w-3 h-3 text-[#B85C3B]" />
-                <span className="truncate max-w-[140px]">{proofGoal.title}</span>
-              </span>
-            )}
-          </div>
-
-          {proofTask ? (
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <button
-                  onClick={() => toggleTaskStatus(proofTask.id)}
-                  className="mt-1 text-[#8F877F] hover:text-[#B85C3B] transition-colors"
-                  title="Mark completed"
-                >
-                  {proofTask.status === 'completed' ? (
-                    <CheckCircle2 className="w-7 h-7 text-[#6B7A5B] fill-[#EEF2EC]" />
-                  ) : (
-                    <Circle className="w-7 h-7 hover:text-[#B85C3B]" />
-                  )}
-                </button>
-
-                <div className="space-y-1 flex-1">
-                  <h2
-                    className={`text-xl sm:text-2xl font-bold tracking-tight ${
-                      proofTask.status === 'completed'
-                        ? 'line-through text-[#78716C]'
-                        : 'text-[#1B1A19]'
-                    }`}
-                  >
-                    {proofTask.title}
-                  </h2>
-                  {proofTask.notes && (
-                    <p className="text-xs text-[#57534E] leading-relaxed max-w-lg">
-                      {proofTask.notes}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* Start Focus Action */}
-              {proofTask.status !== 'completed' && (
-                <div className="pt-2 flex items-center gap-3">
-                  <button
-                    onClick={() => startFocusSession(proofTask)}
-                    className="flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-[#1B1A19] hover:bg-[#2F2B28] text-[#FAF8F4] text-xs font-semibold shadow-md active:scale-95 transition-transform"
-                  >
-                    <Play className="w-4 h-4 text-[#B85C3B] fill-current" />
-                    <span>Begin 25-Min Focus Sanctuary</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-[#8F877F]" />
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="text-center py-6 space-y-3">
-              <LotusMotif className="w-12 h-12 mx-auto" color="#B85C3B" />
-              <p className="text-sm font-semibold text-[#1B1A19]">No primary anchor set for today.</p>
-              <p className="text-xs text-[#78716C]">Set your most important action to anchor your day</p>
-              <button
-                onClick={() => setIsQuickCaptureOpen(true)}
-                className="px-5 py-2.5 rounded-xl bg-[#B85C3B] hover:bg-[#A04F32] text-[#FFFFFF] text-xs font-semibold shadow-xs transition-all active:scale-95"
-              >
-                Add Today's Anchor
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
+      {/* 4. Convert Any Schedule into Day 1, Day 2 Tasks (Replaces Daily Anchor per user request) */}
+      <ScheduleConverterCard />
 
       {/* 5. Modern Interactive Task Flow & Scratchpad */}
       <InteractiveTaskScratchpad />

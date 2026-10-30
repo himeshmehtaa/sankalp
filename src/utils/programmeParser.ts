@@ -1,5 +1,6 @@
 import mammoth from 'mammoth';
 import { extractTextFromPdf } from './pdfExtractor';
+import { extractTextFromPptx } from './pptxExtractor';
 import {
   GuidedJourney,
   JourneyDay,
@@ -27,7 +28,12 @@ export async function extractTextFromFile(file: File): Promise<string> {
     return result.value;
   }
 
-  // 3. Text, Markdown, or fallback
+  // 3. PPTX PowerPoint File extraction
+  if (fileExt === 'pptx' || fileExt === 'ppt') {
+    return await extractTextFromPptx(file);
+  }
+
+  // 4. Text, Markdown, or fallback
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (e) => {

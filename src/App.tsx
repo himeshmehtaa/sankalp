@@ -20,6 +20,7 @@ import { AICoachView } from './components/views/AICoachView';
 import { InsightsView } from './components/views/InsightsView';
 import { SettingsView } from './components/views/SettingsView';
 import { GuidedJourneysView } from './components/journeys/GuidedJourneysView';
+import { UploadProgrammeModal } from './components/journeys/UploadProgrammeModal';
 
 // Modals
 import { UnstuckModal } from './components/modals/UnstuckModal';
@@ -44,7 +45,14 @@ import {
 import { ViewType } from './types';
 
 const CalmMainLayout: React.FC = () => {
-  const { toastMessage, setIsQuickCaptureOpen, setActiveJourneyDayId } = useApp();
+  const {
+    toastMessage,
+    setIsQuickCaptureOpen,
+    setActiveJourneyDayId,
+    setActiveJourneyId,
+    isJourneyUploadOpen,
+    setIsJourneyUploadOpen,
+  } = useApp();
 
   const [activeTab, setActiveTab] = useState<'today' | 'focus' | 'breathe' | 'reflect'>('today');
   const [activeDeepSpace, setActiveDeepSpace] = useState<ViewType | null>(null);
@@ -240,6 +248,15 @@ const CalmMainLayout: React.FC = () => {
       <QuickCaptureModal />
       <CommandPalette />
       <OnboardingModal />
+      <UploadProgrammeModal
+        isOpen={isJourneyUploadOpen}
+        onClose={() => setIsJourneyUploadOpen(false)}
+        onProgrammeCreated={(newJourney) => {
+          setActiveJourneyId(newJourney.id);
+          setActiveJourneyDayId(null);
+          setActiveDeepSpace('journeys');
+        }}
+      />
 
       {/* App Splash/Loading Screen on Opening */}
       <AppSplashScreen />

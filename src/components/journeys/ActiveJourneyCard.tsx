@@ -10,6 +10,7 @@ import {
   Flame,
   ChevronRight,
   Zap,
+  Upload,
 } from 'lucide-react';
 import { LotusMotif, GradientBlob } from '../brand/Illustrations';
 
@@ -27,6 +28,7 @@ export const ActiveJourneyCard: React.FC<ActiveJourneyCardProps> = ({
     activeJourneyId,
     toggleJourneyDayMinimum,
     startFocusSession,
+    setIsJourneyUploadOpen,
   } = useApp();
 
   const journey = journeys.find((j) => j.id === activeJourneyId) || journeys[0];
@@ -81,6 +83,15 @@ export const ActiveJourneyCard: React.FC<ActiveJourneyCardProps> = ({
             </span>
 
             <button
+              onClick={() => setIsJourneyUploadOpen(true)}
+              className="text-xs font-bold text-[#B85C3B] hover:text-[#9A420E] flex items-center gap-1 bg-[#F8EDE8] px-2.5 py-1 rounded-full border border-[#B85C3B]/20 transition-colors"
+              title="Upload any PDF or Word schedule to convert to Day 1, Day 2"
+            >
+              <Upload className="w-3 h-3" />
+              <span>Upload PDF</span>
+            </button>
+
+            <button
               onClick={onOpenJourneys}
               className="text-xs font-semibold text-[#57534E] hover:text-[#B85C3B] flex items-center gap-1 transition-colors"
             >
@@ -105,7 +116,7 @@ export const ActiveJourneyCard: React.FC<ActiveJourneyCardProps> = ({
             {todayDay && (
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#F8EDE8] border border-[#B85C3B]/20 text-[#B85C3B] text-xs font-bold self-start sm:self-auto">
                 <span className="w-2 h-2 rounded-full bg-[#B85C3B] animate-pulse" />
-                <span className="font-extrabold">{todayDay.dayLabel || `D${todayDay.dayNumber}`}</span>
+                <span className="font-extrabold">Day {todayDay.dayNumber}</span>
                 <span className="font-normal text-[#78716C]">· {todayDay.dateString}</span>
               </div>
             )}
@@ -170,23 +181,32 @@ export const ActiveJourneyCard: React.FC<ActiveJourneyCardProps> = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5">
           {todayDay && (
             <button
               onClick={() => onOpenDay(todayDay.id)}
-              className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[#1B1A19] hover:bg-[#2F2B28] text-white text-xs font-semibold shadow-md active:scale-98 transition-all"
+              className="flex-1 min-w-[180px] flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[#1B1A19] hover:bg-[#2F2B28] text-white text-xs font-bold shadow-md active:scale-98 transition-all"
             >
-              <span>Continue {todayDay.dayLabel || `Day ${todayDay.dayNumber}`} Journey</span>
+              <span>Continue Day {todayDay.dayNumber} Journey</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#B85C3B]" />
             </button>
           )}
+
+          <button
+            onClick={() => setIsJourneyUploadOpen(true)}
+            className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-2xl bg-[#F8EDE8] border border-[#B85C3B]/30 hover:bg-[#F2DACE] text-[#B85C3B] text-xs font-bold shadow-2xs transition-colors"
+            title="Upload any PDF/DOCX/PPT schedule to convert to Day 1, Day 2..."
+          >
+            <Upload className="w-3.5 h-3.5 text-[#B85C3B]" />
+            <span>Upload PDF / PPT</span>
+          </button>
 
           <button
             onClick={onOpenJourneys}
             className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-2xl bg-white border border-[#E7E1DA] hover:bg-[#FAF8F4] text-[#1B1A19] text-xs font-semibold shadow-2xs transition-colors"
           >
             <Compass className="w-3.5 h-3.5 text-[#78716C]" />
-            <span>All 14 Days</span>
+            <span>All {journey.durationDays} Days</span>
           </button>
         </div>
       </div>
