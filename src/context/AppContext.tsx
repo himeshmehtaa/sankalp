@@ -73,6 +73,9 @@ interface AppContextType {
   setIsOnboardingOpen: (open: boolean) => void;
   isJourneyUploadOpen: boolean;
   setIsJourneyUploadOpen: (open: boolean) => void;
+  journeyUploadInitialMode: 'upload' | 'paste';
+  journeyUploadInitialText: string;
+  openJourneyUpload: (mode?: 'upload' | 'paste', initialText?: string) => void;
 
   // Toast
   toastMessage: string | null;
@@ -216,6 +219,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [isJourneyUploadOpen, setIsJourneyUploadOpen] = useState(false);
+  const [journeyUploadInitialMode, setJourneyUploadInitialMode] = useState<'upload' | 'paste'>('upload');
+  const [journeyUploadInitialText, setJourneyUploadInitialText] = useState<string>('');
+
+  const openJourneyUpload = (mode: 'upload' | 'paste' = 'upload', initialText: string = '') => {
+    setJourneyUploadInitialMode(mode);
+    setJourneyUploadInitialText(initialText);
+    setIsJourneyUploadOpen(true);
+  };
 
   const initialResolvedProfile: UserProfile = stored?.profile
     ? {
@@ -951,6 +962,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setIsOnboardingOpen,
         isJourneyUploadOpen,
         setIsJourneyUploadOpen,
+        journeyUploadInitialMode,
+        journeyUploadInitialText,
+        openJourneyUpload,
         toastMessage,
         showToast,
         profile,

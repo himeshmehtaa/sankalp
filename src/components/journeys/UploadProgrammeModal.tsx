@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import {
   X,
@@ -35,16 +35,34 @@ export const UploadProgrammeModal: React.FC<UploadProgrammeModalProps> = ({
   onClose,
   onProgrammeCreated,
 }) => {
-  const { addJourney, showToast } = useApp();
+  const {
+    addJourney,
+    showToast,
+    journeyUploadInitialMode,
+    journeyUploadInitialText,
+  } = useApp();
 
   // Step state: 'upload' -> 'designer'
   const [step, setStep] = useState<'upload' | 'designer'>('upload');
 
   // Input states
   const [file, setFile] = useState<File | null>(null);
-  const [pastedText, setPastedText] = useState('');
-  const [activeInputMode, setActiveInputMode] = useState<'upload' | 'paste'>('upload');
+  const [pastedText, setPastedText] = useState(journeyUploadInitialText || '');
+  const [activeInputMode, setActiveInputMode] = useState<'upload' | 'paste'>(
+    journeyUploadInitialMode || 'upload'
+  );
   const [rawExtractedText, setRawExtractedText] = useState('');
+
+  useEffect(() => {
+    if (isOpen) {
+      if (journeyUploadInitialMode) {
+        setActiveInputMode(journeyUploadInitialMode);
+      }
+      if (journeyUploadInitialText) {
+        setPastedText(journeyUploadInitialText);
+      }
+    }
+  }, [isOpen, journeyUploadInitialMode, journeyUploadInitialText]);
 
   // Target duration presets (7, 14, 21, 30, 60, 90, custom)
   const [targetDaysCount, setTargetDaysCount] = useState<number>(30);
